@@ -11,6 +11,8 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import { type Task, type User, type Event, type Competition, type Attendance } from "@shared/schema";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { 
