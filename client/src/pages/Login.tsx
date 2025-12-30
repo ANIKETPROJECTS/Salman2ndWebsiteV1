@@ -10,7 +10,7 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [, setLocation] = useLocation();
-  const { login, isAuthenticated } = useAuth();
+  const { login, isAuthenticated } = useAuth() as any;
   const { toast } = useToast();
   
   if (isAuthenticated) {
