@@ -36,9 +36,8 @@ export default function Competitions() {
           <img 
             src={racingBg} 
             alt="Racing Background" 
-            className="w-full h-full object-cover opacity-50 scale-105"
+            className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-slate-900/70 via-slate-900/40 to-white" />
         </div>
 
         <div className="max-w-6xl mx-auto relative z-10">

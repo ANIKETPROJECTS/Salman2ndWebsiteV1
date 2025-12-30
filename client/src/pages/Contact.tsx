@@ -14,9 +14,8 @@ export default function Contact() {
           <img 
             src={contactBg} 
             alt="Contact Background" 
-            className="w-full h-full object-cover opacity-30 blur-[2px]"
+            className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-slate-900/80 via-slate-900/40 to-gray-50" />
         </div>
 
         <div className="max-w-6xl mx-auto relative z-10">

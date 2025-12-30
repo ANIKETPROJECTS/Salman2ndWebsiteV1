@@ -32,9 +32,8 @@ export default function Activities() {
           <img 
             src={stemBg} 
             alt="STEM Background" 
-            className="w-full h-full object-cover opacity-40 scale-105"
+            className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-slate-900/60 via-slate-900/40 to-gray-50" />
         </div>
         
         <div className="max-w-7xl mx-auto relative z-10">
