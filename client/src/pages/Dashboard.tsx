@@ -26,13 +26,13 @@ import rcImg from "@assets/generated_images/4x4_rc_off-road_car.png";
 function Sidebar({ role, onLogout }: { role?: string; onLogout: () => void }) {
   const [location] = useLocation();
   const links = [
-    { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
-    { href: "/dashboard/analytics", label: "Analytics", icon: TrendingUp },
-    { href: "/dashboard/students", label: "Students", icon: Users },
-    { href: "/dashboard/competitions", label: "Competitions", icon: Trophy },
-    { href: "/dashboard/tasks", label: "Tasks", icon: CheckSquare },
-    { href: "/dashboard/attendance", label: "Attendance", icon: UserCheck },
-  ];
+    { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard, roles: ["admin", "student", "parent"] },
+    { href: "/dashboard/analytics", label: "Analytics", icon: TrendingUp, roles: ["admin"] },
+    { href: "/dashboard/students", label: "Students", icon: Users, roles: ["admin"] },
+    { href: "/dashboard/competitions", label: "Competitions", icon: Trophy, roles: ["admin", "student", "parent"] },
+    { href: "/dashboard/tasks", label: "Tasks", icon: CheckSquare, roles: ["admin", "student"] },
+    { href: "/dashboard/attendance", label: "Attendance", icon: UserCheck, roles: ["admin", "parent"] },
+  ].filter(link => link.roles.includes(role || "student"));
 
   return (
     <div className="w-64 bg-white border-r border-red-100 h-screen fixed left-0 top-0 flex flex-col z-50 shadow-lg">
@@ -211,70 +211,239 @@ export default function Dashboard() {
         {/* OVERVIEW TAB */}
         {activeTab === "overview" && (
           <div className="space-y-8">
-            {/* Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {stats.map((stat, i) => (
-                <Card key={i} className={`bg-white overflow-hidden transition-all hover:shadow-xl hover:scale-105 ${stat.border}`}>
-                  <CardContent className="p-6">
-                    <div className="flex items-center justify-between mb-4">
-                      <div className={`p-3 rounded-lg ${stat.color} group-hover:scale-110 transition-transform`}>
-                        <stat.icon className="w-6 h-6" />
+            {role === "admin" ? (
+              <>
+                {/* Admin Stats */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                  {stats.map((stat, i) => (
+                    <Card key={i} className={`bg-white overflow-hidden transition-all hover:shadow-xl hover:scale-105 ${stat.border}`}>
+                      <CardContent className="p-6">
+                        <div className="flex items-center justify-between mb-4">
+                          <div className={`p-3 rounded-lg ${stat.color} group-hover:scale-110 transition-transform`}>
+                            <stat.icon className="w-6 h-6" />
+                          </div>
+                          <span className="text-xs font-bold px-2 py-1 rounded-full bg-green-50 text-green-600">↑ {stat.trend}</span>
+                        </div>
+                        <h3 className="text-3xl font-bold text-gray-900">{stat.value}</h3>
+                        <p className="text-xs font-semibold text-gray-600 uppercase tracking-wider mt-2">{stat.label}</p>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+
+                {/* Charts Grid */}
+                <div className="grid lg:grid-cols-2 gap-6">
+                  <Card className="bg-white shadow-sm">
+                    <CardHeader className="p-6 border-b border-red-50">
+                      <CardTitle className="text-lg font-bold text-gray-900">Performance Trends</CardTitle>
+                      <p className="text-xs text-gray-500 mt-1">6-month analysis</p>
+                    </CardHeader>
+                    <CardContent className="p-6 h-[300px]">
+                      <ResponsiveContainer width="100%" height="100%">
+                        <ComposedChart data={performanceData}>
+                          <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
+                          <XAxis dataKey="month" tick={{ fontSize: 11, fontWeight: 600, fill: '#64748b' }} />
+                          <YAxis hide />
+                          <Tooltip />
+                          <Legend />
+                          <Line type="monotone" dataKey="performance" stroke="#dc2626" strokeWidth={3} dot={{ fill: '#dc2626', r: 3 }} name="Performance" />
+                          <Line type="monotone" dataKey="engagement" stroke="#f97316" strokeWidth={2} name="Engagement" />
+                          <Area type="monotone" dataKey="completion" stroke="#3b82f6" fill="#3b82f6" fillOpacity={0.1} name="Completion" />
+                        </ComposedChart>
+                      </ResponsiveContainer>
+                    </CardContent>
+                  </Card>
+
+                  <Card className="bg-white shadow-sm">
+                    <CardHeader className="p-6 border-b border-red-50">
+                      <CardTitle className="text-lg font-bold text-gray-900">Team Engagement</CardTitle>
+                      <p className="text-xs text-gray-500 mt-1">Weekly activity breakdown</p>
+                    </CardHeader>
+                    <CardContent className="p-6 h-[300px]">
+                      <ResponsiveContainer width="100%" height="100%">
+                        <BarChart data={[
+                          { day: 'Mon', value: 85 }, { day: 'Tue', value: 92 }, { day: 'Wed', value: 78 },
+                          { day: 'Thu', value: 95 }, { day: 'Fri', value: 88 }, { day: 'Sat', value: 60 }, { day: 'Sun', value: 65 },
+                        ]}>
+                          <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
+                          <XAxis dataKey="day" tick={{ fontSize: 11, fontWeight: 600 }} />
+                          <YAxis hide />
+                          <Tooltip />
+                          <Bar dataKey="value" fill="#dc2626" radius={[8, 8, 0, 0]} />
+                        </BarChart>
+                      </ResponsiveContainer>
+                    </CardContent>
+                  </Card>
+                </div>
+              </>
+            ) : role === "student" ? (
+              <>
+                {/* Student Stats */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <Card className="bg-white border-l-4 border-l-red-500">
+                    <CardContent className="p-6">
+                      <div className="flex items-center justify-between mb-4">
+                        <div className="p-3 rounded-lg bg-red-50 text-red-600">
+                          <Target className="w-6 h-6" />
+                        </div>
+                        <span className="text-xs font-bold text-green-600">On Track</span>
                       </div>
-                      <span className="text-xs font-bold px-2 py-1 rounded-full bg-green-50 text-green-600">↑ {stat.trend}</span>
-                    </div>
-                    <h3 className="text-3xl font-bold text-gray-900">{stat.value}</h3>
-                    <p className="text-xs font-semibold text-gray-600 uppercase tracking-wider mt-2">{stat.label}</p>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+                      <h3 className="text-2xl font-bold">85%</h3>
+                      <p className="text-xs font-semibold text-gray-500 uppercase mt-2">Personal Progress</p>
+                    </CardContent>
+                  </Card>
+                  <Card className="bg-white border-l-4 border-l-blue-500">
+                    <CardContent className="p-6">
+                      <div className="flex items-center justify-between mb-4">
+                        <div className="p-3 rounded-lg bg-blue-50 text-blue-600">
+                          <CheckCircle className="w-6 h-6" />
+                        </div>
+                        <span className="text-xs font-bold text-blue-600">12 Pending</span>
+                      </div>
+                      <h3 className="text-2xl font-bold">24</h3>
+                      <p className="text-xs font-semibold text-gray-500 uppercase mt-2">Tasks Completed</p>
+                    </CardContent>
+                  </Card>
+                  <Card className="bg-white border-l-4 border-l-yellow-500">
+                    <CardContent className="p-6">
+                      <div className="flex items-center justify-between mb-4">
+                        <div className="p-3 rounded-lg bg-yellow-50 text-yellow-600">
+                          <Trophy className="w-6 h-6" />
+                        </div>
+                        <span className="text-xs font-bold text-yellow-600">Elite Rank</span>
+                      </div>
+                      <h3 className="text-2xl font-bold">1st</h3>
+                      <p className="text-xs font-semibold text-gray-500 uppercase mt-2">Competition Standing</p>
+                    </CardContent>
+                  </Card>
+                </div>
 
-            {/* Charts Grid */}
-            <div className="grid lg:grid-cols-2 gap-6">
-              <Card className="bg-white shadow-sm">
-                <CardHeader className="p-6 border-b border-red-50">
-                  <CardTitle className="text-lg font-bold text-gray-900">Performance Trends</CardTitle>
-                  <p className="text-xs text-gray-500 mt-1">6-month analysis</p>
-                </CardHeader>
-                <CardContent className="p-6 h-[300px]">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <ComposedChart data={performanceData}>
-                      <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
-                      <XAxis dataKey="month" tick={{ fontSize: 11, fontWeight: 600, fill: '#64748b' }} />
-                      <YAxis hide />
-                      <Tooltip />
-                      <Legend />
-                      <Line type="monotone" dataKey="performance" stroke="#dc2626" strokeWidth={3} dot={{ fill: '#dc2626', r: 3 }} name="Performance" />
-                      <Line type="monotone" dataKey="engagement" stroke="#f97316" strokeWidth={2} name="Engagement" />
-                      <Area type="monotone" dataKey="completion" stroke="#3b82f6" fill="#3b82f6" fillOpacity={0.1} name="Completion" />
-                    </ComposedChart>
-                  </ResponsiveContainer>
-                </CardContent>
-              </Card>
+                <div className="grid lg:grid-cols-3 gap-6">
+                  <Card className="lg:col-span-2 bg-white">
+                    <CardHeader className="border-b border-gray-100">
+                      <CardTitle className="text-lg font-bold">My Learning Path</CardTitle>
+                    </CardHeader>
+                    <CardContent className="p-6">
+                      <div className="space-y-6">
+                        {[
+                          { title: "Aerodynamics Basics", progress: 100, status: "Completed" },
+                          { title: "CAD Advanced Design", progress: 65, status: "In Progress" },
+                          { title: "RC Suspension Tuning", progress: 20, status: "Just Started" },
+                        ].map((item, i) => (
+                          <div key={i} className="space-y-2">
+                            <div className="flex justify-between text-sm font-semibold">
+                              <span>{item.title}</span>
+                              <span className="text-red-600">{item.progress}%</span>
+                            </div>
+                            <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
+                              <div className="h-full bg-red-600" style={{ width: `${item.progress}%` }} />
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+                  <Card className="bg-white">
+                    <CardHeader className="border-b border-gray-100">
+                      <CardTitle className="text-lg font-bold">Quick Actions</CardTitle>
+                    </CardHeader>
+                    <CardContent className="p-6 space-y-4">
+                      <Button className="w-full justify-start gap-2 border-red-100 text-gray-700 hover:bg-red-50" variant="outline">
+                        <Plus className="w-4 h-4 text-red-600" /> Submit Task
+                      </Button>
+                      <Button className="w-full justify-start gap-2 border-red-100 text-gray-700 hover:bg-red-50" variant="outline">
+                        <MessageSquare className="w-4 h-4 text-red-600" /> Ask Mentor
+                      </Button>
+                      <Button className="w-full justify-start gap-2 border-red-100 text-gray-700 hover:bg-red-50" variant="outline">
+                        <Download className="w-4 h-4 text-red-600" /> Download Resources
+                      </Button>
+                    </CardContent>
+                  </Card>
+                </div>
+              </>
+            ) : (
+              <>
+                {/* Parent Stats */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <Card className="bg-white border-l-4 border-l-red-500">
+                    <CardHeader>
+                      <CardTitle className="text-sm font-bold text-gray-500 uppercase tracking-wider">Child's Attendance</CardTitle>
+                    </CardHeader>
+                    <CardContent className="p-6">
+                      <div className="flex items-center gap-4">
+                        <div className="text-4xl font-bold text-red-600">96%</div>
+                        <div className="flex-1">
+                          <div className="w-full h-3 bg-gray-100 rounded-full overflow-hidden">
+                            <div className="h-full bg-red-600" style={{ width: '96%' }} />
+                          </div>
+                          <p className="text-xs text-gray-500 mt-2">24/25 sessions attended this term</p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                  <Card className="bg-white border-l-4 border-l-blue-500">
+                    <CardHeader>
+                      <CardTitle className="text-sm font-bold text-gray-500 uppercase tracking-wider">Skill Development</CardTitle>
+                    </CardHeader>
+                    <CardContent className="p-6">
+                      <div className="flex items-center gap-4">
+                        <div className="text-4xl font-bold text-blue-600">A+</div>
+                        <div className="flex-1">
+                          <p className="text-sm font-semibold text-gray-900">Engineering Merit Badge</p>
+                          <p className="text-xs text-gray-500 mt-1">Excellent progress in CAD design</p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
 
-              <Card className="bg-white shadow-sm">
-                <CardHeader className="p-6 border-b border-red-50">
-                  <CardTitle className="text-lg font-bold text-gray-900">Team Engagement</CardTitle>
-                  <p className="text-xs text-gray-500 mt-1">Weekly activity breakdown</p>
-                </CardHeader>
-                <CardContent className="p-6 h-[300px]">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <BarChart data={[
-                      { day: 'Mon', value: 85 }, { day: 'Tue', value: 92 }, { day: 'Wed', value: 78 },
-                      { day: 'Thu', value: 95 }, { day: 'Fri', value: 88 }, { day: 'Sat', value: 60 }, { day: 'Sun', value: 65 },
-                    ]}>
-                      <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
-                      <XAxis dataKey="day" tick={{ fontSize: 11, fontWeight: 600 }} />
-                      <YAxis hide />
-                      <Tooltip />
-                      <Bar dataKey="value" fill="#dc2626" radius={[8, 8, 0, 0]} />
-                    </BarChart>
-                  </ResponsiveContainer>
-                </CardContent>
-              </Card>
-            </div>
+                <div className="grid lg:grid-cols-2 gap-6">
+                  <Card className="bg-white">
+                    <CardHeader className="border-b border-gray-100 flex flex-row items-center justify-between">
+                      <CardTitle className="text-lg font-bold">Pending Approvals</CardTitle>
+                      <Badge variant="outline" className="border-red-200 text-red-600">2 New</Badge>
+                    </CardHeader>
+                    <CardContent className="p-6 space-y-4">
+                      <div className="p-4 bg-gray-50 rounded-lg border border-gray-100 flex items-center justify-between">
+                        <div>
+                          <p className="text-sm font-bold text-gray-900">Competition Consent Form</p>
+                          <p className="text-xs text-gray-500">F1 Regional Finals - June 15</p>
+                        </div>
+                        <Button size="sm" className="bg-red-600 text-white">Review</Button>
+                      </div>
+                      <div className="p-4 bg-gray-50 rounded-lg border border-gray-100 flex items-center justify-between">
+                        <div>
+                          <p className="text-sm font-bold text-gray-900">Lab Material Fee</p>
+                          <p className="text-xs text-gray-500">Advanced Robotics Kit</p>
+                        </div>
+                        <Button size="sm" className="bg-red-600 text-white">Pay Now</Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                  <Card className="bg-white">
+                    <CardHeader className="border-b border-gray-100">
+                      <CardTitle className="text-lg font-bold">Mentor Feedback</CardTitle>
+                    </CardHeader>
+                    <CardContent className="p-6">
+                      <div className="space-y-4">
+                        <div className="flex gap-3">
+                          <div className="w-10 h-10 rounded-full bg-red-100 text-red-600 flex items-center justify-center font-bold">
+                            AJ
+                          </div>
+                          <div className="bg-red-50 p-4 rounded-lg flex-1">
+                            <p className="text-sm font-bold text-gray-900">Alex Johnson (Head Mentor)</p>
+                            <p className="text-sm text-gray-700 mt-1">"Your child is showing great leadership in the team. Their CAD designs were the highlight of last week's session."</p>
+                            <p className="text-[10px] text-gray-400 mt-2 uppercase font-bold tracking-widest">Yesterday, 4:30 PM</p>
+                          </div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              </>
+            )}
 
-            {/* Tasks Preview & Events Preview */}
+            {/* Common Tasks/Events Previews */}
             <div className="grid lg:grid-cols-2 gap-6">
               <Card className="bg-white shadow-sm">
                 <CardHeader className="p-6 border-b border-red-50 flex justify-between items-center">
