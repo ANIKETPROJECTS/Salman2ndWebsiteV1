@@ -38,8 +38,8 @@ function Sidebar({ role, onLogout }: { role?: string; onLogout: () => void }) {
           <Trophy className="w-5 h-5 text-white" />
         </div>
         <div>
-          <p className="font-black text-sm leading-tight text-gray-900 tracking-tight">Admin</p>
-          <p className="text-[10px] text-gray-400 font-bold tracking-widest uppercase">Dashboard</p>
+          <p className="font-black text-sm leading-tight text-gray-900 tracking-tight text-left">Admin</p>
+          <p className="text-[10px] text-gray-400 font-bold tracking-widest uppercase text-left">Dashboard</p>
         </div>
       </div>
 
@@ -73,7 +73,7 @@ function Sidebar({ role, onLogout }: { role?: string; onLogout: () => void }) {
   );
 }
 
-function StatCard({ value, icon: Icon, colorClass, statusLabel }: { label: string; value: string; icon: any; colorClass: string; statusLabel: string }) {
+function StatCard({ value, icon: Icon, colorClass, statusLabel }: { value: string; icon: any; colorClass: string; statusLabel: string }) {
   return (
     <Card className="border-none shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] bg-white overflow-hidden transition-all duration-500 hover:shadow-[0_12px_32px_-8px_rgba(0,0,0,0.1)] hover:-translate-y-1">
       <CardContent className="p-7 flex items-center gap-6">
@@ -84,7 +84,7 @@ function StatCard({ value, icon: Icon, colorClass, statusLabel }: { label: strin
           <div className="flex items-baseline gap-1">
             <span className="text-3xl font-black text-gray-900 tracking-tighter">{value}</span>
           </div>
-          <p className="text-[11px] text-gray-400 font-black uppercase tracking-[0.15em] mt-0.5">{statusLabel}</p>
+          <p className="text-[11px] text-gray-400 font-black uppercase tracking-[0.15em] mt-0.5 text-left">{statusLabel}</p>
         </div>
       </CardContent>
       <div className={`h-1.5 w-full opacity-20 ${colorClass.split(' ')[0].replace('text-', 'bg-')}`} />
@@ -98,10 +98,10 @@ function PageContent({ title, user }: { title: string; user: User }) {
 
   if (title === "Dashboard") {
     const stats = [
-      { label: "Completed", value: "1", icon: CheckCircle2, colorClass: "text-green-500 border-green-500/20 bg-green-50/30", statusLabel: "Completed" },
-      { label: "In Progress", value: "0", icon: Clock, colorClass: "text-blue-500 border-blue-500/20 bg-blue-50/30", statusLabel: "In Progress" },
-      { label: "Pending", value: "1", icon: Clock, colorClass: "text-yellow-500 border-yellow-500/20 bg-yellow-50/30", statusLabel: "Pending" },
-      { label: "Overdue", value: "0", icon: AlertCircle, colorClass: "text-red-500 border-red-500/20 bg-red-50/30", statusLabel: "Overdue" },
+      { value: "1", icon: CheckCircle2, colorClass: "text-green-500 border-green-500/20 bg-green-50/30", statusLabel: "Completed" },
+      { value: "0", icon: Clock, colorClass: "text-blue-500 border-blue-500/20 bg-blue-50/30", statusLabel: "In Progress" },
+      { value: "1", icon: Clock, colorClass: "text-yellow-500 border-yellow-500/20 bg-yellow-50/30", statusLabel: "Pending" },
+      { value: "0", icon: AlertCircle, colorClass: "text-red-500 border-red-500/20 bg-red-50/30", statusLabel: "Overdue" },
     ];
 
     return (
@@ -114,7 +114,7 @@ function PageContent({ title, user }: { title: string; user: User }) {
           <Card className="border-none shadow-[0_4px_24px_-4px_rgba(0,0,0,0.05)] rounded-[24px]">
             <CardHeader className="flex flex-row items-center justify-between border-b border-gray-50 px-10 py-7">
               <CardTitle className="text-xl font-black text-gray-900 tracking-tight">Recent Tasks</CardTitle>
-              <Button variant="link" className="text-[11px] font-black text-gray-400 uppercase tracking-widest hover:text-red-600 no-underline transition-colors">View All &gt;</Button>
+              <Button variant="ghost" className="text-[11px] font-black text-gray-400 uppercase tracking-widest hover:text-red-600 no-underline transition-colors h-auto p-0">View All &gt;</Button>
             </CardHeader>
             <CardContent className="p-10">
               <div className="space-y-5">
@@ -125,8 +125,8 @@ function PageContent({ title, user }: { title: string; user: User }) {
                   <div key={task.id} className="flex items-center gap-5 p-6 bg-gray-50/40 rounded-[20px] transition-all duration-300 hover:bg-gray-50 hover:translate-x-1 border border-transparent hover:border-gray-100">
                     <div className={`w-2.5 h-2.5 rounded-full shrink-0 shadow-sm ${task.color}`} />
                     <div className="flex-1">
-                      <p className="text-[15px] font-bold text-gray-900 leading-tight tracking-tight">{task.title}</p>
-                      <p className="text-[10px] text-gray-400 font-black uppercase tracking-widest mt-1.5 opacity-80">Due: {task.dueDate}</p>
+                      <p className="text-[15px] font-bold text-gray-900 leading-tight tracking-tight text-left">{task.title}</p>
+                      <p className="text-[10px] text-gray-400 font-black uppercase tracking-widest mt-1.5 opacity-80 text-left">Due: {task.dueDate}</p>
                     </div>
                   </div>
                 ))}
@@ -137,7 +137,7 @@ function PageContent({ title, user }: { title: string; user: User }) {
           <Card className="border-none shadow-[0_4px_24px_-4px_rgba(0,0,0,0.05)] rounded-[24px]">
             <CardHeader className="flex flex-row items-center justify-between border-b border-gray-50 px-10 py-7">
               <CardTitle className="text-xl font-black text-gray-900 tracking-tight">Upcoming Events</CardTitle>
-              <Button variant="link" className="text-[11px] font-black text-gray-400 uppercase tracking-widest hover:text-red-600 no-underline transition-colors">View All &gt;</Button>
+              <Button variant="ghost" className="text-[11px] font-black text-gray-400 uppercase tracking-widest hover:text-red-600 no-underline transition-colors h-auto p-0">View All &gt;</Button>
             </CardHeader>
             <CardContent className="p-10">
               <div className="space-y-5">
@@ -149,8 +149,8 @@ function PageContent({ title, user }: { title: string; user: User }) {
                       <Calendar className="w-6 h-6 text-red-600" />
                     </div>
                     <div className="flex-1">
-                      <p className="text-[15px] font-bold text-gray-900 leading-tight tracking-tight">{event.title}</p>
-                      <p className="text-[10px] text-gray-400 font-black uppercase tracking-widest mt-1.5 opacity-80">
+                      <p className="text-[15px] font-bold text-gray-900 leading-tight tracking-tight text-left">{event.title}</p>
+                      <p className="text-[10px] text-gray-400 font-black uppercase tracking-widest mt-1.5 opacity-80 text-left">
                         {event.date} • {event.time}
                       </p>
                     </div>
@@ -176,7 +176,7 @@ function PageContent({ title, user }: { title: string; user: User }) {
 }
 
 export default function Dashboard() {
-  const { user, logout } = useAuth();
+  const { user, logoutMutation } = useAuth();
   const [location, setLocation] = useLocation();
   
   if (!user) {
@@ -190,15 +190,15 @@ export default function Dashboard() {
 
   return (
     <div className="bg-[#fcfcfc] min-h-screen font-sans text-gray-900 selection:bg-red-100 selection:text-red-900 overflow-x-hidden">
-      <Sidebar role={role} onLogout={() => logout()} />
+      <Sidebar role={role} onLogout={() => logoutMutation.mutate()} />
       
       <div className="ml-64 p-12 lg:p-20 max-w-7xl mx-auto">
         <header className="mb-16 flex items-center justify-between animate-in fade-in slide-in-from-top-4 duration-700">
           <div className="space-y-3">
-            <h1 className="text-5xl font-black tracking-tight text-gray-900 uppercase italic leading-[0.9] flex items-center gap-4">
+            <h1 className="text-5xl font-black tracking-tight text-gray-900 uppercase italic leading-[0.9] flex items-center gap-4 text-left">
               Welcome back! <span className="not-italic inline-block animate-bounce-slow text-4xl">👋</span>
             </h1>
-            <p className="text-gray-400 font-bold tracking-widest text-xs uppercase opacity-80">Here's what's happening with your STEM activities</p>
+            <p className="text-gray-400 font-bold tracking-widest text-xs uppercase opacity-80 text-left">Here's what's happening with your STEM activities</p>
           </div>
           
           <div className="flex items-center gap-8">
