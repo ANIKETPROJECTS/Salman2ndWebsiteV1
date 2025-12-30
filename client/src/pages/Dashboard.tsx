@@ -22,46 +22,48 @@ function Sidebar({ role }: { role?: string }) {
   const [location] = useLocation();
 
   const studentLinks = [
-    { href: "/dashboard", label: "Overview", icon: LayoutDashboard },
-    { href: "/dashboard/tasks", label: "My Tasks", icon: CheckSquare },
-    { href: "/dashboard/competitions", label: "Competitions", icon: Trophy },
-    { href: "/dashboard/schedule", label: "Schedule", icon: Calendar },
+    { href: "/dashboard", label: "Race Center", icon: LayoutDashboard },
+    { href: "/dashboard/tasks", label: "Engineering Tasks", icon: CheckSquare },
+    { href: "/dashboard/competitions", label: "Grand Prix", icon: Trophy },
+    { href: "/dashboard/schedule", label: "Race Calendar", icon: Calendar },
   ];
 
   const adminLinks = [
-    { href: "/dashboard", label: "Overview", icon: LayoutDashboard },
-    { href: "/dashboard/students", label: "Student Management", icon: Users },
-    { href: "/dashboard/competitions", label: "Competitions", icon: Trophy },
-    { href: "/dashboard/attendance", label: "Attendance", icon: UserCheck },
-    { href: "/dashboard/analytics", label: "Analytics", icon: TrendingUp },
+    { href: "/dashboard", label: "Command Center", icon: LayoutDashboard },
+    { href: "/dashboard/students", label: "Team Management", icon: Users },
+    { href: "/dashboard/competitions", label: "Race Series", icon: Trophy },
+    { href: "/dashboard/attendance", label: "Paddock Entry", icon: UserCheck },
+    { href: "/dashboard/analytics", label: "Telemetry", icon: TrendingUp },
   ];
 
   const parentLinks = [
-    { href: "/dashboard", label: "Child Overview", icon: LayoutDashboard },
-    { href: "/dashboard/child-tasks", label: "Child Tasks", icon: CheckSquare },
-    { href: "/dashboard/child-attendance", label: "Attendance", icon: UserCheck },
-    { href: "/dashboard/gallery", label: "Activity Gallery", icon: FileText },
+    { href: "/dashboard", label: "Child Progress", icon: LayoutDashboard },
+    { href: "/dashboard/child-tasks", label: "Target Status", icon: CheckSquare },
+    { href: "/dashboard/child-attendance", label: "Entry Records", icon: UserCheck },
+    { href: "/dashboard/gallery", label: "Media Feed", icon: FileText },
   ];
 
   const links = role === 'admin' ? adminLinks : role === 'parent' ? parentLinks : studentLinks;
 
   return (
-    <div className="w-64 bg-white border-r border-emerald-50 min-h-screen fixed left-0 top-0 p-6 hidden md:flex flex-col">
-      <div className="flex items-center gap-2 mb-10 text-emerald-900">
-        <Trophy className="w-6 h-6 text-emerald-600" />
-        <span className="font-display font-bold text-xl uppercase tracking-tighter">STEM<span className="text-emerald-600"> CLUB</span></span>
+    <div className="w-72 bg-white border-r border-gray-100 min-h-screen fixed left-0 top-0 p-8 hidden md:flex flex-col">
+      <div className="flex items-center gap-3 mb-12 text-gray-900">
+        <div className="w-10 h-10 bg-primary rounded-2xl flex items-center justify-center shadow-lg shadow-primary/20">
+          <Trophy className="w-6 h-6 text-white" />
+        </div>
+        <span className="font-display font-bold text-2xl uppercase tracking-tighter">JSSIS<span className="text-primary"> F1</span></span>
       </div>
 
-      <div className="space-y-1 flex-1">
+      <div className="space-y-2 flex-1">
         {links.map((link) => (
           <Link 
             key={link.href} 
             href={link.href}
             className={`
-              flex items-center gap-3 px-4 py-3 rounded-xl font-bold uppercase text-xs tracking-wider transition-all
+              flex items-center gap-4 px-5 py-4 rounded-2xl font-display font-bold uppercase text-[11px] tracking-widest transition-all
               ${location === link.href
-                ? "bg-emerald-600 text-white shadow-lg shadow-emerald-200"
-                : "text-emerald-800/60 hover:bg-emerald-50 hover:text-emerald-900"}
+                ? "bg-primary text-white shadow-xl shadow-primary/20 scale-105 z-10"
+                : "text-gray-400 hover:bg-gray-50 hover:text-gray-900"}
             `}
           >
             <link.icon className="w-4 h-4" />
@@ -70,14 +72,14 @@ function Sidebar({ role }: { role?: string }) {
         ))}
       </div>
 
-      <div className="pt-6 border-t border-emerald-50">
-        <div className="px-4 py-2 mb-4 bg-emerald-50 rounded-xl">
-          <p className="text-[10px] font-bold text-emerald-600 uppercase tracking-widest mb-1">Signed in as</p>
-          <p className="text-xs font-bold text-emerald-900 capitalize">{role || 'Student'}</p>
+      <div className="pt-8 border-t border-gray-50 mt-auto">
+        <div className="px-5 py-4 mb-6 bg-gray-50 rounded-2xl border border-gray-100">
+          <p className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-1">Access Level</p>
+          <p className="text-xs font-display font-bold text-gray-900 uppercase tracking-widest">{role || 'Student'}</p>
         </div>
         <button 
           onClick={() => logout()}
-          className="w-full flex items-center gap-3 px-4 py-3 text-red-500 hover:bg-red-50 rounded-xl font-bold uppercase text-xs tracking-wider transition-colors"
+          className="w-full flex items-center gap-4 px-5 py-4 text-red-500 hover:bg-red-50 rounded-2xl font-display font-bold uppercase text-[11px] tracking-widest transition-all"
         >
           <LogOut className="w-4 h-4" />
           Sign Out
@@ -89,40 +91,43 @@ function Sidebar({ role }: { role?: string }) {
 
 function StudentOverview() {
   return (
-    <div className="grid lg:grid-cols-3 gap-8">
-      <div className="lg:col-span-2 space-y-8">
+    <div className="grid lg:grid-cols-3 gap-10">
+      <div className="lg:col-span-2 space-y-10">
         <TaskList />
-        <div className="bg-white rounded-3xl p-6 shadow-sm border border-emerald-50">
-          <h3 className="text-lg font-bold mb-6 text-emerald-900 uppercase tracking-tight">Recent Performance</h3>
-          <div className="h-48 flex items-end justify-between gap-2 px-2">
+        <div className="bg-white rounded-[2.5rem] p-8 shadow-sm border border-gray-100">
+          <h3 className="text-xl font-display font-bold mb-8 text-gray-900 uppercase tracking-tight">Performance Telemetry</h3>
+          <div className="h-56 flex items-end justify-between gap-3 px-4">
             {[65, 80, 45, 90, 75, 85].map((h, i) => (
-              <div key={i} className="flex-1 bg-emerald-100 rounded-t-lg relative group">
+              <div key={i} className="flex-1 bg-gray-50 rounded-2xl relative group overflow-hidden">
                 <motion.div 
                   initial={{ height: 0 }}
                   animate={{ height: `${h}%` }}
-                  className="bg-emerald-600 rounded-t-lg transition-all"
+                  className="bg-primary/20 absolute bottom-0 left-0 right-0 transition-all"
                 />
-                <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-emerald-900 text-white text-[10px] py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity">
-                  {h}%
-                </div>
+                <motion.div 
+                  initial={{ height: 0 }}
+                  animate={{ height: `${h * 0.7}%` }}
+                  className="bg-primary absolute bottom-0 left-0 right-0 transition-all shadow-[0_0_15px_rgba(239,68,68,0.3)]"
+                />
               </div>
             ))}
           </div>
-          <div className="flex justify-between mt-4 text-[10px] font-bold text-emerald-800/40 uppercase tracking-widest px-2">
+          <div className="flex justify-between mt-6 text-[11px] font-bold text-gray-400 uppercase tracking-[0.3em] px-4">
             <span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span>
           </div>
         </div>
       </div>
       <div>
-        <div className="bg-emerald-600 text-white p-6 rounded-3xl shadow-xl shadow-emerald-200 sticky top-8">
-          <h3 className="font-bold text-lg mb-4 uppercase tracking-tight">Upcoming Event</h3>
-          <div className="bg-white/10 p-4 rounded-2xl backdrop-blur-sm mb-4 border border-white/10">
-             <p className="text-[10px] font-bold opacity-80 mb-1 uppercase tracking-widest">Workshop</p>
-             <p className="font-bold text-xl uppercase tracking-tighter">Aerodynamics 101</p>
-             <p className="text-sm mt-2 font-medium opacity-90">Friday, 2:00 PM • Lab 3</p>
+        <div className="bg-gray-900 text-white p-8 rounded-[2.5rem] shadow-2xl relative overflow-hidden group sticky top-8">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full -mr-16 -mt-16 blur-3xl group-hover:bg-primary/20 transition-colors"></div>
+          <h3 className="font-display font-bold text-xl mb-6 uppercase tracking-tight relative z-10">Race Briefing</h3>
+          <div className="bg-white/5 p-5 rounded-3xl backdrop-blur-sm mb-6 border border-white/10 relative z-10">
+             <p className="text-[10px] font-bold text-primary mb-2 uppercase tracking-[0.3em]">Next Session</p>
+             <p className="font-display font-bold text-2xl uppercase tracking-tight">Aerodynamics Lab</p>
+             <p className="text-sm mt-3 font-medium text-white/60">Friday, 14:00 • Lab 3</p>
           </div>
-          <button className="w-full py-4 bg-white text-emerald-600 rounded-xl font-bold uppercase text-xs tracking-widest hover:bg-emerald-50 transition-all hover:shadow-lg">
-            View Full Calendar
+          <button className="w-full py-5 bg-primary text-white rounded-2xl font-display font-bold uppercase text-xs tracking-widest hover:bg-primary/90 transition-all hover:shadow-[0_10px_30px_rgba(239,68,68,0.3)] hover:-translate-y-1 relative z-10">
+            Open Calendar
           </button>
         </div>
       </div>
@@ -134,41 +139,41 @@ function TaskList() {
   const { data: tasks, isLoading } = useTasks();
   const updateTask = useUpdateTask();
 
-  if (isLoading) return <div className="animate-pulse space-y-4">{[1,2,3].map(i => <div key={i} className="h-16 bg-emerald-50/50 rounded-xl"/>)}</div>;
+  if (isLoading) return <div className="animate-pulse space-y-4">{[1,2,3].map(i => <div key={i} className="h-20 bg-gray-50 rounded-3xl"/>)}</div>;
 
   return (
-    <div className="bg-white rounded-3xl p-6 shadow-sm border border-emerald-50">
-      <h3 className="text-lg font-bold mb-6 flex items-center justify-between text-emerald-900 uppercase tracking-tight">
-        Active Targets
-        <span className="bg-emerald-600 text-white px-3 py-1 rounded-full text-[10px] font-bold tracking-widest">{tasks?.length || 0}</span>
+    <div className="bg-white rounded-[2.5rem] p-8 shadow-sm border border-gray-100">
+      <h3 className="text-xl font-display font-bold mb-8 flex items-center justify-between text-gray-900 uppercase tracking-tight">
+        Active Objectives
+        <span className="bg-primary text-white px-4 py-1.5 rounded-full text-[11px] font-display font-bold tracking-widest">{tasks?.length || 0}</span>
       </h3>
       
-      <div className="space-y-3">
+      <div className="space-y-4">
         {tasks?.map((task) => (
-          <div key={task.id} className="flex items-start gap-4 p-4 rounded-2xl hover:bg-emerald-50/50 transition-colors border border-emerald-50/20">
+          <div key={task.id} className="flex items-start gap-5 p-5 rounded-3xl hover:bg-gray-50 transition-all border border-transparent hover:border-gray-100 group">
             <button 
               onClick={() => updateTask.mutate({ id: task.id, status: task.status === 'completed' ? 'pending' : 'completed' })}
-              className={`mt-1 w-5 h-5 rounded-lg border-2 flex items-center justify-center transition-all
+              className={`mt-1 w-6 h-6 rounded-xl border-2 flex items-center justify-center transition-all
                 ${task.status === 'completed' 
-                  ? 'bg-emerald-600 border-emerald-600 text-white shadow-md' 
-                  : 'border-emerald-200 hover:border-emerald-600 bg-white'}
+                  ? 'bg-primary border-primary text-white shadow-lg shadow-primary/30 scale-110' 
+                  : 'border-gray-200 hover:border-primary bg-white group-hover:scale-105'}
               `}
             >
-              {task.status === 'completed' && <CheckSquare className="w-3 h-3" />}
+              {task.status === 'completed' && <CheckSquare className="w-4 h-4" />}
             </button>
             <div className="flex-1">
-              <p className={`font-bold text-sm uppercase tracking-tight ${task.status === 'completed' ? 'text-emerald-900/30 line-through' : 'text-emerald-900'}`}>
+              <p className={`font-display font-bold text-base uppercase tracking-tight ${task.status === 'completed' ? 'text-gray-300 line-through' : 'text-gray-900'}`}>
                 {task.title}
               </p>
-              <div className="flex items-center gap-3 mt-2">
-                <span className={`text-[9px] px-2 py-0.5 rounded-md font-bold uppercase tracking-widest
-                  ${task.priority === 'high' ? 'bg-red-50 text-red-600' : 'bg-emerald-50 text-emerald-600'}
+              <div className="flex items-center gap-4 mt-2">
+                <span className={`text-[10px] px-3 py-1 rounded-lg font-bold uppercase tracking-widest
+                  ${task.priority === 'high' ? 'bg-red-50 text-red-600' : 'bg-gray-100 text-gray-500'}
                 `}>
                   {task.priority}
                 </span>
                 {task.dueDate && (
-                  <span className="text-[10px] font-bold text-emerald-800/30 flex items-center gap-1 uppercase tracking-widest">
-                    <Clock className="w-3 h-3" />
+                  <span className="text-[11px] font-bold text-gray-300 flex items-center gap-1.5 uppercase tracking-widest">
+                    <Clock className="w-3.5 h-3.5" />
                     {new Date(task.dueDate).toLocaleDateString()}
                   </span>
                 )}
@@ -177,7 +182,10 @@ function TaskList() {
           </div>
         ))}
         {(!tasks || tasks.length === 0) && (
-          <p className="text-emerald-800/30 text-center py-8 font-bold uppercase text-xs tracking-widest">No tasks assigned yet.</p>
+          <div className="text-center py-12">
+            <p className="text-gray-300 font-display font-bold uppercase text-sm tracking-widest mb-2">Paddock Clear</p>
+            <p className="text-gray-400 text-xs">No active targets assigned to your unit.</p>
+          </div>
         )}
       </div>
     </div>
@@ -200,53 +208,54 @@ export default function Dashboard() {
     <div className="bg-white min-h-screen">
       <Sidebar role={role} />
       
-      <div className="md:ml-64 p-8">
+      <div className="md:ml-72 p-10">
         {/* Header */}
-        <header className="flex justify-between items-center mb-10 pb-6 border-b border-emerald-50">
+        <header className="flex justify-between items-center mb-12 pb-8 border-b border-gray-50">
           <div>
-            <h1 className="text-3xl font-display font-bold text-emerald-900 uppercase tracking-tighter">
+            <h1 className="text-4xl font-display font-bold text-gray-900 uppercase tracking-tighter">
               Pilot Dashboard
             </h1>
-            <p className="text-emerald-800/50 font-bold uppercase text-[10px] tracking-[0.2em] mt-1">
-              Welcome back, {user.firstName || user.email?.split('@')[0] || "Member"}
+            <p className="text-gray-400 font-bold uppercase text-[11px] tracking-[0.4em] mt-2 flex items-center gap-2">
+              <span className="w-2 h-2 bg-primary rounded-full animate-pulse"></span>
+              Member Registry: {user.firstName || user.email?.split('@')[0] || "Active Member"}
             </p>
           </div>
           
-          <div className="flex items-center gap-4">
-            <button className="w-12 h-12 bg-emerald-50 rounded-2xl flex items-center justify-center border border-emerald-100 hover:bg-emerald-100 transition-colors">
-              <Bell className="w-5 h-5 text-emerald-600" />
+          <div className="flex items-center gap-5">
+            <button className="w-14 h-14 bg-gray-50 rounded-2xl flex items-center justify-center border border-gray-100 hover:bg-gray-100 transition-all hover:scale-105">
+              <Bell className="w-6 h-6 text-gray-400" />
             </button>
-            <div className="flex items-center gap-3 px-3 py-2 bg-emerald-900 rounded-2xl text-white">
-              <div className="w-8 h-8 rounded-xl bg-emerald-600 flex items-center justify-center font-bold text-xs">
-                {(user.firstName?.[0] || user.email?.[0] || "U").toUpperCase()}
+            <div className="flex items-center gap-4 pl-2">
+              <div className="text-right hidden lg:block">
+                <p className="text-xs font-display font-bold text-gray-900 uppercase tracking-widest">{user.firstName || "Member"}</p>
+                <p className="text-[10px] font-bold text-primary uppercase tracking-[0.3em] leading-none mt-1">Status: Active</p>
               </div>
-              <div className="hidden lg:block pr-2">
-                <p className="text-[10px] font-bold uppercase tracking-widest opacity-60">Status</p>
-                <p className="text-[11px] font-bold uppercase tracking-wider leading-none">Online</p>
+              <div className="w-14 h-14 rounded-2xl bg-primary shadow-xl shadow-primary/20 flex items-center justify-center font-display font-bold text-xl text-white">
+                {(user.firstName?.[0] || user.email?.[0] || "U").toUpperCase()}
               </div>
             </div>
           </div>
         </header>
 
         {/* Stats Grid */}
-        <div className="grid md:grid-cols-3 gap-6 mb-12">
+        <div className="grid md:grid-cols-3 gap-8 mb-16">
           {[
-            { label: "Active Competitions", value: "2", icon: Trophy, color: "text-emerald-600", bg: "bg-emerald-50" },
-            { label: "Target Completion", value: "84%", icon: TrendingUp, color: "text-blue-600", bg: "bg-blue-50" },
-            { label: "Attendance Rate", value: "98%", icon: UserCheck, color: "text-emerald-600", bg: "bg-emerald-50" },
+            { label: "Active Series", value: "02", icon: Trophy, color: "text-primary", bg: "bg-red-50" },
+            { label: "Completion Velocity", value: "84%", icon: TrendingUp, color: "text-gray-900", bg: "bg-gray-50" },
+            { label: "Track Attendance", value: "98%", icon: UserCheck, color: "text-primary", bg: "bg-red-50" },
           ].map((stat, i) => (
             <motion.div 
               key={i}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.1 }}
-              className="bg-white p-6 rounded-3xl border border-emerald-50 shadow-sm hover:shadow-md transition-all group"
+              className="bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-sm hover:shadow-xl transition-all group"
             >
-              <div className={`w-12 h-12 ${stat.bg} rounded-2xl mb-6 flex items-center justify-center group-hover:scale-110 transition-transform`}>
-                <stat.icon className={`w-6 h-6 ${stat.color}`} />
+              <div className={`w-14 h-14 ${stat.bg} rounded-3xl mb-8 flex items-center justify-center group-hover:scale-110 transition-transform shadow-inner`}>
+                <stat.icon className={`w-7 h-7 ${stat.color}`} />
               </div>
-              <p className="text-[10px] font-bold text-emerald-800/40 uppercase tracking-[0.2em] mb-1">{stat.label}</p>
-              <h3 className="text-3xl font-display font-bold text-emerald-900 tracking-tighter">{stat.value}</h3>
+              <p className="text-[11px] font-bold text-gray-400 uppercase tracking-[0.4em] mb-2">{stat.label}</p>
+              <h3 className="text-4xl font-display font-bold text-gray-900 tracking-tighter">{stat.value}</h3>
             </motion.div>
           ))}
         </div>
