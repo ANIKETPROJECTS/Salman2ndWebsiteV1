@@ -125,53 +125,84 @@ export default function Home() {
         <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent" />
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className="text-center mb-16">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
+          >
             <h2 className="text-4xl font-display font-bold text-gray-900 mb-4">Current Series</h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
               Our students compete in multiple disciplines, pushing the boundaries of what's possible in student motorsport.
             </p>
-          </div>
+          </motion.div>
 
           {isLoading ? (
             <div className="flex justify-center py-20">
               <div className="w-10 h-10 border-4 border-primary border-t-transparent rounded-full animate-spin" />
             </div>
           ) : (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+            >
               {competitions?.slice(0, 3).map((comp) => (
                 <CompetitionCard key={comp.id} competition={comp} />
               ))}
-            </div>
+            </motion.div>
           )}
 
-          <div className="text-center mt-12">
+          <motion.div 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="text-center mt-12"
+          >
             <Link href="/competitions" className="inline-flex items-center gap-2 text-primary font-bold hover:text-primary/80 transition-colors">
               View All Series <ArrowRight className="w-5 h-5" />
             </Link>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Values Section */}
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
+          >
             <h2 className="text-4xl font-display font-bold text-gray-900 mb-4">Why We Excel</h2>
             <p className="text-gray-600 max-w-2xl mx-auto">Core values that drive our culture and define our success</p>
-          </div>
+          </motion.div>
           <div className="grid md:grid-cols-3 gap-12">
             {[
               { icon: Zap, title: "Innovation", desc: "Pushing technical boundaries with cutting-edge CAD/CAM technologies and engineering excellence." },
               { icon: Users, title: "Teamwork", desc: "Collaborating across disciplines to build a winning organization where diversity thrives." },
               { icon: Flag, title: "Competition", desc: "Testing ourselves against the best student teams worldwide to achieve podium finishes." }
             ].map((item, idx) => (
-              <div key={idx} className="text-center group bg-gray-50 rounded-3xl p-8 hover:bg-white hover:shadow-lg transition-all duration-300">
+              <motion.div 
+                key={idx}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: idx * 0.1 }}
+                className="text-center group bg-gray-50 rounded-3xl p-8 hover:bg-white hover:shadow-lg transition-all duration-300"
+              >
                 <div className="w-16 h-16 mx-auto bg-primary/20 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary group-hover:scale-110 transition-all duration-300">
                   <item.icon className="w-8 h-8 text-primary group-hover:text-white transition-colors" />
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-3">{item.title}</h3>
                 <p className="text-gray-600 leading-relaxed">{item.desc}</p>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>

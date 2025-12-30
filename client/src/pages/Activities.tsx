@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { useActivities } from "../hooks/use-activities";
@@ -37,7 +38,12 @@ export default function Activities() {
         </div>
         
         <div className="max-w-7xl mx-auto relative z-10">
-          <div className="text-center mb-4">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-4"
+          >
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/20 text-white backdrop-blur-md rounded-full font-bold text-sm mb-6 border border-white/10">
               <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
               HANDS-ON LEARNING
@@ -46,7 +52,7 @@ export default function Activities() {
             <p className="text-xl text-gray-200 max-w-2xl mx-auto leading-relaxed font-medium">
               Beyond the race track, our students engage in intensive STEM learning through workshops, labs, and expert-led sessions designed to build engineering excellence.
             </p>
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -60,13 +66,20 @@ export default function Activities() {
               { icon: BookOpen, title: "Expert Sessions", desc: "Guest speakers and industry insights" },
               { icon: Zap, title: "Team Projects", desc: "Collaborative engineering challenges" }
             ].map((item, idx) => (
-              <div key={idx} className="bg-white rounded-2xl p-6 shadow-md hover:shadow-lg transition-all">
+              <motion.div 
+                key={idx} 
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                className="bg-white rounded-2xl p-6 shadow-md hover:shadow-lg transition-all"
+              >
                 <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-4">
                   <item.icon className="w-6 h-6 text-primary" />
                 </div>
                 <h3 className="font-bold text-gray-900 mb-2">{item.title}</h3>
                 <p className="text-sm text-gray-600">{item.desc}</p>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
