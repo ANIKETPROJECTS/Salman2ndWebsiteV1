@@ -177,6 +177,49 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Success Metrics */}
+      <section className="py-24 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-display font-bold text-gray-900 mb-4">Our Track Record</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">Proven excellence across competitions and recognition globally</p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {[
+              { label: "National Championships", value: "3", color: "from-yellow-400 to-yellow-600" },
+              { label: "World Ranking", value: "8th", color: "from-blue-400 to-blue-600" },
+              { label: "Team Members", value: "140+", color: "from-green-400 to-green-600" },
+              { label: "Global Records", value: "2", color: "from-red-400 to-red-600" }
+            ].map((stat, idx) => (
+              <div key={idx} className={`bg-gradient-to-br ${stat.color} rounded-3xl p-8 text-white text-center`}>
+                <div className="text-4xl font-display font-bold mb-2">{stat.value}</div>
+                <p className="text-sm font-medium opacity-90">{stat.label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-24 px-4 sm:px-6 lg:px-8 bg-white">
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-gradient-to-r from-primary to-orange-600 rounded-3xl p-12 text-center text-white">
+            <h2 className="text-4xl font-display font-bold mb-4">Ready to Join the Team?</h2>
+            <p className="text-lg mb-8 opacity-95">
+              Whether you're a designer, engineer, or passionate about motorsport, there's a role for you in our growing club.
+            </p>
+            <div className="flex gap-4 justify-center flex-wrap">
+              <Link href="/competitions" className="inline-block px-8 py-3 bg-white text-primary font-bold rounded-full hover:shadow-lg transition-all">
+                Explore Competitions
+              </Link>
+              <Link href="/contact" className="inline-block px-8 py-3 border-2 border-white text-white font-bold rounded-full hover:bg-white/10 transition-all">
+                Get in Touch
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <Footer />
     </div>
   );

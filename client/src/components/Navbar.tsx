@@ -21,9 +21,9 @@ export default function Navbar() {
   return (
     <nav className="fixed w-full z-50 bg-white/90 backdrop-blur-md border-b border-gray-100 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-20">
+        <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <div className="flex items-center">
+          <div className="flex items-center flex-shrink-0">
             <Link href="/" className="flex items-center gap-2 group">
               <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300 shadow-lg shadow-primary/30">
                 <Trophy className="text-white w-6 h-6" />
@@ -34,8 +34,8 @@ export default function Navbar() {
             </Link>
           </div>
 
-          {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-1">
+          {/* Desktop Nav - Centered */}
+          <div className="hidden md:flex items-center gap-1 flex-1 justify-center">
             {links.map((link) => (
               <Link key={link.href} href={link.href} className={`
                 relative px-4 py-2 rounded-full text-sm font-bold transition-all duration-300
@@ -53,12 +53,13 @@ export default function Navbar() {
                 )}
               </Link>
             ))}
-            
-            <div className="ml-4 pl-4 border-l border-gray-200">
-              <Link href="/login" className="px-6 py-2.5 bg-primary text-white rounded-full font-bold shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/40 hover:-translate-y-0.5 transition-all duration-300">
-                Dashboard
-              </Link>
-            </div>
+          </div>
+          
+          {/* Dashboard Button */}
+          <div className="hidden md:block ml-4 pl-4 border-l border-gray-200 flex-shrink-0">
+            <Link href="/login" className="px-6 py-2.5 bg-primary text-white rounded-full font-bold shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/40 hover:-translate-y-0.5 transition-all duration-300">
+              Dashboard
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
