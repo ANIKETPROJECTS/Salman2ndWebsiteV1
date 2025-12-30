@@ -4,11 +4,13 @@ import { z } from "zod";
 
 export const users = pgTable("users", {
   id: varchar("id").primaryKey(),
+  username: text("username").notNull().unique(),
+  password: text("password").notNull(),
   email: text("email").notNull(),
   firstName: text("first_name"),
   lastName: text("last_name"),
   role: text("role").default("student"), // student, parent, admin
-  childId: varchar("child_id"), // For parent role to link to student
+  childId: varchar("child_id"), // Match existing varchar type
   profileImageUrl: text("profile_image_url"),
   bio: text("bio"),
   grade: text("grade"),

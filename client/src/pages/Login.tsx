@@ -1,87 +1,131 @@
 import { useState } from "react";
 import { Link, useLocation } from "wouter";
-import { Trophy, User, Lock, ArrowRight } from "lucide-react";
+import { Trophy, User, Lock, ArrowRight, Mail } from "lucide-react";
 import { useAuth } from "../hooks/use-auth";
+import { useToast } from "@/hooks/use-toast";
 
 export default function Login() {
   const [role, setRole] = useState<'student' | 'parent' | 'admin'>('student');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [, setLocation] = useLocation();
-  // Using the real auth integration
-  const { user, isAuthenticated } = useAuth();
+  const { login, isAuthenticated } = useAuth();
+  const { toast } = useToast();
   
   if (isAuthenticated) {
      setLocation("/dashboard");
      return null;
   }
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    // Redirect to backend auth endpoint
-    window.location.href = "/api/login";
+    try {
+      await login({ username, password });
+      toast({
+        title: "Login Successful",
+        description: "Welcome to the JSSIS F1 Dashboard.",
+      });
+      setLocation("/dashboard");
+    } catch (error: any) {
+      toast({
+        title: "Login Failed",
+        description: error.message || "Invalid credentials. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-      <div className="max-w-md w-full bg-white rounded-3xl shadow-2xl border border-gray-100 overflow-hidden">
-        {/* Header */}
-        <div className="bg-primary p-8 text-center relative overflow-hidden">
-          <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white via-transparent to-transparent"></div>
-          <Link href="/" className="inline-flex items-center gap-2 text-white mb-4 relative z-10">
-             <Trophy className="w-8 h-8" />
-             <span className="font-display font-bold text-3xl tracking-tighter uppercase">JSSIS F1</span>
+    <div className="min-h-screen bg-white flex items-center justify-center p-6">
+      <div className="max-w-md w-full">
+        {/* Branding */}
+        <div className="text-center mb-10">
+          <Link href="/" className="inline-flex items-center gap-3 text-gray-900 group">
+             <div className="p-2 bg-primary rounded-xl shadow-lg shadow-primary/20 group-hover:scale-110 transition-transform">
+               <Trophy className="w-8 h-8 text-white" />
+             </div>
+             <span className="font-display font-bold text-4xl tracking-tighter uppercase">JSSIS<span className="text-primary"> F1</span></span>
           </Link>
-          <h2 className="text-2xl font-display font-bold text-white uppercase tracking-wider relative z-10">Member Portal</h2>
-          <p className="text-white/80 mt-2 font-medium relative z-10">Secure Access for Students & Parents</p>
+          <p className="text-gray-400 font-bold uppercase text-[10px] tracking-[0.4em] mt-4">Grand Prix Member Portal</p>
         </div>
 
-        {/* Form */}
-        <div className="p-8">
-          <form onSubmit={handleLogin} className="space-y-8">
-            <div>
-              <label className="block text-xs font-bold text-gray-400 mb-4 uppercase tracking-[0.2em] text-center">Select Access Role</label>
-              <div className="grid grid-cols-3 gap-3">
-                {['student', 'parent', 'admin'].map((r) => (
-                  <button
-                    key={r}
-                    type="button"
-                    onClick={() => setRole(r as any)}
-                    className={`
-                      py-4 px-1 text-[10px] font-bold rounded-2xl capitalize transition-all border-2 flex flex-col items-center gap-2
-                      ${role === r 
-                        ? 'bg-primary text-white border-primary shadow-xl shadow-primary/20 scale-105' 
-                        : 'bg-white text-gray-400 border-gray-50 hover:border-primary/20 hover:bg-gray-50'}
-                    `}
-                  >
-                    <span className="uppercase tracking-widest">{r}</span>
-                  </button>
-                ))}
-              </div>
-            </div>
+        <div className="bg-white rounded-[2.5rem] shadow-2xl shadow-gray-200/50 border border-gray-100 overflow-hidden">
+          {/* Role Switcher */}
+          <div className="flex border-b border-gray-50">
+            {(['student', 'parent', 'admin'] as const).map((r) => (
+              <button
+                key={r}
+                type="button"
+                onClick={() => setRole(r)}
+                className={`flex-1 py-5 text-[10px] font-bold uppercase tracking-[0.2em] transition-all relative
+                  ${role === r ? 'text-primary' : 'text-gray-300 hover:text-gray-500'}
+                `}
+              >
+                {r}
+                {role === r && (
+                  <div className="absolute bottom-0 left-0 right-0 h-1 bg-primary" />
+                )}
+              </button>
+            ))}
+          </div>
 
-            <div className="space-y-4">
+          <div className="p-10">
+            <form onSubmit={handleLogin} className="space-y-6">
+              <div className="space-y-2">
+                <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1">Identity Tag</label>
+                <div className="relative group">
+                  <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-300 group-focus-within:text-primary transition-colors" />
+                  <input
+                    type="text"
+                    required
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    placeholder="Username or Member ID"
+                    className="w-full pl-12 pr-4 py-4 bg-gray-50 border-none rounded-2xl text-sm font-medium focus:ring-2 focus:ring-primary/20 transition-all outline-none"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1">Access Key</label>
+                <div className="relative group">
+                  <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-300 group-focus-within:text-primary transition-colors" />
+                  <input
+                    type="password"
+                    required
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="••••••••"
+                    className="w-full pl-12 pr-4 py-4 bg-gray-50 border-none rounded-2xl text-sm font-medium focus:ring-2 focus:ring-primary/20 transition-all outline-none"
+                  />
+                </div>
+              </div>
+
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full py-5 bg-primary text-white rounded-2xl font-display font-bold uppercase tracking-widest shadow-xl shadow-primary/20 hover:shadow-2xl hover:shadow-primary/30 hover:-translate-y-1 transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed group"
+                className="w-full py-5 bg-primary text-white rounded-2xl font-display font-bold uppercase tracking-widest shadow-xl shadow-primary/20 hover:shadow-2xl hover:shadow-primary/30 hover:-translate-y-1 transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed mt-4"
               >
-                <span className="flex items-center justify-center gap-2">
-                  {isSubmitting ? "Processing..." : "Secure Login"}
-                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                </span>
+                {isSubmitting ? "Syncing..." : "Enter Command Center"}
               </button>
-              <p className="text-[10px] text-center text-gray-400 font-bold uppercase tracking-widest">
-                By logging in, you agree to the club code of conduct
-              </p>
-            </div>
-          </form>
+            </form>
 
-          <div className="mt-10 text-center border-t border-gray-50 pt-8">
-            <Link href="/" className="text-gray-400 hover:text-primary text-xs font-bold uppercase tracking-widest transition-colors flex items-center justify-center gap-2">
-              Exit to Homepage
-            </Link>
+            <div className="mt-8 text-center">
+              <Link href="/" className="text-gray-300 hover:text-gray-500 text-[10px] font-bold uppercase tracking-[0.2em] transition-colors">
+                Abort and Exit to Surface
+              </Link>
+            </div>
           </div>
+        </div>
+        
+        <div className="text-center mt-8">
+          <p className="text-[10px] text-gray-300 font-bold uppercase tracking-widest">
+            Engineering Excellence • JSSIS STEM 2025
+          </p>
         </div>
       </div>
     </div>
