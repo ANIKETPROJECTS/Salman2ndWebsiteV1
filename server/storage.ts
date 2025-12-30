@@ -42,7 +42,10 @@ export class DatabaseStorage implements IStorage {
   }
 
   async updateUserRole(id: string, role: string): Promise<User> {
-    const [user] = await db.update(users).set({ role }).where(eq(users.id, id)).returning();
+    const [user] = await db.update(users).set({ 
+      role,
+      updatedAt: new Date()
+    }).where(eq(users.id, id)).returning();
     return user;
   }
 
