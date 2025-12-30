@@ -84,8 +84,8 @@ export default function Home() {
               
               {/* Floating Badge */}
               <div className="absolute -bottom-6 -left-6 bg-white p-4 rounded-2xl shadow-xl flex items-center gap-4 animate-bounce duration-[3000ms]">
-                <div className="w-12 h-12 bg-yellow-400 rounded-full flex items-center justify-center">
-                  <Trophy className="w-6 h-6 text-yellow-900" />
+                <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center">
+                  <Trophy className="w-6 h-6 text-white" />
                 </div>
                 <div>
                   <p className="text-xs text-gray-500 font-bold uppercase">Latest Win</p>
