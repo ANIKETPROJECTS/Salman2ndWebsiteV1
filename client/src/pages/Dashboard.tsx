@@ -271,9 +271,9 @@ function AdminView() {
             {students?.map(s => (
               <div key={s.id} className="p-6 bg-gray-50 rounded-3xl border border-transparent hover:border-[#ef4444]/20 transition-all">
                 <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center font-display font-bold text-[#ef4444] shadow-sm mb-4">
-                  {s.username[0].toUpperCase()}
+                  {(s.firstName?.[0] || s.email?.[0] || "U").toUpperCase()}
                 </div>
-                <p className="font-display font-bold uppercase tracking-tight text-gray-900">{s.firstName} {s.lastName}</p>
+                <p className="font-display font-bold uppercase tracking-tight text-gray-900">{s.firstName || s.email}</p>
                 <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mt-1">Grade {s.grade}</p>
                 <Button variant="ghost" className="w-full mt-4 rounded-xl text-[10px] uppercase tracking-widest font-bold">Manage Unit</Button>
               </div>
@@ -309,7 +309,7 @@ function AdminView() {
 }
 
 export default function Dashboard() {
-  const { user, logoutMutation } = useAuth();
+  const { user, logout } = useAuth();
   const [, setLocation] = useLocation();
   
   if (!user) {
@@ -321,7 +321,7 @@ export default function Dashboard() {
 
   return (
     <div className="bg-[#fcfcfc] min-h-screen font-sans">
-      <Sidebar role={role} onLogout={() => logoutMutation.mutate()} />
+      <Sidebar role={role} onLogout={() => logout()} />
       
       <div className="md:ml-72 p-6 lg:p-12">
         <header className="flex flex-col md:flex-row justify-between md:items-center gap-6 mb-12">
@@ -331,7 +331,7 @@ export default function Dashboard() {
             </h1>
             <div className="flex items-center gap-3 mt-4">
                <span className="w-3 h-3 bg-green-500 rounded-full shadow-[0_0_10px_rgba(34,197,94,0.5)]"></span>
-               <p className="text-[11px] font-bold text-gray-400 uppercase tracking-[0.4em]">System Active: {user.firstName || user.username}</p>
+               <p className="text-[11px] font-bold text-gray-400 uppercase tracking-[0.4em]">System Active: {user.firstName || user.email}</p>
             </div>
           </div>
           
@@ -341,12 +341,12 @@ export default function Dashboard() {
                 <p className="text-[9px] font-bold text-[#ef4444] uppercase tracking-[0.3em] mt-1 italic">Verified Unit</p>
              </div>
              <div className="w-16 h-16 rounded-[1.5rem] bg-white border border-gray-100 shadow-sm flex items-center justify-center font-display font-bold text-2xl text-gray-900">
-                {user.username[0].toUpperCase()}
+                {(user.firstName?.[0] || user.email?.[0] || "U").toUpperCase()}
              </div>
           </div>
         </header>
 
-        {role === 'admin' ? <AdminView /> : role === 'parent' ? <ParentView user={user} /> : <StudentView user={user} />}
+        {role === 'admin' ? <AdminView /> : role === 'parent' ? <ParentView user={user as any} /> : <StudentView user={user as any} />}
       </div>
     </div>
   );
