@@ -1,45 +1,124 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { Users, Target, Rocket } from "lucide-react";
+import { Users, Target, Rocket, Trophy, Zap, Award } from "lucide-react";
+import { Link } from "wouter";
 
 export default function About() {
   return (
     <div className="min-h-screen bg-white">
       <Navbar />
       
-      <div className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
-        <h1 className="text-5xl font-display font-bold text-gray-900 mb-8 text-center">About The Club</h1>
-        
-        <div className="prose prose-lg mx-auto text-gray-600 mb-16">
-          <p>
-            The JSSIS F1 STEM Club is more than just an after-school activity; it is a center of excellence 
-            where engineering dreams take flight. Founded in 2020, we have rapidly grown into one of the 
-            most competitive student motorsport organizations in the region.
-          </p>
-          <p>
-            Our mission is to empower students with practical skills in CAD/CAM design, aerodynamics, 
-            project management, and marketing through the thrill of F1 in Schools and other technical challenges.
+      {/* Header */}
+      <section className="pt-32 pb-16 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
+        <div className="text-center mb-12">
+          <h1 className="text-6xl font-display font-bold text-gray-900 mb-6">About The Club</h1>
+          <p className="text-xl text-gray-600 leading-relaxed">
+            A center of excellence where engineering dreams take flight and innovation thrives.
           </p>
         </div>
+      </section>
 
-        <div className="grid md:grid-cols-3 gap-8 mb-16">
-           <div className="text-center p-6 bg-gray-50 rounded-2xl">
-              <Rocket className="w-10 h-10 text-primary mx-auto mb-4" />
-              <h3 className="font-bold text-lg mb-2">Our Mission</h3>
-              <p className="text-sm text-gray-500">To inspire the next generation of engineers and innovators.</p>
-           </div>
-           <div className="text-center p-6 bg-gray-50 rounded-2xl">
-              <Target className="w-10 h-10 text-primary mx-auto mb-4" />
-              <h3 className="font-bold text-lg mb-2">Our Vision</h3>
-              <p className="text-sm text-gray-500">To become the world's leading student STEM initiative.</p>
-           </div>
-           <div className="text-center p-6 bg-gray-50 rounded-2xl">
-              <Users className="w-10 h-10 text-primary mx-auto mb-4" />
-              <h3 className="font-bold text-lg mb-2">Our Team</h3>
-              <p className="text-sm text-gray-500">A diverse group of passionate students, mentors, and alumni.</p>
-           </div>
+      {/* Core Story */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div className="max-w-4xl mx-auto">
+          <div className="space-y-8 text-gray-600 leading-relaxed">
+            <div>
+              <h2 className="text-3xl font-display font-bold text-gray-900 mb-4">Our Journey</h2>
+              <p>
+                The JSSIS F1 STEM Club was officially founded on January 10th, 2020, with just 6 enthusiastic students who shared a passion for engineering and motorsport. What began as a small after-school activity has blossomed into a thriving community of 140+ students representing one of the most competitive student motorsport organizations in the region.
+              </p>
+            </div>
+
+            <div>
+              <h2 className="text-3xl font-display font-bold text-gray-900 mb-4">Our Mission</h2>
+              <p>
+                To inspire the next generation of engineers and innovators by empowering students with practical skills in CAD/CAM design, aerodynamics, project management, and marketing through the competitive world of F1 in Schools and other technical challenges.
+              </p>
+            </div>
+
+            <div>
+              <h2 className="text-3xl font-display font-bold text-gray-900 mb-4">Our Vision</h2>
+              <p>
+                To become the world's leading student STEM initiative, recognized for excellence in engineering education, competitive success, and developing tomorrow's innovators.
+              </p>
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
+
+      {/* Key Achievements */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-3xl font-display font-bold text-gray-900 mb-12 text-center">Our Achievements</h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[
+              { icon: Trophy, title: "3x National Champions", desc: "Nationwide F1 championships" },
+              { icon: Award, title: "World Finals - 8th Place", desc: "Globally competitive performance" },
+              { icon: Zap, title: "Asia's Best", desc: "1st place in Asian region" },
+              { icon: Rocket, title: "140+ Students", desc: "From 6 to a thriving community" },
+              { icon: Users, title: "15+ Alumni Mentors", desc: "Paying it forward to juniors" },
+              { icon: Trophy, title: "World Record", desc: "Fastest reaction time globally" }
+            ].map((item, idx) => (
+              <div key={idx} className="bg-gradient-to-br from-primary/10 to-primary/5 rounded-2xl p-6">
+                <div className="w-12 h-12 bg-primary text-white rounded-xl flex items-center justify-center mb-4">
+                  <item.icon className="w-6 h-6" />
+                </div>
+                <h3 className="font-bold text-gray-900 text-lg mb-2">{item.title}</h3>
+                <p className="text-gray-600 text-sm">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Core Values */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-3xl font-display font-bold text-gray-900 mb-12 text-center">What We Stand For</h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="bg-white rounded-2xl p-8 shadow-md">
+              <div className="w-14 h-14 bg-primary/20 rounded-xl flex items-center justify-center mb-6">
+                <Zap className="w-7 h-7 text-primary" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-3">Innovation</h3>
+              <p className="text-gray-600 leading-relaxed">
+                Pushing technical boundaries with cutting-edge CAD/CAM technologies and innovative engineering solutions.
+              </p>
+            </div>
+            <div className="bg-white rounded-2xl p-8 shadow-md">
+              <div className="w-14 h-14 bg-primary/20 rounded-xl flex items-center justify-center mb-6">
+                <Users className="w-7 h-7 text-primary" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-3">Teamwork</h3>
+              <p className="text-gray-600 leading-relaxed">
+                Collaborating across disciplines to build a winning organization where every member contributes their unique talents.
+              </p>
+            </div>
+            <div className="bg-white rounded-2xl p-8 shadow-md">
+              <div className="w-14 h-14 bg-primary/20 rounded-xl flex items-center justify-center mb-6">
+                <Trophy className="w-7 h-7 text-primary" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-3">Competition</h3>
+              <p className="text-gray-600 leading-relaxed">
+                Testing ourselves against the best teams worldwide to achieve excellence and break records.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto bg-gradient-to-r from-primary to-orange-600 rounded-3xl p-12 text-center text-white">
+          <h2 className="text-3xl font-display font-bold mb-4">Join Our Community</h2>
+          <p className="text-lg mb-8 opacity-95">
+            Whether you're passionate about engineering, racing, or STEM education, there's a place for you in our club.
+          </p>
+          <Link href="/contact" className="inline-block px-8 py-3 bg-white text-primary font-bold rounded-full hover:shadow-lg transition-all">
+            Get in Touch
+          </Link>
+        </div>
+      </section>
 
       <Footer />
     </div>
