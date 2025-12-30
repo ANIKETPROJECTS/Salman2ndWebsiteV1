@@ -8,6 +8,7 @@ import {
 export interface IStorage {
   // Users
   getUser(id: string): Promise<User | undefined>;
+  updateUserRole(id: string, role: string): Promise<User>;
   
   // Competitions
   getCompetitions(): Promise<Competition[]>;
@@ -37,6 +38,11 @@ export class DatabaseStorage implements IStorage {
   // Users
   async getUser(id: string): Promise<User | undefined> {
     const [user] = await db.select().from(users).where(eq(users.id, id));
+    return user;
+  }
+
+  async updateUserRole(id: string, role: string): Promise<User> {
+    const [user] = await db.update(users).set({ role }).where(eq(users.id, id)).returning();
     return user;
   }
 

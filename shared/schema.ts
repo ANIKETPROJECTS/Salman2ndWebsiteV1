@@ -1,9 +1,20 @@
-import { pgTable, text, serial, integer, boolean, timestamp, jsonb, varchar } from "drizzle-orm/pg-core";
+import { pgTable, text, serial, integer, timestamp, jsonb, varchar } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
-import { users } from "./models/auth";
 
-export * from "./models/auth";
+export const users = pgTable("users", {
+  id: varchar("id").primaryKey(),
+  email: text("email").notNull(),
+  firstName: text("first_name"),
+  lastName: text("last_name"),
+  role: text("role").default("student"), // student, parent, admin
+  childId: varchar("child_id"), // For parent role to link to student
+  profileImageUrl: text("profile_image_url"),
+  bio: text("bio"),
+  grade: text("grade"),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
 
 export const competitions = pgTable("competitions", {
   id: serial("id").primaryKey(),

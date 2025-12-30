@@ -7,28 +7,49 @@ import {
   Calendar, 
   LogOut, 
   Bell,
-  Clock
+  Clock,
+  Users,
+  TrendingUp,
+  FileText,
+  UserCheck
 } from "lucide-react";
 import { useTasks, useUpdateTask } from "../hooks/use-dashboard-data";
 import { useState } from "react";
 import { motion } from "framer-motion";
 
-function Sidebar() {
+function Sidebar({ role }: { role?: string }) {
   const { logout } = useAuth();
   const [location] = useLocation();
 
-  const links = [
+  const studentLinks = [
     { href: "/dashboard", label: "Overview", icon: LayoutDashboard },
     { href: "/dashboard/tasks", label: "My Tasks", icon: CheckSquare },
     { href: "/dashboard/competitions", label: "Competitions", icon: Trophy },
     { href: "/dashboard/schedule", label: "Schedule", icon: Calendar },
   ];
 
+  const adminLinks = [
+    { href: "/dashboard", label: "Overview", icon: LayoutDashboard },
+    { href: "/dashboard/students", label: "Student Management", icon: Users },
+    { href: "/dashboard/competitions", label: "Competitions", icon: Trophy },
+    { href: "/dashboard/attendance", label: "Attendance", icon: UserCheck },
+    { href: "/dashboard/analytics", label: "Analytics", icon: TrendingUp },
+  ];
+
+  const parentLinks = [
+    { href: "/dashboard", label: "Child Overview", icon: LayoutDashboard },
+    { href: "/dashboard/child-tasks", label: "Child Tasks", icon: CheckSquare },
+    { href: "/dashboard/child-attendance", label: "Attendance", icon: UserCheck },
+    { href: "/dashboard/gallery", label: "Activity Gallery", icon: FileText },
+  ];
+
+  const links = role === 'admin' ? adminLinks : role === 'parent' ? parentLinks : studentLinks;
+
   return (
-    <div className="w-64 bg-white border-r border-gray-100 min-h-screen fixed left-0 top-0 p-6 hidden md:flex flex-col">
-      <div className="flex items-center gap-2 mb-10 text-gray-900">
-        <Trophy className="w-6 h-6 text-primary" />
-        <span className="font-display font-bold text-xl">SEAL<span className="text-primary"> CLUB</span></span>
+    <div className="w-64 bg-white border-r border-emerald-50 min-h-screen fixed left-0 top-0 p-6 hidden md:flex flex-col">
+      <div className="flex items-center gap-2 mb-10 text-emerald-900">
+        <Trophy className="w-6 h-6 text-emerald-600" />
+        <span className="font-display font-bold text-xl uppercase tracking-tighter">STEM<span className="text-emerald-600"> CLUB</span></span>
       </div>
 
       <div className="space-y-1 flex-1">
@@ -37,25 +58,74 @@ function Sidebar() {
             key={link.href} 
             href={link.href}
             className={`
-              flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all
+              flex items-center gap-3 px-4 py-3 rounded-xl font-bold uppercase text-xs tracking-wider transition-all
               ${location === link.href
-                ? "bg-primary text-white shadow-lg shadow-primary/25"
-                : "text-gray-500 hover:bg-gray-50 hover:text-gray-900"}
+                ? "bg-emerald-600 text-white shadow-lg shadow-emerald-200"
+                : "text-emerald-800/60 hover:bg-emerald-50 hover:text-emerald-900"}
             `}
           >
-            <link.icon className="w-5 h-5" />
+            <link.icon className="w-4 h-4" />
             {link.label}
           </Link>
         ))}
       </div>
 
-      <button 
-        onClick={() => logout()}
-        className="flex items-center gap-3 px-4 py-3 text-red-500 hover:bg-red-50 rounded-xl font-medium transition-colors mt-auto"
-      >
-        <LogOut className="w-5 h-5" />
-        Sign Out
-      </button>
+      <div className="pt-6 border-t border-emerald-50">
+        <div className="px-4 py-2 mb-4 bg-emerald-50 rounded-xl">
+          <p className="text-[10px] font-bold text-emerald-600 uppercase tracking-widest mb-1">Signed in as</p>
+          <p className="text-xs font-bold text-emerald-900 capitalize">{role || 'Student'}</p>
+        </div>
+        <button 
+          onClick={() => logout()}
+          className="w-full flex items-center gap-3 px-4 py-3 text-red-500 hover:bg-red-50 rounded-xl font-bold uppercase text-xs tracking-wider transition-colors"
+        >
+          <LogOut className="w-4 h-4" />
+          Sign Out
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function StudentOverview() {
+  return (
+    <div className="grid lg:grid-cols-3 gap-8">
+      <div className="lg:col-span-2 space-y-8">
+        <TaskList />
+        <div className="bg-white rounded-3xl p-6 shadow-sm border border-emerald-50">
+          <h3 className="text-lg font-bold mb-6 text-emerald-900 uppercase tracking-tight">Recent Performance</h3>
+          <div className="h-48 flex items-end justify-between gap-2 px-2">
+            {[65, 80, 45, 90, 75, 85].map((h, i) => (
+              <div key={i} className="flex-1 bg-emerald-100 rounded-t-lg relative group">
+                <motion.div 
+                  initial={{ height: 0 }}
+                  animate={{ height: `${h}%` }}
+                  className="bg-emerald-600 rounded-t-lg transition-all"
+                />
+                <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-emerald-900 text-white text-[10px] py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity">
+                  {h}%
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="flex justify-between mt-4 text-[10px] font-bold text-emerald-800/40 uppercase tracking-widest px-2">
+            <span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div className="bg-emerald-600 text-white p-6 rounded-3xl shadow-xl shadow-emerald-200 sticky top-8">
+          <h3 className="font-bold text-lg mb-4 uppercase tracking-tight">Upcoming Event</h3>
+          <div className="bg-white/10 p-4 rounded-2xl backdrop-blur-sm mb-4 border border-white/10">
+             <p className="text-[10px] font-bold opacity-80 mb-1 uppercase tracking-widest">Workshop</p>
+             <p className="font-bold text-xl uppercase tracking-tighter">Aerodynamics 101</p>
+             <p className="text-sm mt-2 font-medium opacity-90">Friday, 2:00 PM • Lab 3</p>
+          </div>
+          <button className="w-full py-4 bg-white text-emerald-600 rounded-xl font-bold uppercase text-xs tracking-widest hover:bg-emerald-50 transition-all hover:shadow-lg">
+            View Full Calendar
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
@@ -64,40 +134,40 @@ function TaskList() {
   const { data: tasks, isLoading } = useTasks();
   const updateTask = useUpdateTask();
 
-  if (isLoading) return <div className="animate-pulse space-y-4">{[1,2,3].map(i => <div key={i} className="h-16 bg-gray-100 rounded-xl"/>)}</div>;
+  if (isLoading) return <div className="animate-pulse space-y-4">{[1,2,3].map(i => <div key={i} className="h-16 bg-emerald-50/50 rounded-xl"/>)}</div>;
 
   return (
-    <div className="bg-white rounded-3xl p-6 shadow-sm border border-gray-100">
-      <h3 className="text-lg font-bold mb-6 flex items-center justify-between">
-        Pending Tasks
-        <span className="bg-primary/10 text-primary px-3 py-1 rounded-full text-xs">{tasks?.length || 0}</span>
+    <div className="bg-white rounded-3xl p-6 shadow-sm border border-emerald-50">
+      <h3 className="text-lg font-bold mb-6 flex items-center justify-between text-emerald-900 uppercase tracking-tight">
+        Active Targets
+        <span className="bg-emerald-600 text-white px-3 py-1 rounded-full text-[10px] font-bold tracking-widest">{tasks?.length || 0}</span>
       </h3>
       
       <div className="space-y-3">
         {tasks?.map((task) => (
-          <div key={task.id} className="flex items-start gap-4 p-4 rounded-2xl hover:bg-gray-50 transition-colors border border-transparent hover:border-gray-100">
+          <div key={task.id} className="flex items-start gap-4 p-4 rounded-2xl hover:bg-emerald-50/50 transition-colors border border-emerald-50/20">
             <button 
               onClick={() => updateTask.mutate({ id: task.id, status: task.status === 'completed' ? 'pending' : 'completed' })}
-              className={`mt-1 w-5 h-5 rounded-md border-2 flex items-center justify-center transition-colors
+              className={`mt-1 w-5 h-5 rounded-lg border-2 flex items-center justify-center transition-all
                 ${task.status === 'completed' 
-                  ? 'bg-green-500 border-green-500 text-white' 
-                  : 'border-gray-300 hover:border-primary'}
+                  ? 'bg-emerald-600 border-emerald-600 text-white shadow-md' 
+                  : 'border-emerald-200 hover:border-emerald-600 bg-white'}
               `}
             >
               {task.status === 'completed' && <CheckSquare className="w-3 h-3" />}
             </button>
-            <div>
-              <p className={`font-medium ${task.status === 'completed' ? 'text-gray-400 line-through' : 'text-gray-900'}`}>
+            <div className="flex-1">
+              <p className={`font-bold text-sm uppercase tracking-tight ${task.status === 'completed' ? 'text-emerald-900/30 line-through' : 'text-emerald-900'}`}>
                 {task.title}
               </p>
-              <div className="flex items-center gap-2 mt-2">
-                <span className={`text-xs px-2 py-0.5 rounded-full font-bold uppercase
-                  ${task.priority === 'high' ? 'bg-red-100 text-red-600' : 'bg-blue-100 text-blue-600'}
+              <div className="flex items-center gap-3 mt-2">
+                <span className={`text-[9px] px-2 py-0.5 rounded-md font-bold uppercase tracking-widest
+                  ${task.priority === 'high' ? 'bg-red-50 text-red-600' : 'bg-emerald-50 text-emerald-600'}
                 `}>
                   {task.priority}
                 </span>
                 {task.dueDate && (
-                  <span className="text-xs text-gray-400 flex items-center gap-1">
+                  <span className="text-[10px] font-bold text-emerald-800/30 flex items-center gap-1 uppercase tracking-widest">
                     <Clock className="w-3 h-3" />
                     {new Date(task.dueDate).toLocaleDateString()}
                   </span>
@@ -107,7 +177,7 @@ function TaskList() {
           </div>
         ))}
         {(!tasks || tasks.length === 0) && (
-          <p className="text-gray-400 text-center py-8">No tasks assigned yet.</p>
+          <p className="text-emerald-800/30 text-center py-8 font-bold uppercase text-xs tracking-widest">No tasks assigned yet.</p>
         )}
       </div>
     </div>
@@ -124,69 +194,64 @@ export default function Dashboard() {
     return null;
   }
 
+  const role = (user as any).role || 'student';
+
   return (
-    <div className="bg-gray-50 min-h-screen">
-      <Sidebar />
+    <div className="bg-white min-h-screen">
+      <Sidebar role={role} />
       
       <div className="md:ml-64 p-8">
         {/* Header */}
-        <header className="flex justify-between items-center mb-10">
+        <header className="flex justify-between items-center mb-10 pb-6 border-b border-emerald-50">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">
-              Welcome back, {user.firstName || user.email?.split('@')[0] || "User"}!
+            <h1 className="text-3xl font-display font-bold text-emerald-900 uppercase tracking-tighter">
+              Pilot Dashboard
             </h1>
-            <p className="text-gray-500">Here's what's happening with your team today.</p>
+            <p className="text-emerald-800/50 font-bold uppercase text-[10px] tracking-[0.2em] mt-1">
+              Welcome back, {user.firstName || user.email?.split('@')[0] || "Member"}
+            </p>
           </div>
           
           <div className="flex items-center gap-4">
-            <button className="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-sm border border-gray-100 hover:bg-gray-50">
-              <Bell className="w-5 h-5 text-gray-500" />
+            <button className="w-12 h-12 bg-emerald-50 rounded-2xl flex items-center justify-center border border-emerald-100 hover:bg-emerald-100 transition-colors">
+              <Bell className="w-5 h-5 text-emerald-600" />
             </button>
-            <div className="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center font-bold">
-              {(user.firstName?.[0] || user.email?.[0] || "U").toUpperCase()}
+            <div className="flex items-center gap-3 px-3 py-2 bg-emerald-900 rounded-2xl text-white">
+              <div className="w-8 h-8 rounded-xl bg-emerald-600 flex items-center justify-center font-bold text-xs">
+                {(user.firstName?.[0] || user.email?.[0] || "U").toUpperCase()}
+              </div>
+              <div className="hidden lg:block pr-2">
+                <p className="text-[10px] font-bold uppercase tracking-widest opacity-60">Status</p>
+                <p className="text-[11px] font-bold uppercase tracking-wider leading-none">Online</p>
+              </div>
             </div>
           </div>
         </header>
 
         {/* Stats Grid */}
-        <div className="grid md:grid-cols-3 gap-6 mb-8">
+        <div className="grid md:grid-cols-3 gap-6 mb-12">
           {[
-            { label: "Active Competitions", value: "2", color: "bg-blue-500" },
-            { label: "Tasks Completed", value: "12", color: "bg-green-500" },
-            { label: "Upcoming Events", value: "3", color: "bg-purple-500" },
+            { label: "Active Competitions", value: "2", icon: Trophy, color: "text-emerald-600", bg: "bg-emerald-50" },
+            { label: "Target Completion", value: "84%", icon: TrendingUp, color: "text-blue-600", bg: "bg-blue-50" },
+            { label: "Attendance Rate", value: "98%", icon: UserCheck, color: "text-emerald-600", bg: "bg-emerald-50" },
           ].map((stat, i) => (
             <motion.div 
               key={i}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.1 }}
-              className="bg-white p-6 rounded-3xl shadow-sm border border-gray-100"
+              className="bg-white p-6 rounded-3xl border border-emerald-50 shadow-sm hover:shadow-md transition-all group"
             >
-              <div className={`w-12 h-12 ${stat.color} rounded-2xl mb-4 opacity-10`} />
-              <h3 className="text-3xl font-bold text-gray-900 mb-1">{stat.value}</h3>
-              <p className="text-gray-500 text-sm font-medium">{stat.label}</p>
+              <div className={`w-12 h-12 ${stat.bg} rounded-2xl mb-6 flex items-center justify-center group-hover:scale-110 transition-transform`}>
+                <stat.icon className={`w-6 h-6 ${stat.color}`} />
+              </div>
+              <p className="text-[10px] font-bold text-emerald-800/40 uppercase tracking-[0.2em] mb-1">{stat.label}</p>
+              <h3 className="text-3xl font-display font-bold text-emerald-900 tracking-tighter">{stat.value}</h3>
             </motion.div>
           ))}
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-8">
-          <div className="lg:col-span-2">
-            <TaskList />
-          </div>
-          <div>
-            <div className="bg-primary text-white p-6 rounded-3xl shadow-xl shadow-primary/20">
-              <h3 className="font-bold text-lg mb-4">Next Event</h3>
-              <div className="bg-white/10 p-4 rounded-2xl backdrop-blur-sm mb-4">
-                 <p className="text-sm opacity-80 mb-1">Workshop</p>
-                 <p className="font-bold text-xl">Aerodynamics 101</p>
-                 <p className="text-sm mt-2 opacity-80">Friday, 2:00 PM • Lab 3</p>
-              </div>
-              <button className="w-full py-3 bg-white text-primary rounded-xl font-bold hover:bg-gray-50 transition-colors">
-                View Calendar
-              </button>
-            </div>
-          </div>
-        </div>
+        <StudentOverview />
       </div>
     </div>
   );

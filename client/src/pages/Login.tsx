@@ -23,34 +23,34 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-      <div className="max-w-md w-full bg-white rounded-3xl shadow-2xl overflow-hidden">
+    <div className="min-h-screen bg-white flex items-center justify-center p-4">
+      <div className="max-w-md w-full bg-white rounded-3xl shadow-2xl border border-emerald-100 overflow-hidden">
         {/* Header */}
-        <div className="bg-primary p-8 text-center">
+        <div className="bg-emerald-600 p-8 text-center">
           <Link href="/" className="inline-flex items-center gap-2 text-white mb-4">
              <Trophy className="w-6 h-6" />
-             <span className="font-display font-bold text-2xl">SEAL CLUB</span>
+             <span className="font-display font-bold text-2xl tracking-tighter uppercase">STEM CLUB</span>
           </Link>
-          <h2 className="text-2xl font-bold text-white">Welcome Back</h2>
-          <p className="text-primary-100 mt-2">Sign in to access your dashboard</p>
+          <h2 className="text-2xl font-bold text-white uppercase tracking-wide">Portal Access</h2>
+          <p className="text-emerald-50 mt-2 font-medium opacity-90">Secure login for members & parents</p>
         </div>
 
         {/* Form */}
         <div className="p-8">
           <form onSubmit={handleLogin} className="space-y-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">I am a...</label>
-              <div className="grid grid-cols-3 gap-2">
+              <label className="block text-sm font-bold text-emerald-900 mb-3 uppercase tracking-wider">Select Your Role</label>
+              <div className="grid grid-cols-3 gap-3">
                 {['student', 'parent', 'admin'].map((r) => (
                   <button
                     key={r}
                     type="button"
                     onClick={() => setRole(r as any)}
                     className={`
-                      py-2 px-1 text-sm font-medium rounded-xl capitalize transition-all
+                      py-3 px-1 text-xs font-bold rounded-xl capitalize transition-all border-2
                       ${role === r 
-                        ? 'bg-gray-900 text-white shadow-md' 
-                        : 'bg-gray-100 text-gray-500 hover:bg-gray-200'}
+                        ? 'bg-emerald-600 text-white border-emerald-600 shadow-lg shadow-emerald-200' 
+                        : 'bg-white text-emerald-600 border-emerald-50 hover:border-emerald-200 hover:bg-emerald-50'}
                     `}
                   >
                     {r}
@@ -62,15 +62,15 @@ export default function Login() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full py-3.5 bg-primary text-white rounded-xl font-bold shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/40 hover:-translate-y-0.5 transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed"
+              className="w-full py-4 bg-emerald-600 text-white rounded-xl font-bold uppercase tracking-widest shadow-lg shadow-emerald-200 hover:shadow-xl hover:shadow-emerald-300 hover:-translate-y-1 transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed"
             >
-              {isSubmitting ? "Redirecting..." : "Sign In with Replit"}
+              {isSubmitting ? "Authenticating..." : "Login with Replit"}
             </button>
           </form>
 
-          <div className="mt-8 text-center">
-            <Link href="/" className="text-gray-400 hover:text-gray-600 text-sm font-medium transition-colors">
-              Back to Home
+          <div className="mt-8 text-center border-t border-emerald-50 pt-8">
+            <Link href="/" className="text-emerald-400 hover:text-emerald-600 text-sm font-bold uppercase tracking-wider transition-colors">
+              Return to Website
             </Link>
           </div>
         </div>
