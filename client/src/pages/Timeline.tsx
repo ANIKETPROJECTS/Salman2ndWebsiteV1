@@ -164,7 +164,7 @@ export default function Timeline() {
         
         <div className="max-w-6xl mx-auto relative z-10">
           <div className="text-center mb-12">
-            <h1 className="text-6xl md:text-7xl font-display font-bold text-white mb-6 tracking-tight">Our Journey</h1>
+            <h1 className="text-6xl md:text-7xl font-display font-bold text-white mb-6 tracking-tight text-stroke">Our Journey</h1>
             <p className="text-xl text-gray-200 max-w-3xl mx-auto leading-relaxed font-medium">
               From 6 students with a dream to 140+ members competing at the world stage. A story of persistence, innovation, and breaking records.
             </p>

@@ -46,7 +46,7 @@ export default function Competitions() {
               <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
               MOTORSPORT DISCIPLINES
             </div>
-            <h1 className="text-6xl md:text-7xl font-display font-bold text-white mb-6 tracking-tight">Racing Series</h1>
+            <h1 className="text-6xl md:text-7xl font-display font-bold text-white mb-6 tracking-tight text-stroke">Racing Series</h1>
             <p className="text-xl text-gray-200 max-w-3xl mx-auto leading-relaxed font-medium">
               From classroom concepts to world championship stages. We compete in diverse motorsport disciplines, pushing engineering excellence and innovation to the highest levels.
             </p>

@@ -47,7 +47,7 @@ export default function Activities() {
               <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
               HANDS-ON LEARNING
             </div>
-            <h1 className="text-5xl md:text-7xl font-display font-bold text-white mb-6 tracking-tight">Labs & Workshops</h1>
+            <h1 className="text-5xl md:text-7xl font-display font-bold text-white mb-6 tracking-tight text-stroke">Labs & Workshops</h1>
             <p className="text-xl text-gray-200 max-w-2xl mx-auto leading-relaxed font-medium">
               Beyond the race track, our students engage in intensive STEM learning through workshops, labs, and expert-led sessions designed to build engineering excellence.
             </p>

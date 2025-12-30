@@ -69,3 +69,8 @@
   background-position: 0 0, 10px 10px;
   background-size: 20px 20px;
 }
+
+.text-stroke {
+  -webkit-text-stroke: 1.5px black;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
