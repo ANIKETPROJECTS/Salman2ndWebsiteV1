@@ -66,7 +66,12 @@ export const api = {
   tasks: {
     list: {
       method: 'GET' as const,
-      path: '/api/tasks', // Should filter by user in backend
+      path: '/api/tasks',
+      responses: { 200: z.array(z.custom<typeof tasks.$inferSelect>()) },
+    },
+    getByUser: {
+      method: 'GET' as const,
+      path: '/api/tasks/user/:userId',
       responses: { 200: z.array(z.custom<typeof tasks.$inferSelect>()) },
     },
     update: {
@@ -75,13 +80,30 @@ export const api = {
       input: insertTaskSchema.partial(),
       responses: { 200: z.custom<typeof tasks.$inferSelect>() },
     },
+    create: {
+      method: 'POST' as const,
+      path: '/api/tasks',
+      input: insertTaskSchema,
+      responses: { 201: z.custom<typeof tasks.$inferSelect>() },
+    }
   },
   attendance: {
     list: {
       method: 'GET' as const,
-      path: '/api/attendance', // Should filter by user in backend
+      path: '/api/attendance',
       responses: { 200: z.array(z.custom<typeof attendance.$inferSelect>()) },
     },
+    getByUser: {
+      method: 'GET' as const,
+      path: '/api/attendance/user/:userId',
+      responses: { 200: z.array(z.custom<typeof attendance.$inferSelect>()) },
+    },
+    mark: {
+      method: 'POST' as const,
+      path: '/api/attendance',
+      input: insertAttendanceSchema,
+      responses: { 201: z.custom<typeof attendance.$inferSelect>() },
+    }
   },
   users: {
     get: {
@@ -89,6 +111,11 @@ export const api = {
       path: '/api/users/:id',
       responses: { 200: z.custom<typeof users.$inferSelect>(), 404: errorSchemas.notFound },
     },
+    listStudents: {
+      method: 'GET' as const,
+      path: '/api/students',
+      responses: { 200: z.array(z.custom<typeof users.$inferSelect>()) },
+    }
   },
 };
 

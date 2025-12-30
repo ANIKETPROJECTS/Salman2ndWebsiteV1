@@ -1,14 +1,17 @@
 import { db } from "./db";
-import { eq } from "drizzle-orm";
+import { eq, and } from "drizzle-orm";
 import {
   users, competitions, teams, activities, achievements, tasks, attendance, events,
-  type User, type Competition, type Team, type Activity, type Achievement, type Task, type Attendance, type Event
+  type User, type Competition, type Team, type Activity, type Achievement, type Task, type Attendance, type Event, type InsertUser
 } from "@shared/schema";
 
 export interface IStorage {
   // Users
   getUser(id: string): Promise<User | undefined>;
+  getUserByUsername(username: string): Promise<User | undefined>;
+  createUser(user: InsertUser & { id: string }): Promise<User>;
   updateUserRole(id: string, role: string): Promise<User>;
+  getStudents(): Promise<User[]>;
   
   // Competitions
   getCompetitions(): Promise<Competition[]>;
@@ -28,14 +31,17 @@ export interface IStorage {
 
   // Tasks
   getTasks(): Promise<Task[]>;
+  getTasksByUserId(userId: string): Promise<Task[]>;
+  createTask(task: any): Promise<Task>;
   updateTask(id: number, updates: Partial<Task>): Promise<Task>;
 
   // Attendance
   getAttendance(): Promise<Attendance[]>;
+  getAttendanceByUserId(userId: string): Promise<Attendance[]>;
+  markAttendance(attendance: any): Promise<Attendance>;
 }
 
 export class DatabaseStorage implements IStorage {
-  // Users
   async getUser(id: string): Promise<User | undefined> {
     const [user] = await db.select().from(users).where(eq(users.id, id));
     return user;
@@ -47,10 +53,7 @@ export class DatabaseStorage implements IStorage {
   }
 
   async createUser(insertUser: any): Promise<User> {
-    const [user] = await db.insert(users).values({
-      ...insertUser,
-      id: Math.random().toString(36).substring(2, 15) // Generate string ID for varchar
-    }).returning();
+    const [user] = await db.insert(users).values(insertUser).returning();
     return user;
   }
 
@@ -62,7 +65,10 @@ export class DatabaseStorage implements IStorage {
     return user;
   }
 
-  // Competitions
+  async getStudents(): Promise<User[]> {
+    return await db.select().from(users).where(eq(users.role, "student"));
+  }
+
   async getCompetitions(): Promise<Competition[]> {
     return await db.select().from(competitions);
   }
@@ -72,29 +78,33 @@ export class DatabaseStorage implements IStorage {
     return competition;
   }
 
-  // Activities
   async getActivities(): Promise<Activity[]> {
     return await db.select().from(activities);
   }
 
-  // Achievements
   async getAchievements(): Promise<Achievement[]> {
     return await db.select().from(achievements);
   }
 
-  // Events
   async getEvents(): Promise<Event[]> {
     return await db.select().from(events);
   }
 
-  // Teams
   async getTeams(): Promise<Team[]> {
     return await db.select().from(teams);
   }
 
-  // Tasks
   async getTasks(): Promise<Task[]> {
     return await db.select().from(tasks);
+  }
+
+  async getTasksByUserId(userId: string): Promise<Task[]> {
+    return await db.select().from(tasks).where(eq(tasks.assignedTo, userId));
+  }
+
+  async createTask(task: any): Promise<Task> {
+    const [newTask] = await db.insert(tasks).values(task).returning();
+    return newTask;
   }
 
   async updateTask(id: number, updates: Partial<Task>): Promise<Task> {
@@ -102,9 +112,17 @@ export class DatabaseStorage implements IStorage {
     return task;
   }
 
-  // Attendance
   async getAttendance(): Promise<Attendance[]> {
     return await db.select().from(attendance);
+  }
+
+  async getAttendanceByUserId(userId: string): Promise<Attendance[]> {
+    return await db.select().from(attendance).where(eq(attendance.userId, userId));
+  }
+
+  async markAttendance(att: any): Promise<Attendance> {
+    const [newAtt] = await db.insert(attendance).values(att).returning();
+    return newAtt;
   }
 }
 

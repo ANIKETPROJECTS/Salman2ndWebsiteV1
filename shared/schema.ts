@@ -1,4 +1,4 @@
-import { pgTable, text, serial, integer, timestamp, jsonb, varchar } from "drizzle-orm/pg-core";
+import { pgTable, text, serial, integer, timestamp, jsonb, varchar, boolean } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
@@ -10,7 +10,7 @@ export const users = pgTable("users", {
   firstName: text("first_name"),
   lastName: text("last_name"),
   role: text("role").default("student"), // student, parent, admin
-  childId: varchar("child_id"), // Match existing varchar type
+  childId: varchar("child_id"), // For parents to link to students
   profileImageUrl: text("profile_image_url"),
   bio: text("bio"),
   grade: text("grade"),
@@ -43,20 +43,20 @@ export const teams = pgTable("teams", {
   name: text("name").notNull(),
   competitionId: integer("competition_id").references(() => competitions.id),
   imageUrl: text("image_url"),
-  achievements: jsonb("achievements"), // Store badges/medals as JSON
+  achievements: jsonb("achievements"),
 });
 
 export const teamMembers = pgTable("team_members", {
   id: serial("id").primaryKey(),
   teamId: integer("team_id").references(() => teams.id).notNull(),
   userId: varchar("user_id").references(() => users.id).notNull(),
-  role: text("role").notNull(), // 'Driver', 'Engineer', 'Manager'
+  role: text("role").notNull(),
 });
 
 export const activities = pgTable("activities", {
   id: serial("id").primaryKey(),
   title: text("title").notNull(),
-  type: text("type").notNull(), // 'Workshop', 'Lab', 'Visit'
+  type: text("type").notNull(),
   date: timestamp("date").notNull(),
   description: text("description").notNull(),
   imageUrl: text("image_url"),
@@ -66,8 +66,8 @@ export const achievements = pgTable("achievements", {
   id: serial("id").primaryKey(),
   title: text("title").notNull(),
   date: timestamp("date").notNull(),
-  type: text("type").notNull(), // 'Trophy', 'Certificate', 'Badge'
-  recipientId: integer("recipient_id"), // Could be team or user ID contextually, simplifying for MVP
+  type: text("type").notNull(),
+  recipientId: varchar("recipient_id"), // Can be userId or teamId
   recipientType: text("recipient_type"), // 'user' or 'team'
   description: text("description"),
   imageUrl: text("image_url"),
@@ -80,7 +80,7 @@ export const tasks = pgTable("tasks", {
   assignedTo: varchar("assigned_to").references(() => users.id),
   dueDate: timestamp("due_date"),
   status: text("status").default("pending"), // pending, in_progress, completed, overdue
-  priority: text("priority").default("medium"), // low, medium, high
+  priority: text("priority").default("medium"),
 });
 
 export const attendance = pgTable("attendance", {
@@ -100,7 +100,7 @@ export const events = pgTable("events", {
 });
 
 // Schemas
-// export const insertUserSchema = createInsertSchema(users).omit({ id: true }); // Users handled by Auth
+export const insertUserSchema = createInsertSchema(users).omit({ id: true, createdAt: true, updatedAt: true });
 export const insertCompetitionSchema = createInsertSchema(competitions).omit({ id: true });
 export const insertTeamSchema = createInsertSchema(teams).omit({ id: true });
 export const insertTeamMemberSchema = createInsertSchema(teamMembers).omit({ id: true });
@@ -111,8 +111,6 @@ export const insertAttendanceSchema = createInsertSchema(attendance).omit({ id: 
 export const insertEventSchema = createInsertSchema(events).omit({ id: true });
 
 // Types
-// export type User = typeof users.$inferSelect; // Imported from auth
-// export type InsertUser = z.infer<typeof insertUserSchema>;
 export type Competition = typeof competitions.$inferSelect;
 export type Team = typeof teams.$inferSelect;
 export type Task = typeof tasks.$inferSelect;
