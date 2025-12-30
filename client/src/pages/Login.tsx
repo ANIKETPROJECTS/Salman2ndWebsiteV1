@@ -83,31 +83,31 @@ export default function Login() {
           <div className="p-10">
             <form onSubmit={handleLogin} className="space-y-6">
               <div className="space-y-2">
-                <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest ml-1">Identity Tag</label>
+                <label className="text-[10px] font-bold text-gray-700 uppercase tracking-widest ml-1">Identity Tag</label>
                 <div className="relative group">
-                  <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 group-focus-within:text-primary transition-colors" />
+                  <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 group-focus-within:text-primary transition-colors" />
                   <input
                     type="text"
                     required
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     placeholder="Username or Member ID"
-                    className="w-full pl-12 pr-4 py-4 bg-gray-50/50 border border-gray-100 rounded-2xl text-sm font-medium focus:ring-4 focus:ring-primary/10 focus:bg-white focus:border-primary/20 transition-all outline-none"
+                    className="w-full pl-12 pr-4 py-4 bg-gray-100/50 border border-gray-200 rounded-2xl text-sm font-semibold text-gray-900 placeholder:text-gray-400 focus:ring-4 focus:ring-primary/10 focus:bg-white focus:border-primary/20 transition-all outline-none"
                   />
                 </div>
               </div>
 
               <div className="space-y-2">
-                <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest ml-1">Access Key</label>
+                <label className="text-[10px] font-bold text-gray-700 uppercase tracking-widest ml-1">Access Key</label>
                 <div className="relative group">
-                  <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 group-focus-within:text-primary transition-colors" />
+                  <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 group-focus-within:text-primary transition-colors" />
                   <input
                     type="password"
                     required
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="••••••••"
-                    className="w-full pl-12 pr-4 py-4 bg-gray-50/50 border border-gray-100 rounded-2xl text-sm font-medium focus:ring-4 focus:ring-primary/10 focus:bg-white focus:border-primary/20 transition-all outline-none"
+                    className="w-full pl-12 pr-4 py-4 bg-gray-100/50 border border-gray-200 rounded-2xl text-sm font-semibold text-gray-900 placeholder:text-gray-400 focus:ring-4 focus:ring-primary/10 focus:bg-white focus:border-primary/20 transition-all outline-none"
                   />
                 </div>
               </div>
@@ -122,7 +122,7 @@ export default function Login() {
             </form>
 
             <div className="mt-8 text-center">
-              <Link href="/" className="text-gray-400 hover:text-primary text-[10px] font-bold uppercase tracking-[0.2em] transition-colors">
+              <Link href="/" className="text-gray-500 hover:text-primary text-[10px] font-bold uppercase tracking-[0.2em] transition-colors">
                 Abort and Exit to Surface
               </Link>
             </div>
