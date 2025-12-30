@@ -28,7 +28,7 @@ export default function About() {
             className="text-center mb-12"
           >
             <h1 className="text-6xl md:text-7xl font-display font-bold text-white mb-6 tracking-tight text-stroke">About The Club</h1>
-            <p className="text-xl text-gray-200 leading-relaxed font-medium">
+            <p className="text-xl text-gray-200 leading-relaxed font-medium subtext-shadow">
               A center of excellence where engineering dreams take flight and innovation thrives.
             </p>
           </motion.div>
