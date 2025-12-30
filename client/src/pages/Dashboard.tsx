@@ -625,20 +625,26 @@ export default function Dashboard() {
           <div className="space-y-8">
             <div className="flex items-center justify-between">
               <div>
-                <h2 className="text-2xl font-bold text-gray-900">Club Competitions</h2>
-                <p className="text-gray-500 mt-1">Highlighted events and ongoing challenges</p>
+                <h2 className="text-2xl font-bold text-gray-900">
+                  {role === "admin" ? "Club Competitions" : "My Competitions"}
+                </h2>
+                <p className="text-gray-500 mt-1">
+                  {role === "admin" ? "Highlighted events and ongoing challenges" : "Competitions you are currently participating in"}
+                </p>
               </div>
-              <Button className="bg-red-600 hover:bg-red-700 text-white gap-2">
-                <Plus className="w-4 h-4" /> Create Competition
-              </Button>
+              {role === "admin" && (
+                <Button className="bg-red-600 hover:bg-red-700 text-white gap-2">
+                  <Plus className="w-4 h-4" /> Create Competition
+                </Button>
+              )}
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {[
-                { title: "F1 in Schools", type: "Elite", status: "Active", participants: 24, date: "June 2025", desc: "Global multi-disciplinary STEM competition.", image: f1Img },
-                { title: "Drift Racing", type: "Technical", status: "Ongoing", participants: 18, date: "April 2025", desc: "Precision drifting and mechanical tuning.", image: driftImg },
-                { title: "4x4 RC Car Challenge", type: "Design", status: "Upcoming", participants: 42, date: "May 2025", desc: "Off-road vehicle design and navigation.", image: rcImg },
-              ].map((comp, i) => (
+                { title: "F1 in Schools", type: "Elite", status: "Active", participants: 24, date: "June 2025", desc: "Global multi-disciplinary STEM competition.", image: f1Img, roles: ["admin", "student", "parent"] },
+                { title: "Drift Racing", type: "Technical", status: "Ongoing", participants: 18, date: "April 2025", desc: "Precision drifting and mechanical tuning.", image: driftImg, roles: ["admin", "student"] },
+                { title: "4x4 RC Car Challenge", type: "Design", status: "Upcoming", participants: 42, date: "May 2025", desc: "Off-road vehicle design and navigation.", image: rcImg, roles: ["admin", "student", "parent"] },
+              ].filter(c => c.roles.includes(role || "student")).map((comp, i) => (
                 <Card key={i} className="overflow-hidden hover:shadow-2xl transition-all border-t-4 border-t-red-600">
                   <CardContent className="p-0">
                     <div className="h-48 bg-gray-200 relative overflow-hidden">
@@ -662,7 +668,9 @@ export default function Dashboard() {
                           <p className="text-lg font-bold text-blue-700">{comp.date}</p>
                         </div>
                       </div>
-                      <Button className="w-full bg-red-600 hover:bg-red-700 text-white">Manage Competition</Button>
+                      <Button className="w-full bg-red-600 hover:bg-red-700 text-white">
+                        {role === "admin" ? "Manage Competition" : "View My Progress"}
+                      </Button>
                     </div>
                   </CardContent>
                 </Card>
@@ -677,48 +685,81 @@ export default function Dashboard() {
             <Card className="bg-white shadow-sm">
               <CardHeader className="p-6 border-b border-red-50 flex flex-row items-center justify-between">
                 <div>
-                  <CardTitle className="text-lg font-bold">Daily Attendance</CardTitle>
-                  <p className="text-xs text-gray-500 mt-1">Mark student attendance for {new Date().toLocaleDateString()}</p>
+                  <CardTitle className="text-lg font-bold">
+                    {role === "admin" ? "Daily Attendance" : role === "parent" ? "Child Attendance Record" : "My Attendance History"}
+                  </CardTitle>
+                  <p className="text-xs text-gray-500 mt-1">
+                    {role === "admin" ? `Mark student attendance for ${new Date().toLocaleDateString()}` : "Track attendance across all STEM sessions"}
+                  </p>
                 </div>
                 <div className="flex gap-2">
-                  <Button variant="outline" className="border-red-200 text-red-600">View History</Button>
-                  <Button className="bg-red-600 text-white">Save Attendance</Button>
+                  {role === "admin" ? (
+                    <>
+                      <Button variant="outline" className="border-red-200 text-red-600">View History</Button>
+                      <Button className="bg-red-600 text-white">Save Attendance</Button>
+                    </>
+                  ) : (
+                    <Button variant="outline" className="border-red-200 text-red-600">Download Report</Button>
+                  )}
                 </div>
               </CardHeader>
               <CardContent className="p-0">
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead className="pl-6">Student</TableHead>
+                      <TableHead className="pl-6">{role === "admin" ? "Student" : "Date"}</TableHead>
                       <TableHead>Status</TableHead>
-                      <TableHead>Arrival Time</TableHead>
+                      <TableHead>{role === "admin" ? "Arrival Time" : "Session"}</TableHead>
                       <TableHead>Notes</TableHead>
-                      <TableHead className="text-right pr-6">Actions</TableHead>
+                      {role === "admin" && <TableHead className="text-right pr-6">Actions</TableHead>}
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {[
-                      { name: "Alex Johnson", status: "present", time: "08:00 AM" },
-                      { name: "Sarah Miller", status: "late", time: "08:15 AM" },
-                      { name: "David Chen", status: "absent", time: "-" },
-                      { name: "Elena Rodriguez", status: "present", time: "07:55 AM" },
-                    ].map((att, i) => (
-                      <TableRow key={i}>
-                        <TableCell className="pl-6 font-semibold">{att.name}</TableCell>
-                        <TableCell>
-                          <div className="flex gap-2">
-                            <Button variant={att.status === 'present' ? 'default' : 'outline'} size="sm" className={att.status === 'present' ? 'bg-green-600 hover:bg-green-700' : 'border-green-200 text-green-600'}>Present</Button>
-                            <Button variant={att.status === 'late' ? 'default' : 'outline'} size="sm" className={att.status === 'late' ? 'bg-yellow-600 hover:bg-yellow-700' : 'border-yellow-200 text-yellow-600'}>Late</Button>
-                            <Button variant={att.status === 'absent' ? 'default' : 'outline'} size="sm" className={att.status === 'absent' ? 'bg-red-600 hover:bg-red-700' : 'border-red-200 text-red-600'}>Absent</Button>
-                          </div>
-                        </TableCell>
-                        <TableCell className="text-sm font-medium text-gray-600">{att.time}</TableCell>
-                        <TableCell><input type="text" placeholder="Add note..." className="bg-transparent border-b border-gray-100 focus:border-red-500 outline-none text-sm w-full py-1" /></TableCell>
-                        <TableCell className="text-right pr-6">
-                          <Button variant="ghost" size="icon"><Clock className="w-4 h-4" /></Button>
-                        </TableCell>
-                      </TableRow>
-                    ))}
+                    {role === "admin" ? (
+                      [
+                        { name: "Alex Johnson", status: "present", time: "08:00 AM" },
+                        { name: "Sarah Miller", status: "late", time: "08:15 AM" },
+                        { name: "David Chen", status: "absent", time: "-" },
+                        { name: "Elena Rodriguez", status: "present", time: "07:55 AM" },
+                      ].map((att, i) => (
+                        <TableRow key={i}>
+                          <TableCell className="pl-6 font-semibold">{att.name}</TableCell>
+                          <TableCell>
+                            <div className="flex gap-2">
+                              <Button variant={att.status === 'present' ? 'default' : 'outline'} size="sm" className={att.status === 'present' ? 'bg-green-600 hover:bg-green-700' : 'border-green-200 text-green-600'}>Present</Button>
+                              <Button variant={att.status === 'late' ? 'default' : 'outline'} size="sm" className={att.status === 'late' ? 'bg-yellow-600 hover:bg-yellow-700' : 'border-yellow-200 text-yellow-600'}>Late</Button>
+                              <Button variant={att.status === 'absent' ? 'default' : 'outline'} size="sm" className={att.status === 'absent' ? 'bg-red-600 hover:bg-red-700' : 'border-red-200 text-red-600'}>Absent</Button>
+                            </div>
+                          </TableCell>
+                          <TableCell className="text-sm font-medium text-gray-600">{att.time}</TableCell>
+                          <TableCell><input type="text" placeholder="Add note..." className="bg-transparent border-b border-gray-100 focus:border-red-500 outline-none text-sm w-full py-1" /></TableCell>
+                          <TableCell className="text-right pr-6">
+                            <Button variant="ghost" size="icon"><Clock className="w-4 h-4" /></Button>
+                          </TableCell>
+                        </TableRow>
+                      ))
+                    ) : (
+                      [
+                        { date: "Dec 28, 2025", status: "Present", session: "F1 CAD Workshop", notes: "Completed wing design" },
+                        { date: "Dec 25, 2025", status: "Late", session: "Team Standup", notes: "Bus delay" },
+                        { date: "Dec 22, 2025", status: "Present", session: "Track Testing", notes: "-" },
+                        { date: "Dec 18, 2025", status: "Absent", session: "Robotics Intro", notes: "Medical leave" },
+                      ].map((att, i) => (
+                        <TableRow key={i}>
+                          <TableCell className="pl-6 font-semibold">{att.date}</TableCell>
+                          <TableCell>
+                            <Badge className={
+                              att.status === 'Present' ? 'bg-green-100 text-green-700' :
+                              att.status === 'Late' ? 'bg-yellow-100 text-yellow-700' : 'bg-red-100 text-red-700'
+                            }>
+                              {att.status}
+                            </Badge>
+                          </TableCell>
+                          <TableCell className="text-sm font-medium text-gray-600">{att.session}</TableCell>
+                          <TableCell className="text-sm text-gray-500">{att.notes}</TableCell>
+                        </TableRow>
+                      ))
+                    )}
                   </TableBody>
                 </Table>
               </CardContent>
@@ -732,56 +773,76 @@ export default function Dashboard() {
             <CardHeader className="p-6 border-b border-red-50">
               <div className="flex items-center justify-between">
                 <div>
-                  <CardTitle className="text-lg font-bold">All Tasks</CardTitle>
-                  <p className="text-xs text-gray-500 mt-1">{allTasks.length} total tasks</p>
+                  <CardTitle className="text-lg font-bold">
+                    {role === "admin" ? "All Tasks" : "My Active Tasks"}
+                  </CardTitle>
+                  <p className="text-xs text-gray-500 mt-1">
+                    {role === "admin" ? `${allTasks.length} total tasks` : `You have ${allTasks.filter(t => t.status !== 'completed').length} pending tasks`}
+                  </p>
                 </div>
-                <Button className="bg-red-600 hover:bg-red-700 text-white gap-2">
-                  <Plus className="w-4 h-4" /> New Task
-                </Button>
+                {role === "admin" && (
+                  <Button className="bg-red-600 hover:bg-red-700 text-white gap-2">
+                    <Plus className="w-4 h-4" /> New Task
+                  </Button>
+                )}
               </div>
             </CardHeader>
             <CardContent className="p-6">
               <div className="overflow-x-auto">
-                <table className="w-full">
-                  <thead>
-                    <tr className="border-b border-gray-200">
-                      <th className="text-left py-4 px-4 font-bold text-sm text-gray-900">Task</th>
-                      <th className="text-left py-4 px-4 font-bold text-sm text-gray-900">Assignee</th>
-                      <th className="text-left py-4 px-4 font-bold text-sm text-gray-900">Status</th>
-                      <th className="text-left py-4 px-4 font-bold text-sm text-gray-900">Priority</th>
-                      <th className="text-left py-4 px-4 font-bold text-sm text-gray-900">Due Date</th>
-                      <th className="text-left py-4 px-4 font-bold text-sm text-gray-900">Progress</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {allTasks.map((task) => (
-                      <tr key={task.id} className="border-b border-gray-100 hover:bg-gray-50 transition-colors">
-                        <td className="py-4 px-4 text-sm font-semibold text-gray-900">{task.title}</td>
-                        <td className="py-4 px-4 text-sm text-gray-600">{task.assignee}</td>
-                        <td className="py-4 px-4">
-                          <span className={`text-xs font-bold px-2 py-1 rounded-full ${
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Task</TableHead>
+                      {role === "admin" && <TableHead>Assignee</TableHead>}
+                      <TableHead>Status</TableHead>
+                      <TableHead>Priority</TableHead>
+                      <TableHead>Due Date</TableHead>
+                      <TableHead>Progress</TableHead>
+                      <TableHead className="text-right">Actions</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {allTasks.filter(t => role === "admin" || t.assignee === "Alex").map((task) => (
+                      <TableRow key={task.id}>
+                        <TableCell className="font-semibold text-gray-900">
+                          {task.title}
+                          <p className="text-[10px] text-gray-400 font-normal">{task.description}</p>
+                        </TableCell>
+                        {role === "admin" && <TableCell>{task.assignee}</TableCell>}
+                        <TableCell>
+                          <Badge className={
                             task.status === 'completed' ? 'bg-green-100 text-green-700' :
                             task.status === 'in-progress' ? 'bg-blue-100 text-blue-700' :
                             task.status === 'pending' ? 'bg-orange-100 text-orange-700' : 'bg-red-100 text-red-700'
-                          }`}>
-                            {task.status.replace('-', ' ')}
-                          </span>
-                        </td>
-                        <td className="py-4 px-4">
-                          <span className={`text-xs font-bold px-2 py-1 rounded ${task.priority === 'high' ? 'bg-red-100 text-red-700' : 'bg-orange-100 text-orange-700'}`}>
+                          }>
+                            {task.status}
+                          </Badge>
+                        </TableCell>
+                        <TableCell>
+                          <span className={`text-[10px] font-bold px-2 py-0.5 rounded uppercase ${task.priority === 'high' ? 'bg-red-50 text-red-600 border border-red-100' : 'bg-gray-50 text-gray-600 border border-gray-100'}`}>
                             {task.priority}
                           </span>
-                        </td>
-                        <td className="py-4 px-4 text-sm text-gray-600">{task.date}</td>
-                        <td className="py-4 px-4">
-                          <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
-                            <div className="h-full bg-red-500" style={{ width: `${task.progress}%` }}></div>
+                        </TableCell>
+                        <TableCell className="text-sm text-gray-500">{task.date}</TableCell>
+                        <TableCell className="w-[150px]">
+                          <div className="flex items-center gap-2">
+                            <div className="flex-1 h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                              <div className="h-full bg-red-600" style={{ width: `${task.progress}%` }} />
+                            </div>
+                            <span className="text-[10px] font-bold text-gray-500">{task.progress}%</span>
                           </div>
-                        </td>
-                      </tr>
+                        </TableCell>
+                        <TableCell className="text-right">
+                          {role === "student" && task.status !== "completed" ? (
+                            <Button size="sm" className="bg-red-600 text-white">Submit Work</Button>
+                          ) : (
+                            <Button variant="ghost" size="icon"><MoreVertical className="w-4 h-4" /></Button>
+                          )}
+                        </TableCell>
+                      </TableRow>
                     ))}
-                  </tbody>
-                </table>
+                  </TableBody>
+                </Table>
               </div>
             </CardContent>
           </Card>
