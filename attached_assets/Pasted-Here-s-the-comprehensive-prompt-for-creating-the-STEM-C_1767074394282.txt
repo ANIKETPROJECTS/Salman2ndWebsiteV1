@@ -1,0 +1,828 @@
+Here's the comprehensive prompt for creating the STEM Club website:
+
+---
+
+**Create a comprehensive JSSIS F1 STEM Club website with an integrated web application for competition management. The website should have a modern, playful, student-friendly design with RED and WHITE as the primary color scheme (graphs and charts can use additional colors for clarity). The UI should be visually rich with images, animations, and an engaging interface suitable for school students.**
+
+---
+
+## **COLOR SCHEME & DESIGN THEME:**
+- **Primary colors:** RED (#EF4444 or #DC2626) and WHITE (#FFFFFF)
+- Use red for headers, buttons, accents, and key elements
+- White backgrounds with red accents
+- Secondary colors allowed for graphs, charts, status indicators (green for complete, yellow for pending, blue for info, orange for warnings)
+- **Playful & Energetic Design:** Fun animations, engaging visuals, dynamic layouts
+- **Image-Heavy Interface:** Large hero images, photo galleries, competition images throughout
+- **Student-Friendly:** Colorful, interactive, easy to understand, gamification elements
+- Include racing-themed graphics, F1 car illustrations, trophy icons, speed elements
+- Use rounded corners, card shadows, gradient effects, hover animations
+- Incorporate motion graphics, loading animations, celebration effects
+
+---
+
+## **WEBSITE REQUIREMENTS:**
+
+### **PUBLIC-FACING PAGES:**
+
+**1. Landing/Home Page**
+- Large hero section with F1 car images and racing theme
+- Animated banner showcasing "National & World Champions"
+- Highlight stats: "8th in World", "1st in Asia", "140+ Students", "15 Alumni"
+- Featured competition cards with images (F1 in School, 4x4, Drift Racing, Robotics)
+- Photo slider of recent activities and achievements
+- Video section showcasing club activities
+- Recent achievements ticker with trophy animations
+- Call-to-action buttons: "Join Our Club" and "View Achievements"
+- Testimonials from students with photos
+- Upcoming events calendar preview
+- Partners and sponsors logos section
+
+**2. Competitions Page**
+- **F1 in Schools** - Detailed information with images, videos, rules, past results
+- **4x4 RC Car Challenge** - Competition details, team photos, achievements
+- **Drift Racing** - Information and gallery
+- **Robotics Competitions** - Details and achievements
+- For each competition: Large header images, description, requirements, timeline, past winners with photos, achievement badges
+- Filter by competition type and year
+- Competition results table with downloadable PDFs
+
+**3. Activities Page**
+- Grid gallery layout with large images
+- Categories: STEM Labs, Track Testing, Team Meetings, Workshops, Guest Visits, Manufacturing Sessions
+- Each activity card shows: Image, title, date, description, participating students
+- Video galleries for activities
+- Filter by activity type, date range
+- Search functionality
+- Popup modals for full-size images and details
+
+**4. Achievements Page**
+- **Trophy showcase** with 3D-style trophy images
+- **Certificates wall** - Grid of certificate images
+- **Awards timeline** - Visual timeline with achievement cards
+- **Competition results** - Tables and podium graphics
+- Filter by: Year, Competition Type, Category, Team
+- Achievement statistics with animated counters
+- Hall of Fame section for top performers with photos
+- Download certificates and award documents
+
+**5. Gallery Page**
+- Masonry-style photo grid with large, high-quality images
+- Video gallery section with thumbnails
+- Categories: Competitions, Activities, Workshops, Guest Visits, Team Photos, Events
+- Lightbox for full-screen viewing
+- Filter and search by date, event, team
+- Social media share buttons
+- Download high-resolution images option
+
+**6. Timeline Page (NEW - Based on Club History)**
+Create an interactive, visual timeline showcasing the complete club journey from January 2020 to present:
+
+**Timeline Layout:**
+- Vertical scrolling timeline with alternating left-right cards
+- Large milestone markers with dates and icons
+- Background with racing track theme
+- Animated appearance as user scrolls
+
+**Key Timeline Sections to Include:**
+
+**2020 - The Beginning:**
+- January 2020: Club inception with 6 students (image placeholder)
+- February 2020: First teams formed, training begins
+- March 2020: COVID-19 pandemic impact
+
+**2021 - The Comeback:**
+- June 2021: Hybrid mode restart, 4x4 segment introduction
+- 22 teams national championship at JSSIS auditorium
+- Team ACCELERATORS wins Terrain Challenge (trophy image)
+- September 2021: Team NAUTILUS formation (team photo)
+
+**2022 - National Champions:**
+- January 2022: F1 Ambassadors appointed (group photo)
+- May 2022: First successful testing
+- June 26, 2022: **NATIONAL FINALS 2022** (large feature card)
+  - 1.074 seconds - FASTEST CAR TIMING
+  - UAE National Championship won
+  - Celebration photos
+- September 2022: Club expansion, track ordering, Abu Dhabi GP participation
+
+**2023 - World Stage:**
+- January 2023: Official F1 room inauguration by CEO (photo)
+- March 2023: First resin printer acquisition, Nautilus Junior Programme launch
+- April 2023: 100+ students joined, 140+ total members, 15 alumni
+- May 2023: VIP visits - His Holiness and ISRO Scientist (photos)
+  - Team V3 established
+  - 4 teams working simultaneously
+- June 13-15, 2023: National Finals
+  - **Team AEOLIAN - National Champions**
+  - **Team V3 - 4x4 Development Champions**
+- September 5, 2023: Departure for Singapore World Finals
+
+**WORLD FINALS 2023 - SINGAPORE (Highlight Section):**
+- Large banner with Singapore backdrop
+- Achievement badges:
+  - 🏆 8th Place Globally (1.2M participants worldwide)
+  - 🥇 1st Place in Asia
+  - 🥇 1st Place in GCC
+  - 🏎️ 4th Fastest Track Time in World
+  - ⚡ Fastest Race Time in Entire World
+  - 🎯 Most Consistent Reaction Time in World
+- Team photos in Singapore
+- Award ceremony images
+- Media coverage snippets
+
+**Key Statistics Dashboard on Timeline:**
+- Starting strength (2020): 6 students → Current (2023): 140+ students
+- Active alumni: 15 members
+- Total teams formed: 6 major teams
+- National Championships: 3
+- World Finals participation: 1
+- World ranking: 8th globally
+- Track record: 1.074 seconds
+
+**Interactive Timeline Features:**
+- Click on each milestone to expand full details
+- Photo galleries for each major event
+- Video embeds for competitions
+- Achievement badges and medals
+- Download timeline as PDF
+- Print-friendly version
+- Share specific milestones on social media
+
+**7. About Page**
+- Club history with timeline graphics and photos
+- Mission and vision with inspiring images
+- Team structure with organogram
+- Faculty coordinators with photos and bios
+- Student leaders with photos and roles
+- Alumni section with success stories and photos
+- Club statistics with animated graphs
+- Infrastructure: F1 room, track, equipment (photo gallery)
+- Partners and sponsors with logos
+
+**8. Contact Page**
+- Contact form with validation
+- Club address with interactive map
+- Phone, email, social media links
+- Meet the team section with photos
+- FAQ accordion
+- Office hours and meeting schedule
+- Social media feed integration
+
+---
+
+## **WEB APPLICATION (BEHIND LOGIN):**
+
+### **LOGIN PAGE:**
+- Playful login interface with F1 car graphics
+- Three role selection cards: Student, Parent, Admin
+- Each card with icon, color coding, and description
+- Demo credentials shown for each role
+- Animated background with racing elements
+- "Forgot Password" and "Request Access" links
+- School logo and club branding
+
+---
+
+### **THREE USER ROLES WITH SEPARATE DASHBOARDS:**
+
+---
+
+## **STUDENT DASHBOARD:**
+
+**Dashboard Home:**
+- Personalized welcome banner with student photo and name
+- Quick stats cards: Tasks Assigned, Competitions, Attendance %, Achievements
+- Interactive dashboard with tabs and sections
+
+**My Tasks Section:**
+- Task cards with images and icons
+- Each task shows: Title, Description, Assigned Date, Due Date, Status (color-coded)
+- Status indicators: 🔴 Overdue, 🟡 In Progress, 🟢 Completed, 🔵 Not Started
+- Progress bar for each task
+- Filter by status, due date, priority
+- Mark tasks as complete
+- Add notes and attachments
+- Upload completed work
+
+**My Competitions Section:**
+- Competition cards with large images
+- Current competitions with status badges
+- Team assignment with team member photos
+- Competition details: Category, Timeline, Next Milestone
+- Role in team displayed
+- Past competition results with medals/trophies
+- Performance metrics with graphs
+
+**My Attendance:**
+- Monthly calendar view with color-coded attendance
+- Attendance percentage with circular progress indicator
+- Attendance history table
+- Present/Absent/Late statistics with pie chart
+- Download attendance report
+
+**My Resources:**
+- Resource library with file icons and thumbnails
+- Categories: Training Materials, Competition Guidelines, Videos, Presentations
+- Download and preview files
+- Recently accessed resources
+- Search and filter functionality
+
+**My Progress:**
+- Progress timeline with milestones
+- Skills acquired with badges
+- Certificates earned (image gallery)
+- Achievement showcase
+- Performance graphs over time
+- Feedback from mentors
+- Goals and targets tracking
+
+**Upcoming Events:**
+- Event cards with images and dates
+- Calendar integration
+- Event details: Date, Time, Location, Description
+- RSVP functionality
+- Add to personal calendar
+- Reminders and notifications
+
+**My Profile:**
+- Profile photo upload
+- Personal information
+- Emergency contacts
+- Team history
+- Edit profile functionality
+
+---
+
+## **PARENT DASHBOARD:**
+
+**Dashboard Home:**
+- Child selector dropdown (if multiple children)
+- Welcome message with child's photo
+- Overview cards: Current Competitions, Task Completion Rate, Attendance, Recent Achievements
+
+**Child's Competitions:**
+- Competition participation cards with images
+- Current competition status
+- Team details with team member photos
+- Upcoming competition schedule
+- Past competition results with photos
+- Performance analysis with graphs
+
+**Child's Tasks & Targets:**
+- All assigned tasks displayed
+- Task completion status with progress bars
+- Due dates and priorities
+- View task details and requirements
+- Completion history
+- Overdue tasks highlighted in red
+
+**Attendance Records:**
+- Monthly calendar view
+- Attendance statistics with charts
+- Attendance percentage
+- Attendance history table
+- Download attendance reports
+- Email notifications for absences
+
+**Progress & Achievements:**
+- Skills development tracking
+- Certificates and awards gallery
+- Achievement timeline
+- Progress reports by month/term
+- Performance metrics with graphs
+- Mentor feedback
+- Areas of improvement
+
+**Photo Gallery:**
+- Photos of child's participation
+- Organized by event/competition
+- Download photos
+- Share on social media
+- Video clips of activities
+
+**Upcoming Events:**
+- Events child is registered for
+- Event details with images
+- Calendar view
+- Add to calendar
+- Transportation and logistics info
+
+**Notifications:**
+- Recent announcements
+- Task assignments
+- Competition updates
+- Attendance alerts
+- Achievement notifications
+- Mark as read functionality
+
+**Communication:**
+- Message faculty/coordinators
+- View announcements
+- Download reports and documents
+- Request meetings
+
+---
+
+## **ADMIN DASHBOARD:**
+
+**Dashboard Home:**
+- Statistics overview with large numbers and icons
+- Quick actions: Add Student, Create Competition, Mark Attendance, Upload Content
+- Recent activity feed
+- Notifications panel
+- Analytics graphs
+
+**Analytics Dashboard:**
+- **Student Participation Graph** (Bar chart - multi-color)
+  - Participation by competition
+  - Month-over-month trends
+- **Attendance Statistics** (Line graph - multi-color)
+  - Overall attendance trends
+  - By grade/team
+- **Task Completion Rates** (Pie chart - multi-color)
+  - Completed vs Pending vs Overdue
+- **Competition Performance** (Multi-line graph)
+  - Team performance over time
+- **Student Enrollment Growth** (Area chart)
+- **Active vs Alumni Members** (Donut chart)
+- Export charts as images
+- Customizable date ranges
+- Filter by team, grade, competition
+
+**Student Management:**
+- Student list with photos in grid/table view
+- Search by name, grade, team
+- Filter by status, team, grade
+- Add new student form with photo upload
+- Edit student details
+- View student profile (full details, history, achievements)
+- Delete/Archive students
+- Bulk operations (import CSV, export data)
+- Student performance overview
+
+**Competition Management:**
+- Competition cards with images
+- Create new competition form:
+  - Competition name, category, date, description
+  - Upload competition images
+  - Set rules and requirements
+- Update ongoing competitions:
+  - Change status, update timeline
+  - Upload results
+- Assign students to competitions:
+  - Multi-select students
+  - Create teams
+  - Assign roles
+- Competition dashboard for each:
+  - Registered students with photos
+  - Teams formed
+  - Timeline and milestones
+  - Upload results and rankings
+- Archive completed competitions
+
+**Task Assignment System:**
+- Create task form:
+  - Task title, description
+  - Due date, priority
+  - Attach files/resources
+- Assign to:
+  - Individual students (searchable dropdown)
+  - Multiple students (multi-select)
+  - Entire team
+  - Entire grade
+- Task management table:
+  - View all tasks
+  - Filter by status, assignee, due date
+  - Edit/Delete tasks
+  - Track completion rates
+- Task templates for common assignments
+
+**Target Setting:**
+- Set goals for students:
+  - Individual targets
+  - Team targets
+  - Competition targets
+- Target categories: Attendance, Task Completion, Skill Development, Competition Performance
+- Track progress with visual indicators
+- Send reminders for targets
+- Generate target achievement reports
+
+**Attendance Management:**
+- Calendar view for marking attendance
+- Daily attendance sheet with student photos
+- Mark: Present, Absent, Late, Excused
+- Bulk mark attendance
+- Attendance history
+- Generate attendance reports
+- Export attendance data
+- Send absence notifications to parents
+- Attendance statistics dashboard
+
+**Progress Tracking:**
+- View all students progress
+- Individual student progress pages
+- Skills assessment forms
+- Add mentor feedback
+- Track milestones achieved
+- Generate progress reports (PDF)
+- Compare student performance
+- Identify struggling students
+- Set improvement plans
+
+**Content Management:**
+- **Photo Upload:**
+  - Drag-and-drop interface
+  - Bulk upload
+  - Add captions, tags, date
+  - Organize by event/competition
+  - Photo gallery manager
+- **Video Upload:**
+  - Upload videos
+  - Video thumbnails
+  - Add descriptions
+- **Certificate Upload:**
+  - Upload certificate images
+  - Tag students
+  - Organize by competition
+- **Resource Upload:**
+  - Training materials, guidelines
+  - Categorize resources
+- Media library with preview
+- Delete/Edit uploaded content
+
+**Announcements & Notifications:**
+- Create announcement:
+  - Title, description
+  - Upload images
+  - Select recipients: All, Students, Parents, Specific Team
+- Schedule announcements
+- Push notifications
+- Email notifications
+- SMS notifications (optional)
+- Announcement history
+- View read/unread status
+
+**Parent Account Management:**
+- Parent list with contact info
+- Add new parent account
+- Link parent to student(s)
+- Edit parent details
+- Parent login credentials management
+- Send welcome emails
+- View parent activity
+- Deactivate accounts
+
+**Reports & Export:**
+- **Generate Reports:**
+  - Student progress reports
+  - Attendance reports
+  - Competition performance reports
+  - Task completion reports
+  - Overall club statistics
+- **Export Options:**
+  - PDF format
+  - Excel spreadsheets
+  - CSV files
+- Print-friendly layouts
+- Custom date ranges
+- Filter by team, grade, competition
+- Schedule automated reports
+
+**Settings:**
+- Club information settings
+- User management
+- Role permissions
+- Email templates
+- Notification preferences
+- System configurations
+
+---
+
+## **KEY FEATURES TO IMPLEMENT:**
+
+**Authentication & Security:**
+- Secure login with password encryption
+- Role-based access control (Student, Parent, Admin)
+- Session management
+- Password reset functionality
+- Remember me option
+- Two-factor authentication (optional)
+
+**Responsive Design:**
+- Mobile-first approach
+- Tablet optimization
+- Desktop full features
+- Touch-friendly buttons and interactions
+- Collapsible menus for mobile
+- Optimized images for different screen sizes
+
+**Real-time Features:**
+- Live competition updates
+- Real-time notifications
+- Live attendance marking
+- Instant task assignment updates
+
+**File Management:**
+- Upload photos (JPG, PNG, GIF)
+- Upload videos (MP4, MOV)
+- Upload documents (PDF, DOC, PPT)
+- Image compression and optimization
+- Video thumbnail generation
+- File size limits and validation
+- Preview before upload
+- Progress indicators for uploads
+
+**Calendar Integration:**
+- Event calendar with month/week/day views
+- Add events with details
+- Color-coded event types
+- Export to Google Calendar, iCal
+- Event reminders
+- RSVP tracking
+
+**Notification System:**
+- In-app notifications with badges
+- Email notifications
+- Push notifications (web)
+- Notification preferences per user
+- Mark as read/unread
+- Notification history
+- Real-time notification updates
+
+**Search & Filter:**
+- Global search functionality
+- Filter by multiple criteria
+- Advanced search options
+- Search suggestions
+- Recent searches
+- Save search filters
+
+**Data Visualization:**
+- Interactive charts using Chart.js or Recharts
+- Bar charts, line graphs, pie charts, donut charts
+- Animated chart transitions
+- Hover tooltips
+- Zoom and pan for detailed view
+- Export charts as images
+- Responsive charts for mobile
+
+**Print & Export:**
+- Print-friendly report layouts
+- Export to PDF with proper formatting
+- Export data to Excel/CSV
+- Batch export options
+- Include charts and images in exports
+
+**Gamification (Student-Friendly):**
+- Achievement badges with fun icons
+- Points system for task completion
+- Leaderboards (optional)
+- Progress bars everywhere
+- Celebration animations on achievements
+- Stickers and rewards
+- Level-up system
+
+**Animations & Interactions:**
+- Smooth page transitions
+- Hover effects on cards and buttons
+- Loading animations with F1 car or racing theme
+- Skeleton screens during load
+- Toast notifications with animations
+- Confetti effect on achievements
+- Parallax scrolling effects
+- Animated counters for statistics
+- Micro-interactions on clicks
+
+---
+
+## **DESIGN SPECIFICATIONS:**
+
+**Color Palette:**
+- **Primary Red:** #EF4444, #DC2626, #B91C1C
+- **White:** #FFFFFF, #F9FAFB
+- **Success Green:** #10B981 (for completed tasks, high attendance)
+- **Warning Yellow:** #F59E0B (for pending items)
+- **Info Blue:** #3B82F6 (for informational elements)
+- **Danger Red (darker):** #991B1B (for overdue, critical alerts)
+- **Gray tones:** #6B7280, #9CA3AF, #D1D5DB for secondary text and borders
+
+**Typography:**
+- Headings: Bold, large, playful fonts (e.g., Poppins, Montserrat)
+- Body text: Clean, readable fonts (e.g., Inter, Roboto)
+- Font sizes: Large for headings, medium for content, small for captions
+- Font weights: Bold for emphasis, regular for body
+
+**Layout:**
+- Card-based design with shadows and rounded corners
+- Grid layouts for galleries and dashboards
+- Flexbox and CSS Grid for responsive layouts
+- Spacious padding and margins
+- Clear visual hierarchy
+- Consistent spacing system (4px, 8px, 16px, 24px, 32px)
+
+**Components:**
+- Large, colorful buttons with icons
+- Interactive cards with hover effects
+- Modal dialogs for forms and details
+- Dropdown menus with smooth animations
+- Toast notifications at top-right
+- Progress bars and circular progress indicators
+- Badges for status and counts
+- Avatars with photos or initials
+- Tabs for organized content
+- Accordions for expandable sections
+- Carousels for image slideshows
+- Tooltips for additional info
+
+**Icons:**
+- Use icon library like Lucide React or Heroicons
+- Large, colorful icons for visual appeal
+- Icons in all buttons and cards
+- Trophy, medal, star icons for achievements
+- Racing-themed icons where applicable
+
+**Images & Media:**
+- High-quality placeholder images for competitions, activities
+- Image lazy loading for performance
+- Image zoom on click
+- Video players with controls
+- Image carousels and sliders
+- Gallery grid with masonry layout
+- Lightbox for full-screen viewing
+
+**Animations:**
+- Fade-in animations on page load
+- Slide-in animations for modals
+- Bounce effect on buttons
+- Pulse effect on notifications
+- Loading spinners with F1 car or racing theme
+- Progress bar animations
+- Confetti on achievements
+- Smooth scroll behavior
+
+---
+
+## **TECHNICAL IMPLEMENTATION:**
+
+**Frontend Framework:**
+- React with functional components and hooks
+- React Router for navigation
+- State management with useState, useContext
+- Component library: Tailwind CSS for styling
+
+**Key React Patterns:**
+- Reusable components (Button, Card, Modal, etc.)
+- Custom hooks for common logic
+- Context API for global state (user auth, theme)
+- Conditional rendering based on user role
+- Form handling with validation
+
+**Data Structure:**
+- Mock data for students, parents, competitions, tasks, attendance
+- Local state management (can be upgraded to backend later)
+- Sample data demonstrating all features
+
+**Forms & Validation:**
+- Controlled form components
+- Real-time validation
+- Error messages in red
+- Success messages in green
+- Required field indicators
+- Input masking where applicable
+
+**Performance:**
+- Image optimization
+- Lazy loading components
+- Memoization for expensive calculations
+- Efficient re-rendering strategies
+
+**Accessibility:**
+- Semantic HTML
+- ARIA labels where needed
+- Keyboard navigation support
+- Focus indicators
+- Alt text for images
+- Color contrast compliance
+
+---
+
+## **MOCK DATA TO INCLUDE:**
+
+**Students:**
+- At least 10-15 students with names, photos (placeholders), grades, teams
+- Various attendance records
+- Different task completion statuses
+- Competition participation history
+
+**Competitions:**
+- F1 in Schools 2023 (completed)
+- 4x4 RC Championship 2023 (completed)
+- Robotics Competition 2024 (ongoing)
+- Drift Racing Challenge 2024 (upcoming)
+- Each with images, teams, results
+
+**Tasks:**
+- Design car prototype (assigned, in progress)
+- Complete CAD training (assigned, overdue)
+- Prepare presentation (completed)
+- Test RC car (not started)
+- Various due dates and statuses
+
+**Achievements:**
+- National Championship 2022 (certificate image)
+- World Finals 8th Place 2023 (trophy image)
+- Fastest Car Award (medal image)
+- Multiple team and individual achievements
+
+**Attendance:**
+- Sample attendance records for current month
+- Various present/absent patterns
+
+**Events:**
+- Team meeting next week
+- Competition in 2 months
+- Workshop next month
+- Alumni guest lecture
+
+**Gallery Images:**
+- Competition photos (10-20 placeholder images)
+- Workshop photos
+- Team photos
+- Award ceremony photos
+- F1 room and track photos
+
+---
+
+## **USER FLOWS:**
+
+**Public Visitor Flow:**
+Home → Browse Competitions → View Gallery → View Timeline → Read About → Contact → Login
+
+**Student Flow:**
+Login → Dashboard → View Tasks → Mark Task Complete → Check Competitions → View Progress → Check Attendance → View Gallery
+
+**Parent Flow:**
+Login → Select Child → View Dashboard → Check Tasks → View Attendance → View Competition Status → View Achievements → Download Reports
+
+**Admin Flow:**
+Login → Analytics Dashboard → Add Student → Create Competition → Assign Tasks → Mark Attendance → Upload Photos → Send Announcement → Generate Reports
+
+---
+
+## **SPECIAL ELEMENTS FOR PLAYFUL STUDENT THEME:**
+
+1. **F1 Racing Theme:**
+   - Racing track borders
+   - Checkered flag icons
+   - Car illustrations
+   - Speed lines graphics
+   - Tire marks backgrounds
+
+2. **Fun Interactions:**
+   - Buttons that grow on hover
+   - Cards that lift on hover
+   - Celebration confetti on achievements
+   - Animated trophy on wins
+   - Racing car animation on loading screens
+
+3. **Vibrant Visuals:**
+   - Colorful gradients
+   - Bold shadows
+   - Bright accent colors
+   - Large hero images
+   - Image overlays with text
+
+4. **Student Engagement:**
+   - Progress bars for everything
+   - Achievement badges collection
+   - Fun loading messages ("Revving engines...", "Shifting gears...")
+   - Encouraging messages ("Great job!", "Keep going!", "You're awesome!")
+   - Emoji use in appropriate places 🏆 🏎️ ⚡ 🎯
+
+5. **Visual Hierarchy:**
+   - Large, eye-catching headers
+   - Colorful section dividers
+   - Icon-heavy interface
+   - Minimal text, maximum visuals
+   - Clear call-to-action buttons
+
+---
+
+## **FINAL NOTES:**
+
+- Create a fully functional, production-ready React application
+- Include ALL pages and features mentioned above
+- Use placeholder images with proper attributions or clearly mark as "[Image: Description]"
+- Implement smooth transitions between all pages
+- Ensure the interface is intuitive and requires minimal instructions
+- Make it visually stunning and engaging for students aged 10-18
+- Include the complete club timeline from January 2020 to September 2023 with all achievements
+- Showcase the World Finals achievement prominently throughout the site
+- Use red and white theme consistently with playful, energetic design
+- Every feature should be fully functional with mock data
+- Code should be clean, well-organized, and commented
+- Application should be responsive across all devices
+
+---
+
+**Build an amazing, visually rich, student-friendly STEM club website that celebrates achievements, engages students, and provides comprehensive competition management for the JSSIS F1 STEM Club!**
