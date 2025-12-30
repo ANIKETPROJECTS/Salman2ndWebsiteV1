@@ -203,30 +203,6 @@ export default function Dashboard() {
           </div>
         </header>
 
-        {/* Tab Navigation */}
-        <div className="flex gap-2 mb-8 overflow-x-auto pb-2">
-          {[
-            { id: "overview", label: "Overview", icon: LayoutDashboard },
-            { id: "analytics", label: "Analytics", icon: TrendingUp },
-            { id: "students", label: "Students", icon: Users },
-            { id: "competitions", label: "Competitions", icon: Trophy },
-            { id: "tasks", label: "All Tasks", icon: CheckSquare },
-            { id: "attendance", label: "Attendance", icon: UserCheck },
-            { id: "events", label: "Events", icon: Calendar },
-            { id: "messages", label: "Messages", icon: MessageSquare },
-            { id: "resources", label: "Resources", icon: BookOpen },
-          ].map((tab) => (
-            <Button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              variant={activeTab === tab.id ? "default" : "outline"}
-              className={`whitespace-nowrap gap-2 ${activeTab === tab.id ? "bg-red-600 text-white border-red-600" : "border-red-200 text-gray-700 hover:border-red-400"}`}
-            >
-              <tab.icon className="w-4 h-4" />
-              {tab.label}
-            </Button>
-          ))}
-        </div>
 
         {/* OVERVIEW TAB */}
         {activeTab === "overview" && (
