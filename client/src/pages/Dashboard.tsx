@@ -133,7 +133,7 @@ export default function Dashboard() {
         <header className="flex justify-between items-center mb-10">
           <div>
             <h1 className="text-2xl font-bold text-gray-900">
-              Welcome back, {user.firstName || user.username}!
+              Welcome back, {user.firstName || user.email?.split('@')[0] || "User"}!
             </h1>
             <p className="text-gray-500">Here's what's happening with your team today.</p>
           </div>
@@ -143,7 +143,7 @@ export default function Dashboard() {
               <Bell className="w-5 h-5 text-gray-500" />
             </button>
             <div className="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center font-bold">
-              {(user.firstName?.[0] || user.username[0]).toUpperCase()}
+              {(user.firstName?.[0] || user.email?.[0] || "U").toUpperCase()}
             </div>
           </div>
         </header>
