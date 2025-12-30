@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "../hooks/use-auth";
 import { useLocation, Link } from "wouter";
 import { 
@@ -76,9 +76,27 @@ function Sidebar({ role, onLogout }: { role?: string; onLogout: () => void }) {
 export default function Dashboard() {
   const { user, logoutMutation } = useAuth();
   const [location, setLocation] = useLocation();
-  const [activeTab, setActiveTab] = useState("overview");
+  const [activeTab, setActiveTab] = useState(() => {
+    if (location.includes("/analytics")) return "analytics";
+    if (location.includes("/students")) return "students";
+    if (location.includes("/competitions")) return "competitions";
+    if (location.includes("/tasks")) return "tasks";
+    if (location.includes("/attendance")) return "attendance";
+    return "overview";
+  });
+
   const [selectedTeam, setSelectedTeam] = useState<string | null>(null);
   
+  // Update activeTab when location changes
+  useEffect(() => {
+    if (location.includes("/analytics")) setActiveTab("analytics");
+    else if (location.includes("/students")) setActiveTab("students");
+    else if (location.includes("/competitions")) setActiveTab("competitions");
+    else if (location.includes("/tasks")) setActiveTab("tasks");
+    else if (location.includes("/attendance")) setActiveTab("attendance");
+    else if (location === "/dashboard") setActiveTab("overview");
+  }, [location]);
+
   if (!user) {
     setLocation("/login");
     return null;
@@ -189,8 +207,11 @@ export default function Dashboard() {
         <div className="flex gap-2 mb-8 overflow-x-auto pb-2">
           {[
             { id: "overview", label: "Overview", icon: LayoutDashboard },
-            { id: "team", label: "Team Members", icon: Users },
+            { id: "analytics", label: "Analytics", icon: TrendingUp },
+            { id: "students", label: "Students", icon: Users },
+            { id: "competitions", label: "Competitions", icon: Trophy },
             { id: "tasks", label: "All Tasks", icon: CheckSquare },
+            { id: "attendance", label: "Attendance", icon: UserCheck },
             { id: "events", label: "Events", icon: Calendar },
             { id: "messages", label: "Messages", icon: MessageSquare },
             { id: "resources", label: "Resources", icon: BookOpen },
@@ -320,58 +341,234 @@ export default function Dashboard() {
           </div>
         )}
 
-        {/* TEAM TAB */}
-        {activeTab === "team" && (
-          <div className="space-y-6">
+        {/* ANALYTICS TAB */}
+        {activeTab === "analytics" && (
+          <div className="space-y-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <Card className="bg-white border-l-4 border-l-red-500">
+                <CardContent className="p-6">
+                  <h3 className="text-sm font-bold text-gray-500 uppercase tracking-wider">Overall Efficiency</h3>
+                  <div className="flex items-end gap-2 mt-2">
+                    <p className="text-3xl font-bold text-gray-900">88%</p>
+                    <span className="text-xs font-bold text-green-600 mb-1">↑ 12%</span>
+                  </div>
+                  <div className="w-full h-2 bg-gray-100 rounded-full mt-4">
+                    <div className="h-full bg-red-500 rounded-full" style={{ width: '88%' }}></div>
+                  </div>
+                </CardContent>
+              </Card>
+              <Card className="bg-white border-l-4 border-l-blue-500">
+                <CardContent className="p-6">
+                  <h3 className="text-sm font-bold text-gray-500 uppercase tracking-wider">Active Participation</h3>
+                  <div className="flex items-end gap-2 mt-2">
+                    <p className="text-3xl font-bold text-gray-900">94%</p>
+                    <span className="text-xs font-bold text-green-600 mb-1">↑ 5%</span>
+                  </div>
+                  <div className="w-full h-2 bg-gray-100 rounded-full mt-4">
+                    <div className="h-full bg-blue-500 rounded-full" style={{ width: '94%' }}></div>
+                  </div>
+                </CardContent>
+              </Card>
+              <Card className="bg-white border-l-4 border-l-green-500">
+                <CardContent className="p-6">
+                  <h3 className="text-sm font-bold text-gray-500 uppercase tracking-wider">Success Rate</h3>
+                  <div className="flex items-end gap-2 mt-2">
+                    <p className="text-3xl font-bold text-gray-900">92%</p>
+                    <span className="text-xs font-bold text-green-600 mb-1">↑ 8%</span>
+                  </div>
+                  <div className="w-full h-2 bg-gray-100 rounded-full mt-4">
+                    <div className="h-full bg-green-500 rounded-full" style={{ width: '92%' }}></div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
             <Card className="bg-white shadow-sm">
               <CardHeader className="p-6 border-b border-red-50">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <CardTitle className="text-lg font-bold">Team Members</CardTitle>
-                    <p className="text-xs text-gray-500 mt-1">{teamMembers.length} total members</p>
+                <CardTitle className="text-lg font-bold">Performance Breakdown</CardTitle>
+              </CardHeader>
+              <CardContent className="p-6 h-[400px]">
+                <ResponsiveContainer width="100%" height="100%">
+                  <AreaChart data={performanceData}>
+                    <defs>
+                      <linearGradient id="colorPerf" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="#dc2626" stopOpacity={0.1}/>
+                        <stop offset="95%" stopColor="#dc2626" stopOpacity={0}/>
+                      </linearGradient>
+                    </defs>
+                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
+                    <XAxis dataKey="month" />
+                    <YAxis />
+                    <Tooltip />
+                    <Area type="monotone" dataKey="performance" stroke="#dc2626" fillOpacity={1} fill="url(#colorPerf)" />
+                    <Area type="monotone" dataKey="quality" stroke="#3b82f6" fillOpacity={0} />
+                  </AreaChart>
+                </ResponsiveContainer>
+              </CardContent>
+            </Card>
+          </div>
+        )}
+
+        {/* STUDENTS TAB */}
+        {activeTab === "students" && (
+          <div className="space-y-6">
+            <Card className="bg-white shadow-sm">
+              <CardHeader className="p-6 border-b border-red-50 flex flex-row items-center justify-between gap-4">
+                <div>
+                  <CardTitle className="text-lg font-bold">Student Directory</CardTitle>
+                  <p className="text-xs text-gray-500 mt-1">Manage club members and their performance</p>
+                </div>
+                <div className="flex gap-2">
+                  <div className="relative">
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                    <input type="text" placeholder="Search students..." className="pl-10 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-red-500" />
                   </div>
                   <Button className="bg-red-600 hover:bg-red-700 text-white gap-2">
-                    <Plus className="w-4 h-4" /> Add Member
+                    <Plus className="w-4 h-4" /> Add Student
                   </Button>
                 </div>
               </CardHeader>
-              <CardContent className="p-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {teamMembers.map((member) => (
-                    <div key={member.id} className="p-6 border border-red-100 rounded-lg hover:shadow-lg transition-all">
-                      <div className="flex items-center gap-4 mb-4">
-                        <div className="w-12 h-12 bg-red-600 text-white rounded-full flex items-center justify-center text-lg font-bold shadow-lg">
-                          {member.avatar}
-                        </div>
-                        <div className="flex-1">
-                          <h3 className="font-bold text-gray-900">{member.name}</h3>
-                          <p className="text-xs text-gray-500">{member.role}</p>
-                          <div className="flex items-center gap-1 mt-1">
-                            <div className={`w-2 h-2 rounded-full ${member.status === 'active' ? 'bg-green-500' : 'bg-yellow-500'}`}></div>
-                            <span className="text-xs text-gray-500 capitalize">{member.status}</span>
-                          </div>
-                        </div>
+              <CardContent className="p-0">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead className="pl-6">Student Name</TableHead>
+                      <TableHead>Grade</TableHead>
+                      <TableHead>Parent Name</TableHead>
+                      <TableHead>Active Projects</TableHead>
+                      <TableHead>Attendance</TableHead>
+                      <TableHead>Score</TableHead>
+                      <TableHead className="text-right pr-6">Actions</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {[
+                      { name: "Alex Johnson", grade: "10th", parent: "Robert Johnson", projects: "F1, Robotics", attendance: "98%", score: 95 },
+                      { name: "Sarah Miller", grade: "9th", parent: "Jane Miller", projects: "4x4 Challenge", attendance: "95%", score: 92 },
+                      { name: "David Chen", grade: "11th", parent: "Li Chen", projects: "Drift Racing", attendance: "92%", score: 88 },
+                      { name: "Elena Rodriguez", grade: "10th", parent: "Carlos Rodriguez", projects: "F1", attendance: "100%", score: 98 },
+                    ].map((student, i) => (
+                      <TableRow key={i}>
+                        <TableCell className="pl-6 font-semibold">{student.name}</TableCell>
+                        <TableCell>{student.grade}</TableCell>
+                        <TableCell>{student.parent}</TableCell>
+                        <TableCell>{student.projects}</TableCell>
+                        <TableCell>
+                          <span className="px-2 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-full">{student.attendance}</span>
+                        </TableCell>
+                        <TableCell className="font-bold text-red-600">{student.score}</TableCell>
+                        <TableCell className="text-right pr-6">
+                          <Button variant="ghost" size="icon"><MoreVertical className="w-4 h-4" /></Button>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </CardContent>
+            </Card>
+          </div>
+        )}
+
+        {/* COMPETITIONS TAB */}
+        {activeTab === "competitions" && (
+          <div className="space-y-8">
+            <div className="flex items-center justify-between">
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900">Club Competitions</h2>
+                <p className="text-gray-500 mt-1">Highlighted events and ongoing challenges</p>
+              </div>
+              <Button className="bg-red-600 hover:bg-red-700 text-white gap-2">
+                <Plus className="w-4 h-4" /> Create Competition
+              </Button>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {[
+                { title: "F1 in Schools", type: "Elite", status: "Active", participants: 24, date: "June 2025", desc: "Global multi-disciplinary STEM competition." },
+                { title: "Drift Racing", type: "Technical", status: "Ongoing", participants: 18, date: "April 2025", desc: "Precision drifting and mechanical tuning." },
+                { title: "4x4 RC Car Challenge", type: "Design", status: "Upcoming", participants: 42, date: "May 2025", desc: "Off-road vehicle design and navigation." },
+              ].map((comp, i) => (
+                <Card key={i} className="overflow-hidden hover:shadow-2xl transition-all border-t-4 border-t-red-600">
+                  <CardContent className="p-0">
+                    <div className="h-48 bg-gray-200 relative">
+                      <div className="absolute top-4 right-4 px-3 py-1 bg-white/90 backdrop-blur rounded-full text-xs font-bold text-red-600 shadow-sm border border-red-100">
+                        {comp.status}
                       </div>
-                      <div className="space-y-2 pb-4 border-b border-gray-200">
-                        <div className="flex items-center gap-2 text-xs text-gray-600">
-                          <MailIcon className="w-3 h-3" /> {member.email}
-                        </div>
-                        <div className="flex items-center gap-2 text-xs text-gray-600">
-                          <Phone className="w-3 h-3" /> {member.phone}
-                        </div>
-                      </div>
-                      <div className="pt-4 flex items-center justify-between">
-                        <div>
-                          <p className="text-xs text-gray-500">Performance Score</p>
-                          <p className="text-lg font-bold text-red-600">{member.score}</p>
-                        </div>
-                        <Button variant="ghost" size="sm" className="text-red-600">
-                          <MoreVertical className="w-4 h-4" />
-                        </Button>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
+                        <h3 className="text-xl font-bold text-white">{comp.title}</h3>
                       </div>
                     </div>
-                  ))}
+                    <div className="p-6">
+                      <p className="text-sm text-gray-600 leading-relaxed mb-6">{comp.desc}</p>
+                      <div className="grid grid-cols-2 gap-4 mb-6">
+                        <div className="bg-red-50 p-3 rounded-lg">
+                          <p className="text-[10px] text-red-400 font-bold uppercase tracking-widest">Participants</p>
+                          <p className="text-lg font-bold text-red-700">{comp.participants}</p>
+                        </div>
+                        <div className="bg-blue-50 p-3 rounded-lg">
+                          <p className="text-[10px] text-blue-400 font-bold uppercase tracking-widest">Event Date</p>
+                          <p className="text-lg font-bold text-blue-700">{comp.date}</p>
+                        </div>
+                      </div>
+                      <Button className="w-full bg-red-600 hover:bg-red-700 text-white">Manage Competition</Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* ATTENDANCE TAB */}
+        {activeTab === "attendance" && (
+          <div className="space-y-6">
+            <Card className="bg-white shadow-sm">
+              <CardHeader className="p-6 border-b border-red-50 flex flex-row items-center justify-between">
+                <div>
+                  <CardTitle className="text-lg font-bold">Daily Attendance</CardTitle>
+                  <p className="text-xs text-gray-500 mt-1">Mark student attendance for {new Date().toLocaleDateString()}</p>
                 </div>
+                <div className="flex gap-2">
+                  <Button variant="outline" className="border-red-200 text-red-600">View History</Button>
+                  <Button className="bg-red-600 text-white">Save Attendance</Button>
+                </div>
+              </CardHeader>
+              <CardContent className="p-0">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead className="pl-6">Student</TableHead>
+                      <TableHead>Status</TableHead>
+                      <TableHead>Arrival Time</TableHead>
+                      <TableHead>Notes</TableHead>
+                      <TableHead className="text-right pr-6">Actions</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {[
+                      { name: "Alex Johnson", status: "present", time: "08:00 AM" },
+                      { name: "Sarah Miller", status: "late", time: "08:15 AM" },
+                      { name: "David Chen", status: "absent", time: "-" },
+                      { name: "Elena Rodriguez", status: "present", time: "07:55 AM" },
+                    ].map((att, i) => (
+                      <TableRow key={i}>
+                        <TableCell className="pl-6 font-semibold">{att.name}</TableCell>
+                        <TableCell>
+                          <div className="flex gap-2">
+                            <Button variant={att.status === 'present' ? 'default' : 'outline'} size="sm" className={att.status === 'present' ? 'bg-green-600 hover:bg-green-700' : 'border-green-200 text-green-600'}>Present</Button>
+                            <Button variant={att.status === 'late' ? 'default' : 'outline'} size="sm" className={att.status === 'late' ? 'bg-yellow-600 hover:bg-yellow-700' : 'border-yellow-200 text-yellow-600'}>Late</Button>
+                            <Button variant={att.status === 'absent' ? 'default' : 'outline'} size="sm" className={att.status === 'absent' ? 'bg-red-600 hover:bg-red-700' : 'border-red-200 text-red-600'}>Absent</Button>
+                          </div>
+                        </TableCell>
+                        <TableCell className="text-sm font-medium text-gray-600">{att.time}</TableCell>
+                        <TableCell><input type="text" placeholder="Add note..." className="bg-transparent border-b border-gray-100 focus:border-red-500 outline-none text-sm w-full py-1" /></TableCell>
+                        <TableCell className="text-right pr-6">
+                          <Button variant="ghost" size="icon"><Clock className="w-4 h-4" /></Button>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
               </CardContent>
             </Card>
           </div>
