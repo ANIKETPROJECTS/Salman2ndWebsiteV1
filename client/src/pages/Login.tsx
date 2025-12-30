@@ -29,7 +29,7 @@ export default function Login() {
         <div className="bg-primary p-8 text-center">
           <Link href="/" className="inline-flex items-center gap-2 text-white mb-4">
              <Trophy className="w-6 h-6" />
-             <span className="font-display font-bold text-2xl">JSSIS F1</span>
+             <span className="font-display font-bold text-2xl">SEAL CLUB</span>
           </Link>
           <h2 className="text-2xl font-bold text-white">Welcome Back</h2>
           <p className="text-primary-100 mt-2">Sign in to access your dashboard</p>

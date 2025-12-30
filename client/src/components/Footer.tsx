@@ -12,7 +12,7 @@ export default function Footer() {
                 <Trophy className="text-white w-6 h-6" />
               </div>
               <span className="font-display text-2xl tracking-tighter font-bold">
-                JSSIS<span className="text-primary">F1</span>
+                SEAL<span className="text-primary"> CLUB</span>
               </span>
             </div>
             <p className="text-gray-400 leading-relaxed max-w-md">

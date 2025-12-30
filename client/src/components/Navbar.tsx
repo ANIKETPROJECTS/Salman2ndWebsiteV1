@@ -29,7 +29,7 @@ export default function Navbar() {
                 <Trophy className="text-white w-6 h-6" />
               </div>
               <span className="font-display text-2xl tracking-tighter font-bold text-gray-900 group-hover:text-primary transition-colors">
-                JSSIS<span className="text-primary">F1</span>
+                SEAL<span className="text-primary"> CLUB</span>
               </span>
             </Link>
           </div>
