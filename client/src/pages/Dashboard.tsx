@@ -19,6 +19,10 @@ import {
   ComposedChart, Legend, Scatter, ScatterChart, ZAxis
 } from "recharts";
 
+import f1Img from "@assets/generated_images/f1_in_schools_race_car.png";
+import driftImg from "@assets/generated_images/drift_racing_car_action_shot.png";
+import rcImg from "@assets/generated_images/4x4_rc_off-road_car.png";
+
 function Sidebar({ role, onLogout }: { role?: string; onLogout: () => void }) {
   const [location] = useLocation();
   const links = [
@@ -460,13 +464,14 @@ export default function Dashboard() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {[
-                { title: "F1 in Schools", type: "Elite", status: "Active", participants: 24, date: "June 2025", desc: "Global multi-disciplinary STEM competition." },
-                { title: "Drift Racing", type: "Technical", status: "Ongoing", participants: 18, date: "April 2025", desc: "Precision drifting and mechanical tuning." },
-                { title: "4x4 RC Car Challenge", type: "Design", status: "Upcoming", participants: 42, date: "May 2025", desc: "Off-road vehicle design and navigation." },
+                { title: "F1 in Schools", type: "Elite", status: "Active", participants: 24, date: "June 2025", desc: "Global multi-disciplinary STEM competition.", image: f1Img },
+                { title: "Drift Racing", type: "Technical", status: "Ongoing", participants: 18, date: "April 2025", desc: "Precision drifting and mechanical tuning.", image: driftImg },
+                { title: "4x4 RC Car Challenge", type: "Design", status: "Upcoming", participants: 42, date: "May 2025", desc: "Off-road vehicle design and navigation.", image: rcImg },
               ].map((comp, i) => (
                 <Card key={i} className="overflow-hidden hover:shadow-2xl transition-all border-t-4 border-t-red-600">
                   <CardContent className="p-0">
-                    <div className="h-48 bg-gray-200 relative">
+                    <div className="h-48 bg-gray-200 relative overflow-hidden">
+                      <img src={comp.image} alt={comp.title} className="w-full h-full object-cover transition-transform duration-500 hover:scale-110" />
                       <div className="absolute top-4 right-4 px-3 py-1 bg-white/90 backdrop-blur rounded-full text-xs font-bold text-red-600 shadow-sm border border-red-100">
                         {comp.status}
                       </div>
