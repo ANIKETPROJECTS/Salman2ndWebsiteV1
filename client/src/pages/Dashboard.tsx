@@ -12,12 +12,44 @@ import {
   TrendingUp,
   UserCheck,
   CheckCircle2,
-  AlertCircle
+  AlertCircle,
+  Search,
+  Filter,
+  Plus,
+  MoreVertical,
+  ArrowUpRight,
+  ArrowDownRight,
+  Target,
+  Settings,
+  ShieldCheck,
+  Download
 } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
-import { type Task, type User, type Event } from "@shared/schema";
+import { type Task, type User, type Event, type Competition, type Attendance } from "@shared/schema";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { 
+  Table, 
+  TableBody, 
+  TableCell, 
+  TableHead, 
+  TableHeader, 
+  TableRow 
+} from "@/components/ui/table";
+import { 
+  LineChart, 
+  Line, 
+  XAxis, 
+  YAxis, 
+  CartesianGrid, 
+  Tooltip, 
+  ResponsiveContainer,
+  AreaChart,
+  Area,
+  BarChart,
+  Bar,
+  Cell
+} from "recharts";
 
 function Sidebar({ role, onLogout }: { role?: string; onLogout: () => void }) {
   const [location] = useLocation();
@@ -32,40 +64,41 @@ function Sidebar({ role, onLogout }: { role?: string; onLogout: () => void }) {
   ];
 
   return (
-    <div className="w-64 bg-white border-r border-gray-100 min-h-screen fixed left-0 top-0 flex flex-col z-50 shadow-[4px_0_24px_-12px_rgba(0,0,0,0.05)]">
-      <div className="p-6 border-b border-gray-50 flex items-center gap-3">
-        <div className="w-10 h-10 bg-red-600 rounded-2xl flex items-center justify-center shadow-lg shadow-red-200">
-          <Trophy className="w-5 h-5 text-white" />
+    <div className="w-64 bg-white border-r border-slate-100 h-screen fixed left-0 top-0 flex flex-col z-50">
+      <div className="p-8 flex items-center gap-3">
+        <div className="w-8 h-8 bg-red-600 rounded-lg flex items-center justify-center shadow-sm">
+          <Trophy className="w-4 h-4 text-white" />
         </div>
         <div>
-          <p className="font-black text-sm leading-tight text-gray-900 tracking-tight text-left">Admin</p>
-          <p className="text-[10px] text-gray-400 font-bold tracking-widest uppercase text-left">Dashboard</p>
+          <p className="font-bold text-sm tracking-tight text-slate-900 uppercase">JSSIS STEM</p>
+          <p className="text-[10px] text-slate-400 font-medium uppercase tracking-wider">Management</p>
         </div>
       </div>
 
-      <nav className="flex-1 p-4 mt-4 space-y-1">
+      <nav className="flex-1 px-4 py-4 space-y-1">
+        <p className="px-4 text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-4">Main Navigation</p>
         {links.map((link) => (
           <Link
             key={link.href}
             to={link.href}
-            className={`flex items-center gap-3 px-4 py-3.5 rounded-2xl text-[13px] font-bold tracking-tight transition-all duration-300 group ${
+            className={`flex items-center gap-3 px-4 py-3 rounded-lg text-xs font-semibold transition-all duration-200 ${
               location === link.href 
-                ? "bg-red-50 text-red-600 shadow-sm shadow-red-100/50" 
-                : "text-gray-500 hover:bg-gray-50 hover:text-gray-900"
+                ? "bg-slate-50 text-red-600 shadow-sm" 
+                : "text-slate-500 hover:bg-slate-50/80 hover:text-slate-900"
             }`}
           >
-            <link.icon className={`w-4.5 h-4.5 transition-transform duration-300 group-hover:scale-110 ${location === link.href ? "text-red-600" : "text-gray-400"}`} />
+            <link.icon className={`w-4 h-4 ${location === link.href ? "text-red-600" : "text-slate-400"}`} />
             {link.label}
           </Link>
         ))}
       </nav>
 
-      <div className="p-6 border-t border-gray-50">
+      <div className="p-6 border-t border-slate-50">
         <button 
           onClick={onLogout}
-          className="w-full flex items-center gap-3 px-4 py-3.5 text-gray-500 hover:bg-red-50 hover:text-red-600 rounded-2xl text-[13px] font-bold tracking-tight transition-all duration-300 group"
+          className="w-full flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-red-50 hover:text-red-600 rounded-lg text-xs font-semibold transition-all duration-200 group"
         >
-          <LogOut className="w-4.5 h-4.5 text-gray-400 group-hover:text-red-600 transition-colors" />
+          <LogOut className="w-4 h-4 text-slate-400 group-hover:text-red-600 transition-colors" />
           Logout
         </button>
       </div>
@@ -73,104 +106,264 @@ function Sidebar({ role, onLogout }: { role?: string; onLogout: () => void }) {
   );
 }
 
-function StatCard({ value, icon: Icon, colorClass, statusLabel }: { value: string; icon: any; colorClass: string; statusLabel: string }) {
+function CRMTable({ headers, rows }: { headers: string[], rows: any[] }) {
   return (
-    <Card className="border-none shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] bg-white overflow-hidden transition-all duration-500 hover:shadow-[0_12px_32px_-8px_rgba(0,0,0,0.1)] hover:-translate-y-1">
-      <CardContent className="p-7 flex items-center gap-6">
-        <div className={`w-14 h-14 rounded-[20px] flex items-center justify-center border-2 shrink-0 transition-transform duration-500 hover:rotate-6 ${colorClass}`}>
-          <Icon className="w-7 h-7" />
-        </div>
-        <div className="flex-1 min-w-0">
-          <div className="flex items-baseline gap-1">
-            <span className="text-3xl font-black text-gray-900 tracking-tighter">{value}</span>
-          </div>
-          <p className="text-[11px] text-gray-400 font-black uppercase tracking-[0.15em] mt-0.5 text-left">{statusLabel}</p>
-        </div>
-      </CardContent>
-      <div className={`h-1.5 w-full opacity-20 ${colorClass.split(' ')[0].replace('text-', 'bg-')}`} />
-    </Card>
+    <div className="rounded-xl border border-slate-100 overflow-hidden bg-white shadow-sm">
+      <Table>
+        <TableHeader className="bg-slate-50/50">
+          <TableRow>
+            {headers.map(h => (
+              <TableHead key={h} className="text-[10px] font-bold uppercase tracking-widest text-slate-400 py-4 px-6">{h}</TableHead>
+            ))}
+            <TableHead className="text-right py-4 px-6"></TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {rows.map((row, i) => (
+            <TableRow key={i} className="hover:bg-slate-50/30 transition-colors">
+              {Object.values(row).map((val: any, j) => (
+                <TableCell key={j} className="py-4 px-6 text-xs font-medium text-slate-600">
+                  {val === "Active" ? (
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-green-50 text-green-700 uppercase tracking-wider">
+                      <span className="w-1.5 h-1.5 rounded-full bg-green-500" />
+                      Active
+                    </span>
+                  ) : val === "Leave" ? (
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-slate-100 text-slate-600 uppercase tracking-wider">
+                      <span className="w-1.5 h-1.5 rounded-full bg-slate-400" />
+                      Leave
+                    </span>
+                  ) : val}
+                </TableCell>
+              ))}
+              <TableCell className="text-right py-4 px-6">
+                <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-400 hover:text-slate-900">
+                  <MoreVertical className="w-4 h-4" />
+                </Button>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </div>
   );
 }
 
-function PageContent({ title, user }: { title: string; user: User }) {
-  const { data: tasks } = useQuery<Task[]>({ queryKey: [`/api/tasks/user/${user.id}`] });
-  const { data: events } = useQuery<Event[]>({ queryKey: ["/api/events"] });
-
-  if (title === "Dashboard") {
-    const stats = [
-      { value: "1", icon: CheckCircle2, colorClass: "text-green-500 border-green-500/20 bg-green-50/30", statusLabel: "Completed" },
-      { value: "0", icon: Clock, colorClass: "text-blue-500 border-blue-500/20 bg-blue-50/30", statusLabel: "In Progress" },
-      { value: "1", icon: Clock, colorClass: "text-yellow-500 border-yellow-500/20 bg-yellow-50/30", statusLabel: "Pending" },
-      { value: "0", icon: AlertCircle, colorClass: "text-red-500 border-red-500/20 bg-red-50/30", statusLabel: "Overdue" },
-    ];
-
-    return (
-      <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {stats.map((stat, i) => <StatCard key={i} {...stat} />)}
-        </div>
-
-        <div className="grid lg:grid-cols-2 gap-10">
-          <Card className="border-none shadow-[0_4px_24px_-4px_rgba(0,0,0,0.05)] rounded-[24px]">
-            <CardHeader className="flex flex-row items-center justify-between border-b border-gray-50 px-10 py-7">
-              <CardTitle className="text-xl font-black text-gray-900 tracking-tight">Recent Tasks</CardTitle>
-              <Button variant="ghost" className="text-[11px] font-black text-gray-400 uppercase tracking-widest hover:text-red-600 no-underline transition-colors h-auto p-0">View All &gt;</Button>
-            </CardHeader>
-            <CardContent className="p-10">
-              <div className="space-y-5">
-                {[
-                  { id: 1, title: "Aerodynamics Draft", dueDate: "1/20/2025", color: "bg-blue-500" },
-                  { id: 2, title: "Telemetry Setup", dueDate: "1/10/2025", color: "bg-green-500" }
-                ].map(task => (
-                  <div key={task.id} className="flex items-center gap-5 p-6 bg-gray-50/40 rounded-[20px] transition-all duration-300 hover:bg-gray-50 hover:translate-x-1 border border-transparent hover:border-gray-100">
-                    <div className={`w-2.5 h-2.5 rounded-full shrink-0 shadow-sm ${task.color}`} />
-                    <div className="flex-1">
-                      <p className="text-[15px] font-bold text-gray-900 leading-tight tracking-tight text-left">{task.title}</p>
-                      <p className="text-[10px] text-gray-400 font-black uppercase tracking-widest mt-1.5 opacity-80 text-left">Due: {task.dueDate}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="border-none shadow-[0_4px_24px_-4px_rgba(0,0,0,0.05)] rounded-[24px]">
-            <CardHeader className="flex flex-row items-center justify-between border-b border-gray-50 px-10 py-7">
-              <CardTitle className="text-xl font-black text-gray-900 tracking-tight">Upcoming Events</CardTitle>
-              <Button variant="ghost" className="text-[11px] font-black text-gray-400 uppercase tracking-widest hover:text-red-600 no-underline transition-colors h-auto p-0">View All &gt;</Button>
-            </CardHeader>
-            <CardContent className="p-10">
-              <div className="space-y-5">
-                {[
-                  { id: 1, title: "Club Orientation", date: "9/1/2025", time: "05:30 AM" }
-                ].map(event => (
-                  <div key={event.id} className="flex items-center gap-5 p-6 bg-gray-50/40 rounded-[20px] transition-all duration-300 hover:bg-gray-50 hover:translate-x-1 border border-transparent hover:border-gray-100">
-                    <div className="w-12 h-12 bg-red-50 rounded-[18px] flex items-center justify-center shrink-0 shadow-sm shadow-red-100/50">
-                      <Calendar className="w-6 h-6 text-red-600" />
-                    </div>
-                    <div className="flex-1">
-                      <p className="text-[15px] font-bold text-gray-900 leading-tight tracking-tight text-left">{event.title}</p>
-                      <p className="text-[10px] text-gray-400 font-black uppercase tracking-widest mt-1.5 opacity-80 text-left">
-                        {event.date} • {event.time}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
-    );
-  }
+function DashboardOverview() {
+  const stats = [
+    { value: "24", label: "Active Students", icon: Users, color: "text-blue-600 bg-blue-50", trend: "+12%", up: true },
+    { value: "12", label: "Pending Tasks", icon: CheckSquare, color: "text-orange-600 bg-orange-50", trend: "-2", up: false },
+    { value: "08", label: "Competitions", icon: Trophy, color: "text-red-600 bg-red-50", trend: "0", up: true },
+    { value: "92%", label: "Attendance", icon: UserCheck, color: "text-green-600 bg-green-50", trend: "+3.4%", up: true },
+  ];
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[50vh] space-y-4 animate-in fade-in duration-700">
-      <div className="w-20 h-20 bg-gray-100 rounded-[24px] flex items-center justify-center mb-4">
-        <Clock className="w-10 h-10 text-gray-300" />
+    <div className="space-y-8 animate-in fade-in duration-500">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {stats.map((stat, i) => (
+          <Card key={i} className="border-none shadow-sm bg-white overflow-hidden transition-all hover:shadow-md">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between mb-4">
+                <div className={`p-2.5 rounded-lg ${stat.color}`}>
+                  <stat.icon className="w-5 h-5" />
+                </div>
+                <div className={`flex items-center gap-1 text-[10px] font-bold ${stat.up ? 'text-green-600' : 'text-red-600'}`}>
+                  {stat.up ? <ArrowUpRight className="w-3 h-3" /> : <ArrowDownRight className="w-3 h-3" />}
+                  {stat.trend}
+                </div>
+              </div>
+              <div>
+                <h3 className="text-2xl font-bold text-slate-900 tracking-tight">{stat.value}</h3>
+                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1">{stat.label}</p>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
       </div>
-      <h2 className="text-2xl font-black text-gray-900 tracking-tight">{title} Section</h2>
-      <p className="text-gray-400 font-bold text-sm tracking-wide">This module is currently being optimized for your team.</p>
+
+      <div className="grid lg:grid-cols-3 gap-6">
+        <Card className="lg:col-span-2 border-none shadow-sm bg-white">
+          <CardHeader className="p-8 border-b border-slate-50 flex flex-row items-center justify-between">
+            <div>
+              <CardTitle className="text-base font-bold text-slate-900">Performance Overview</CardTitle>
+              <p className="text-[10px] text-slate-400 font-medium uppercase tracking-widest mt-1">Club engagement levels over time</p>
+            </div>
+            <div className="flex gap-2">
+              <Button variant="outline" size="sm" className="h-8 text-[10px] font-bold uppercase tracking-widest px-4 border-slate-200">Weekly</Button>
+              <Button variant="outline" size="sm" className="h-8 text-[10px] font-bold uppercase tracking-widest px-4 border-slate-200">Monthly</Button>
+            </div>
+          </CardHeader>
+          <CardContent className="p-8 h-[300px]">
+            <ResponsiveContainer width="100%" height="100%">
+              <AreaChart data={[
+                { name: 'Jan', value: 400 }, { name: 'Feb', value: 300 }, { name: 'Mar', value: 600 },
+                { name: 'Apr', value: 800 }, { name: 'May', value: 500 }, { name: 'Jun', value: 900 }
+              ]}>
+                <defs>
+                  <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor="#dc2626" stopOpacity={0.1}/>
+                    <stop offset="95%" stopColor="#dc2626" stopOpacity={0}/>
+                  </linearGradient>
+                </defs>
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
+                <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fontSize: 10, fontWeight: 600, fill: '#94a3b8' }} dy={10} />
+                <YAxis hide />
+                <Tooltip 
+                  contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 12px rgba(0,0,0,0.05)', fontSize: '10px', fontWeight: 'bold' }}
+                  cursor={{ stroke: '#f1f5f9', strokeWidth: 2 }}
+                />
+                <Area type="monotone" dataKey="value" stroke="#dc2626" strokeWidth={3} fillOpacity={1} fill="url(#colorValue)" />
+              </AreaChart>
+            </ResponsiveContainer>
+          </CardContent>
+        </Card>
+
+        <Card className="border-none shadow-sm bg-white">
+          <CardHeader className="p-8 border-b border-slate-50">
+            <CardTitle className="text-base font-bold text-slate-900">Top Students</CardTitle>
+            <p className="text-[10px] text-slate-400 font-medium uppercase tracking-widest mt-1">Activity leaderboards</p>
+          </CardHeader>
+          <CardContent className="p-8 space-y-6">
+            {[
+              { name: "Alex Johnson", points: "2,450", role: "F1 Lead" },
+              { name: "Sarah Miller", points: "2,120", role: "Drift Racing" },
+              { name: "David Chen", points: "1,980", role: "Engineer" }
+            ].map((s, i) => (
+              <div key={i} className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center font-bold text-[10px] text-slate-500">{s.name[0]}</div>
+                  <div>
+                    <p className="text-xs font-bold text-slate-900">{s.name}</p>
+                    <p className="text-[10px] text-slate-400 font-medium">{s.role}</p>
+                  </div>
+                </div>
+                <div className="text-[10px] font-bold text-slate-900 px-2 py-1 bg-slate-50 rounded-md">{s.points} XP</div>
+              </div>
+            ))}
+            <Button variant="ghost" className="w-full text-[10px] font-bold uppercase tracking-widest text-slate-400 hover:text-red-600 mt-4">View Leaderboard</Button>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  );
+}
+
+function AnalyticsModule() {
+  const data = [
+    { name: 'F1 Schools', value: 85, fill: '#dc2626' },
+    { name: 'Drift Racing', value: 65, fill: '#2563eb' },
+    { name: '4x4 RC', value: 45, fill: '#16a34a' },
+    { name: 'Robotics', value: 35, fill: '#ea580c' },
+  ];
+
+  return (
+    <div className="space-y-8 animate-in fade-in duration-500">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <Card className="border-none shadow-sm bg-white p-8">
+          <CardTitle className="text-base font-bold text-slate-900 mb-6">Participation By Category</CardTitle>
+          <div className="h-[250px]">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={data} layout="vertical" barSize={12}>
+                <XAxis type="number" hide />
+                <YAxis dataKey="name" type="category" axisLine={false} tickLine={false} tick={{ fontSize: 10, fontWeight: 700, fill: '#64748b' }} width={80} />
+                <Tooltip 
+                   cursor={{ fill: 'transparent' }}
+                   contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 12px rgba(0,0,0,0.05)', fontSize: '10px', fontWeight: 'bold' }}
+                />
+                <Bar dataKey="value" radius={[0, 4, 4, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        </Card>
+
+        <Card className="border-none shadow-sm bg-white p-8">
+          <CardTitle className="text-base font-bold text-slate-900 mb-6">Engagement Score</CardTitle>
+          <div className="flex flex-col items-center justify-center h-[250px]">
+            <div className="relative w-40 h-40 flex items-center justify-center">
+              <div className="absolute inset-0 border-[12px] border-slate-50 rounded-full" />
+              <div className="absolute inset-0 border-[12px] border-red-600 rounded-full border-t-transparent border-r-transparent rotate-[45deg]" />
+              <div className="text-center">
+                <p className="text-4xl font-black text-slate-900">82</p>
+                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1">Excellent</p>
+              </div>
+            </div>
+          </div>
+        </Card>
+
+        <Card className="border-none shadow-sm bg-white p-8">
+          <CardTitle className="text-base font-bold text-slate-900 mb-6">Recent Milestones</CardTitle>
+          <div className="space-y-6">
+            {[
+              { title: "National Qualifiers", date: "2 days ago", icon: Target, color: "text-blue-600" },
+              { title: "Sponsorship Secured", date: "1 week ago", icon: ShieldCheck, color: "text-green-600" },
+              { title: "New Lab Equipment", date: "2 weeks ago", icon: Settings, color: "text-orange-600" }
+            ].map((m, i) => (
+              <div key={i} className="flex items-start gap-4">
+                <div className={`p-2 rounded-lg bg-slate-50 ${m.color}`}>
+                  <m.icon className="w-4 h-4" />
+                </div>
+                <div>
+                  <p className="text-xs font-bold text-slate-900">{m.title}</p>
+                  <p className="text-[10px] text-slate-400 font-medium">{m.date}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </Card>
+      </div>
+
+      <Card className="border-none shadow-sm bg-white p-8">
+        <div className="flex items-center justify-between mb-8">
+          <CardTitle className="text-base font-bold text-slate-900">Project Timeline</CardTitle>
+          <Button variant="outline" size="sm" className="h-8 text-[10px] font-bold uppercase tracking-widest px-4 border-slate-200">
+            <Download className="w-3.5 h-3.5 mr-2" /> Export Report
+          </Button>
+        </div>
+        <div className="h-[200px] flex items-end gap-2">
+          {[40, 60, 45, 90, 65, 80, 50, 70, 85, 60, 75, 55].map((h, i) => (
+             <div key={i} className="flex-1 bg-slate-50 rounded-t-lg relative group">
+               <div style={{ height: `${h}%` }} className="absolute bottom-0 w-full bg-slate-100 rounded-t-lg transition-all group-hover:bg-red-600/10" />
+               {i === 3 && <div style={{ height: `90%` }} className="absolute bottom-0 w-full bg-red-600 rounded-t-lg shadow-lg shadow-red-100" />}
+             </div>
+          ))}
+        </div>
+        <div className="flex justify-between mt-4">
+          {['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'].map(m => (
+            <span key={m} className="text-[9px] font-black text-slate-300 tracking-tighter">{m}</span>
+          ))}
+        </div>
+      </Card>
+    </div>
+  );
+}
+
+function StudentModule() {
+  const headers = ["Student Name", "Grade", "Specialization", "Joining Date", "Status"];
+  const rows = [
+    { name: "Alex Johnson", grade: "Grade 10", spec: "Aerodynamics", date: "Jan 12, 2024", status: "Active" },
+    { name: "Sarah Miller", grade: "Grade 11", spec: "Telemetry", date: "Feb 05, 2024", status: "Active" },
+    { name: "David Chen", grade: "Grade 10", spec: "Chassis Design", date: "Mar 20, 2024", status: "Leave" },
+    { name: "Elena Rodriguez", grade: "Grade 9", spec: "Marketing", date: "Apr 15, 2024", status: "Active" },
+    { name: "Michael Wu", grade: "Grade 12", spec: "Systems Eng", date: "May 10, 2024", status: "Active" },
+  ];
+
+  return (
+    <div className="space-y-6 animate-in fade-in duration-500">
+      <div className="flex justify-between items-center bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+        <div className="flex gap-4 flex-1 max-w-md">
+          <div className="relative flex-1">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+            <input className="w-full h-10 pl-10 pr-4 bg-slate-50 rounded-lg text-xs font-medium border-none outline-none focus:ring-1 focus:ring-slate-200" placeholder="Search students..." />
+          </div>
+          <Button variant="outline" className="h-10 text-xs font-bold uppercase tracking-widest px-6 border-slate-200">
+            <Filter className="w-3.5 h-3.5 mr-2" /> Filter
+          </Button>
+        </div>
+        <Button className="h-10 bg-red-600 text-white text-xs font-bold uppercase tracking-widest px-8 shadow-lg shadow-red-200 hover:bg-red-700">
+          <Plus className="w-4 h-4 mr-2" /> Add Student
+        </Button>
+      </div>
+      <CRMTable headers={headers} rows={rows} />
     </div>
   );
 }
@@ -185,41 +378,56 @@ export default function Dashboard() {
   }
 
   const role = user.role || 'student';
-  const pageTitle = location === "/dashboard" ? "Dashboard" : 
-                    location.split("/").pop()?.charAt(0).toUpperCase() + (location.split("/").pop()?.slice(1) || "");
+  const currentPath = location.split("/").pop();
+  const pageTitle = currentPath === "dashboard" ? "Overview" : 
+                    currentPath?.charAt(0).toUpperCase() + (currentPath?.slice(1) || "");
 
   return (
-    <div className="bg-[#fcfcfc] min-h-screen font-sans text-gray-900 selection:bg-red-100 selection:text-red-900 overflow-x-hidden">
+    <div className="bg-slate-50/50 min-h-screen font-sans text-slate-900 selection:bg-red-100 selection:text-red-900">
       <Sidebar role={role} onLogout={() => logoutMutation.mutate()} />
       
-      <div className="ml-64 p-12 lg:p-20 max-w-7xl mx-auto">
-        <header className="mb-16 flex items-center justify-between animate-in fade-in slide-in-from-top-4 duration-700">
-          <div className="space-y-3">
-            <h1 className="text-5xl font-black tracking-tight text-gray-900 uppercase italic leading-[0.9] flex items-center gap-4 text-left">
-              Welcome back! <span className="not-italic inline-block animate-bounce-slow text-4xl">👋</span>
-            </h1>
-            <p className="text-gray-400 font-bold tracking-widest text-xs uppercase opacity-80 text-left">Here's what's happening with your STEM activities</p>
+      <div className="ml-64 p-12 lg:p-16 max-w-7xl mx-auto">
+        <header className="mb-12 flex items-center justify-between">
+          <div>
+            <div className="flex items-center gap-2 mb-2">
+              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em]">Management System /</span>
+              <span className="text-[10px] font-bold text-red-600 uppercase tracking-[0.2em]">{pageTitle}</span>
+            </div>
+            <h1 className="text-3xl font-bold tracking-tight text-slate-900 uppercase leading-none">Management Control Panel</h1>
           </div>
           
-          <div className="flex items-center gap-8">
-            <button className="relative group">
-              <div className="absolute -inset-2 bg-gray-50 rounded-full scale-0 group-hover:scale-100 transition-transform duration-300" />
-              <Bell className="w-7 h-7 text-gray-400 group-hover:text-red-600 transition-colors relative z-10" />
-              <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-red-500 rounded-full border-[3px] border-white relative z-20" />
+          <div className="flex items-center gap-6">
+            <div className="flex items-center gap-2 px-4 py-2 bg-white rounded-xl shadow-sm border border-slate-100">
+              <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+              <span className="text-[10px] font-bold text-slate-600 uppercase tracking-widest">System Online</span>
+            </div>
+            <button className="relative w-10 h-10 bg-white border border-slate-100 rounded-xl flex items-center justify-center hover:bg-slate-50 transition-colors shadow-sm group">
+              <Bell className="w-5 h-5 text-slate-400 group-hover:text-red-600 transition-colors" />
+              <span className="absolute top-2.5 right-2.5 w-1.5 h-1.5 bg-red-500 rounded-full border-2 border-white" />
             </button>
-            <div className="flex items-center gap-5 pl-8 border-l-2 border-gray-50">
+            <div className="flex items-center gap-3 pl-4 border-l border-slate-100">
               <div className="text-right hidden md:block">
-                <p className="text-xs font-black uppercase tracking-[0.15em] text-gray-900 leading-none">{user.username}</p>
-                <p className="text-[10px] font-black text-red-500 uppercase tracking-[0.2em] mt-1.5 opacity-90">{role}</p>
+                <p className="text-[10px] font-black uppercase tracking-widest text-slate-900 leading-none">{user.username}</p>
+                <p className="text-[10px] font-bold text-red-600 uppercase tracking-widest mt-1 opacity-90">{role}</p>
               </div>
-              <div className="w-14 h-14 rounded-[22px] bg-white border-2 border-gray-50 shadow-sm flex items-center justify-center font-black text-gray-400 text-lg overflow-hidden transition-all duration-300 hover:shadow-md hover:border-red-100">
+              <div className="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center font-bold text-xs shadow-md">
                 {(user.username?.[0] || "U").toUpperCase()}
               </div>
             </div>
           </div>
         </header>
 
-        <PageContent title={pageTitle} user={user as any} />
+        {currentPath === "dashboard" ? <DashboardOverview /> : 
+         currentPath === "students" ? <StudentModule /> :
+         currentPath === "analytics" ? <AnalyticsModule /> :
+         <div className="flex flex-col items-center justify-center min-h-[50vh] bg-white rounded-3xl shadow-sm border border-slate-100 p-20 animate-in fade-in zoom-in-95 duration-700">
+           <div className="w-20 h-20 bg-slate-50 rounded-[28px] flex items-center justify-center mb-8 shadow-inner">
+             <Clock className="w-10 h-10 text-slate-300" />
+           </div>
+           <h2 className="text-2xl font-black text-slate-900 tracking-tight uppercase">{pageTitle} Section</h2>
+           <p className="text-[11px] text-slate-400 font-bold uppercase tracking-[0.2em] mt-3 bg-slate-50 px-4 py-1.5 rounded-full">Coming Soon: Extended Data Visualization</p>
+         </div>
+        }
       </div>
     </div>
   );
