@@ -2,6 +2,8 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Users, Target, Rocket, Trophy, Zap, Award } from "lucide-react";
 import { Link } from "wouter";
+import { motion } from "framer-motion";
+import aboutBg from "@assets/generated_images/advanced_stem_laboratory_and_students.png";
 
 export default function About() {
   return (
@@ -9,12 +11,27 @@ export default function About() {
       <Navbar />
       
       {/* Header */}
-      <section className="pt-32 pb-16 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
-        <div className="text-center mb-12">
-          <h1 className="text-6xl font-display font-bold text-gray-900 mb-6">About The Club</h1>
-          <p className="text-xl text-gray-600 leading-relaxed">
-            A center of excellence where engineering dreams take flight and innovation thrives.
-          </p>
+      <section className="relative pt-40 pb-24 px-4 sm:px-6 lg:px-8 overflow-hidden bg-slate-900">
+        <div className="absolute inset-0 z-0">
+          <img 
+            src={aboutBg} 
+            alt="About Background" 
+            className="w-full h-full object-cover"
+          />
+        </div>
+
+        <div className="max-w-4xl mx-auto relative z-10">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-12"
+          >
+            <h1 className="text-6xl md:text-7xl font-display font-bold text-white mb-6 tracking-tight">About The Club</h1>
+            <p className="text-xl text-gray-200 leading-relaxed font-medium">
+              A center of excellence where engineering dreams take flight and innovation thrives.
+            </p>
+          </motion.div>
         </div>
       </section>
 

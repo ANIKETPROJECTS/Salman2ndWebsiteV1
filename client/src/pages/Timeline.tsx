@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Trophy, Star, Award, Zap, Users, Target } from "lucide-react";
 import trophiesImage from "@assets/generated_images/championship_trophies_display.png";
 import worldFinalsImage from "@assets/generated_images/world_finals_singapore.png";
+import historyBg from "@assets/generated_images/stem_club_heritage_and_history_showcase.png";
 
 export default function Timeline() {
   const milestones = [
@@ -152,11 +153,19 @@ export default function Timeline() {
       <Navbar />
 
       {/* Header */}
-      <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-        <div className="max-w-6xl mx-auto">
+      <section className="relative pt-40 pb-24 px-4 sm:px-6 lg:px-8 overflow-hidden bg-slate-900">
+        <div className="absolute inset-0 z-0">
+          <img 
+            src={historyBg} 
+            alt="History Background" 
+            className="w-full h-full object-cover"
+          />
+        </div>
+        
+        <div className="max-w-6xl mx-auto relative z-10">
           <div className="text-center mb-12">
-            <h1 className="text-6xl font-display font-bold text-gray-900 mb-6">Our Journey</h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            <h1 className="text-6xl md:text-7xl font-display font-bold text-white mb-6 tracking-tight">Our Journey</h1>
+            <p className="text-xl text-gray-200 max-w-3xl mx-auto leading-relaxed font-medium">
               From 6 students with a dream to 140+ members competing at the world stage. A story of persistence, innovation, and breaking records.
             </p>
           </div>

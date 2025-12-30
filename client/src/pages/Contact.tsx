@@ -1,7 +1,7 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Mail, Phone, MapPin, Send, Users, Briefcase, Heart } from "lucide-react";
-import contactBg from "@assets/generated_images/modern_contact_page_background.png";
+import contactBg from "@assets/generated_images/modern_support_and_communication_center.png";
 
 export default function Contact() {
   return (
