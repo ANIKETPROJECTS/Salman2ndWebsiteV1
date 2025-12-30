@@ -13,6 +13,8 @@ import Contact from "./pages/Contact";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/not-found";
+import { AuthProvider } from "./hooks/use-auth";
+import { ProtectedRoute } from "./lib/protected-route";
 
 function Router() {
   return (
@@ -25,11 +27,13 @@ function Router() {
       <Route path="/contact" component={Contact} />
       <Route path="/login" component={Login} />
       
-      {/* Protected Routes - simple prefix matching for now */}
-      <Route path="/dashboard" component={Dashboard} />
-      <Route path="/dashboard/tasks" component={Dashboard} />
-      <Route path="/dashboard/competitions" component={Dashboard} />
-      <Route path="/dashboard/schedule" component={Dashboard} />
+      {/* Protected Routes */}
+      <ProtectedRoute path="/dashboard" component={Dashboard} />
+      <ProtectedRoute path="/dashboard/analytics" component={Dashboard} />
+      <ProtectedRoute path="/dashboard/students" component={Dashboard} />
+      <ProtectedRoute path="/dashboard/competitions" component={Dashboard} />
+      <ProtectedRoute path="/dashboard/tasks" component={Dashboard} />
+      <ProtectedRoute path="/dashboard/attendance" component={Dashboard} />
 
       <Route component={NotFound} />
     </Switch>
@@ -39,10 +43,12 @@ function Router() {
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Router />
-      </TooltipProvider>
+      <AuthProvider>
+        <TooltipProvider>
+          <Toaster />
+          <Router />
+        </TooltipProvider>
+      </AuthProvider>
     </QueryClientProvider>
   );
 }
