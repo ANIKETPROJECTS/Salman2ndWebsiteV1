@@ -9,35 +9,36 @@ export default function Login() {
   const [role, setRole] = useState<'student' | 'parent' | 'admin'>('student');
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [, setLocation] = useLocation();
-  const { login, isAuthenticated } = useAuth() as any;
+  const { user, loginMutation } = useAuth();
   const { toast } = useToast();
   
-  if (isAuthenticated) {
+  if (user) {
      setLocation("/dashboard");
      return null;
   }
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
-    try {
-      await login({ username, password });
-      toast({
-        title: "Login Successful",
-        description: "Welcome to the JSSIS F1 Dashboard.",
-      });
-      setLocation("/dashboard");
-    } catch (error: any) {
-      toast({
-        title: "Login Failed",
-        description: error.message || "Invalid credentials. Please try again.",
-        variant: "destructive",
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
+    loginMutation.mutate(
+      { username, password },
+      {
+        onSuccess: () => {
+          toast({
+            title: "Login Successful",
+            description: "Welcome to the JSSIS F1 Dashboard.",
+          });
+          setLocation("/dashboard");
+        },
+        onError: (error: any) => {
+          toast({
+            title: "Login Failed",
+            description: error.message || "Invalid credentials. Please try again.",
+            variant: "destructive",
+          });
+        },
+      }
+    );
   };
 
   return (
@@ -120,10 +121,10 @@ export default function Login() {
 
               <button
                 type="submit"
-                disabled={isSubmitting}
+                disabled={loginMutation.isPending}
                 className="w-full py-3.5 bg-[#ef4444] text-white rounded-lg font-bold text-sm hover:bg-[#dc2626] active:scale-[0.98] transition-all disabled:opacity-70 mt-2 shadow-lg shadow-[#ef4444]/20"
               >
-                {isSubmitting ? "Signing In..." : `Sign In as ${role.charAt(0).toUpperCase() + role.slice(1)}`}
+                {loginMutation.isPending ? "Signing In..." : `Sign In as ${role.charAt(0).toUpperCase() + role.slice(1)}`}
               </button>
             </form>
 

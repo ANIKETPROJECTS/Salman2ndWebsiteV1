@@ -154,34 +154,96 @@ function CRMTable({ headers, rows }: { headers: string[], rows: any[] }) {
 
 function DashboardOverview() {
   const stats = [
-    { value: "24", label: "Active Students", icon: Users, color: "text-blue-600 bg-blue-50", trend: "+12%", up: true },
-    { value: "12", label: "Pending Tasks", icon: CheckSquare, color: "text-orange-600 bg-orange-50", trend: "-2", up: false },
-    { value: "08", label: "Competitions", icon: Trophy, color: "text-slate-900 bg-slate-100", trend: "0", up: true },
-    { value: "92%", label: "Attendance", icon: UserCheck, color: "text-green-600 bg-green-50", trend: "+3.4%", up: true },
+    { value: "1", label: "Completed", icon: CheckCircle2, color: "text-green-600 bg-green-50", trend: "+1", up: true, borderColor: "border-l-4 border-l-green-500" },
+    { value: "2", label: "In Progress", icon: Clock, color: "text-blue-600 bg-blue-50", trend: "+2", up: true, borderColor: "border-l-4 border-l-blue-500" },
+    { value: "2", label: "Pending", icon: AlertCircle, color: "text-orange-600 bg-orange-50", trend: "0", up: true, borderColor: "border-l-4 border-l-orange-500" },
+    { value: "1", label: "Overdue", icon: AlertCircle, color: "text-red-600 bg-red-50", trend: "+1", up: false, borderColor: "border-l-4 border-l-red-500" },
   ];
 
   return (
     <div className="space-y-8 animate-in fade-in duration-500">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {stats.map((stat, i) => (
-          <Card key={i} className="border border-slate-100 shadow-sm bg-white overflow-hidden transition-all hover:shadow-md">
+          <Card key={i} className={`border border-slate-100 shadow-sm bg-white overflow-hidden transition-all hover:shadow-md ${stat.borderColor}`}>
             <CardContent className="p-6">
               <div className="flex items-center justify-between mb-4">
                 <div className={`p-2.5 rounded-lg ${stat.color}`}>
                   <stat.icon className="w-5 h-5" />
                 </div>
-                <div className={`flex items-center gap-1 text-[10px] font-bold ${stat.up ? 'text-green-600' : 'text-red-600'}`}>
-                  {stat.up ? <ArrowUpRight className="w-3 h-3" /> : <ArrowDownRight className="w-3 h-3" />}
-                  {stat.trend}
-                </div>
               </div>
               <div>
-                <h3 className="text-2xl font-bold text-slate-900 tracking-tight">{stat.value}</h3>
-                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1">{stat.label}</p>
+                <h3 className="text-3xl font-bold text-slate-900 tracking-tight">{stat.value}</h3>
+                <p className="text-xs font-semibold text-slate-600 uppercase tracking-widest mt-2">{stat.label}</p>
               </div>
             </CardContent>
           </Card>
         ))}
+      </div>
+
+      <div className="grid lg:grid-cols-2 gap-6">
+        {/* Recent Tasks */}
+        <Card className="border border-slate-100 shadow-sm bg-white">
+          <CardHeader className="p-6 border-b border-slate-50">
+            <div className="flex items-center justify-between">
+              <div>
+                <CardTitle className="text-base font-bold text-slate-900">Recent Tasks</CardTitle>
+                <p className="text-xs text-slate-400 font-medium uppercase tracking-widest mt-1">Current activities</p>
+              </div>
+              <Button variant="ghost" size="sm" className="text-xs font-bold text-slate-500 hover:text-slate-900">View All</Button>
+            </div>
+          </CardHeader>
+          <CardContent className="p-6 space-y-4">
+            {[
+              { title: "Complete CAD Training Module 3", date: "Due: 2024-01-15", color: "bg-green-50 border-l-green-500", icon: CheckCircle2 },
+              { title: "Design Car Prototype v2.0", date: "Due: 2024-01-10", color: "bg-green-50 border-l-green-500", icon: CheckCircle2 },
+              { title: "Prepare Marketing Presentation", date: "Due: 2024-01-20", color: "bg-orange-50 border-l-orange-500", icon: AlertCircle },
+              { title: "Test RC Car Suspension", date: "Due: 2024-01-05", color: "bg-red-50 border-l-red-500", icon: AlertCircle },
+            ].map((task, i) => (
+              <div key={i} className={`p-4 rounded-lg border-l-4 ${task.color} bg-opacity-50`}>
+                <div className="flex items-start gap-3">
+                  <task.icon className="w-4 h-4 mt-0.5 flex-shrink-0" />
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-semibold text-slate-900">{task.title}</p>
+                    <p className="text-xs text-slate-500 mt-1">{task.date}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+
+        {/* Upcoming Events */}
+        <Card className="border border-slate-100 shadow-sm bg-white">
+          <CardHeader className="p-6 border-b border-slate-50">
+            <div className="flex items-center justify-between">
+              <div>
+                <CardTitle className="text-base font-bold text-slate-900">Upcoming Events</CardTitle>
+                <p className="text-xs text-slate-400 font-medium uppercase tracking-widest mt-1">Scheduled activities</p>
+              </div>
+              <Button variant="ghost" size="sm" className="text-xs font-bold text-slate-500 hover:text-slate-900">View All</Button>
+            </div>
+          </CardHeader>
+          <CardContent className="p-6 space-y-4">
+            {[
+              { title: "Team Meeting - AEOLIAN", date: "2024-01-15 • 3:00 PM", icon: Trophy },
+              { title: "CAD Workshop", date: "2024-01-18 • 2:00 PM", icon: Trophy },
+              { title: "Track Testing Day", date: "2024-01-22 • 10:00 AM", icon: Trophy },
+              { title: "Regional Competition", date: "2024-02-10 • 9:00 AM", icon: Trophy },
+            ].map((event, i) => (
+              <div key={i} className="p-4 rounded-lg border border-slate-100 bg-white hover:bg-slate-50 transition-colors">
+                <div className="flex items-start gap-3">
+                  <div className="p-2 bg-red-50 rounded-lg flex-shrink-0">
+                    <event.icon className="w-4 h-4 text-red-600" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-semibold text-slate-900">{event.title}</p>
+                    <p className="text-xs text-slate-500 mt-1">{event.date}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
       </div>
 
       <div className="grid lg:grid-cols-3 gap-6">
