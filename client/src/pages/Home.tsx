@@ -5,6 +5,8 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import CompetitionCard from "../components/CompetitionCard";
 import { useCompetitions } from "../hooks/use-competitions";
+import f1RacerImage from "@assets/generated_images/f1_mini_race_car.png";
+import driftImage from "@assets/generated_images/drift_racing_at_night.png";
 
 export default function Home() {
   const { data: competitions, isLoading } = useCompetitions();
@@ -74,9 +76,8 @@ export default function Home() {
               className="relative hidden lg:block"
             >
               {/* Racing Car Image */}
-              {/* Unsplash image of a futuristic race car or F1 model */}
               <img 
-                src="https://images.unsplash.com/photo-1511527844068-006b95d162c2?auto=format&fit=crop&q=80"
+                src={f1RacerImage}
                 alt="F1 Car Model"
                 className="w-full h-auto rounded-3xl shadow-2xl shadow-primary/20 transform rotate-1 hover:rotate-0 transition-transform duration-500"
               />
@@ -92,6 +93,29 @@ export default function Home() {
                 </div>
               </div>
             </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Drift Racing Banner Section */}
+      <section className="relative py-24 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="relative rounded-3xl overflow-hidden h-96">
+            <img 
+              src={driftImage}
+              alt="Drift Racing Competition"
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent" />
+            <div className="absolute inset-0 flex items-center pl-8 sm:pl-12">
+              <div className="text-white max-w-md">
+                <h2 className="text-4xl font-display font-bold mb-4">Drift Racing Series</h2>
+                <p className="text-lg text-gray-100 mb-6">Experience the precision and control of competitive drifting. Push limits, master technique.</p>
+                <Link href="/competitions" className="inline-block px-8 py-3 bg-primary text-white rounded-full font-bold hover:shadow-lg hover:shadow-primary/50 transition-all">
+                  Explore Series
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </section>

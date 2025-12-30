@@ -2,14 +2,29 @@ import { Link } from "wouter";
 import { ArrowRight, Trophy, MapPin, Calendar } from "lucide-react";
 import { format } from "date-fns";
 import type { Competition } from "@shared/schema";
+import f1Image from "@assets/generated_images/f1_mini_race_car.png";
+import rc4x4Image from "@assets/generated_images/rc_4x4_off-road_challenge.png";
+import driftImage from "@assets/generated_images/drift_racing_at_night.png";
 
 interface CompetitionCardProps {
   competition: Competition;
 }
 
 export default function CompetitionCard({ competition }: CompetitionCardProps) {
-  // Placeholder logic since images might be null in DB for now
-  const bgImage = competition.imageUrl || "https://images.unsplash.com/photo-1532906619279-a76e10eb4b76?auto=format&fit=crop&q=80";
+  // Use generated images based on competition type
+  const getImageForType = (type: string) => {
+    switch(type.toLowerCase()) {
+      case 'f1':
+        return f1Image;
+      case '4x4':
+        return rc4x4Image;
+      case 'drift':
+        return driftImage;
+      default:
+        return competition.imageUrl || "https://images.unsplash.com/photo-1532906619279-a76e10eb4b76?auto=format&fit=crop&q=80";
+    }
+  };
+  const bgImage = getImageForType(competition.type);
 
   return (
     <div className="group relative bg-white rounded-3xl overflow-hidden shadow-xl shadow-gray-200/50 hover:shadow-2xl hover:shadow-primary/10 transition-all duration-300 hover:-translate-y-1">
