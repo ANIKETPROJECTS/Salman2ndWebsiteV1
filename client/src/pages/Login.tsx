@@ -60,54 +60,54 @@ export default function Login() {
           <p className="text-white/60 font-bold uppercase text-[10px] tracking-[0.4em] mt-3 drop-shadow-md">Grand Prix Member Portal</p>
         </div>
 
-        <div className="bg-white/95 backdrop-blur-xl rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.3)] border border-white/20 overflow-hidden transform hover:scale-[1.01] transition-all duration-500">
+        <div className="bg-white/95 backdrop-blur-xl rounded-[3rem] shadow-[0_25px_60px_rgba(0,0,0,0.4)] border border-white/40 overflow-hidden transform hover:scale-[1.01] transition-all duration-500">
           {/* Role Switcher */}
-          <div className="flex border-b border-gray-100">
+          <div className="flex border-b border-gray-200">
             {(['student', 'parent', 'admin'] as const).map((r) => (
               <button
                 key={r}
                 type="button"
                 onClick={() => setRole(r)}
-                className={`flex-1 py-5 text-[10px] font-bold uppercase tracking-[0.2em] transition-all relative
+                className={`flex-1 py-6 text-xs font-black uppercase tracking-[0.25em] transition-all relative
                   ${role === r ? 'text-primary' : 'text-gray-400 hover:text-gray-600'}
                 `}
               >
                 {r}
                 {role === r && (
-                  <div className="absolute bottom-0 left-0 right-0 h-1 bg-primary" />
+                  <div className="absolute bottom-0 left-0 right-0 h-1.5 bg-primary" />
                 )}
               </button>
             ))}
           </div>
 
-          <div className="p-10">
-            <form onSubmit={handleLogin} className="space-y-6">
-              <div className="space-y-2">
-                <label className="text-[10px] font-bold text-gray-700 uppercase tracking-widest ml-1">Identity Tag</label>
+          <div className="p-12">
+            <form onSubmit={handleLogin} className="space-y-8">
+              <div className="space-y-3">
+                <label className="text-xs font-black text-gray-900 uppercase tracking-[0.2em] ml-1">Identity Tag</label>
                 <div className="relative group">
-                  <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 group-focus-within:text-primary transition-colors" />
+                  <User className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 group-focus-within:text-primary transition-colors" />
                   <input
                     type="text"
                     required
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     placeholder="Username or Member ID"
-                    className="w-full pl-12 pr-4 py-4 bg-gray-100/50 border border-gray-200 rounded-2xl text-sm font-semibold text-gray-900 placeholder:text-gray-400 focus:ring-4 focus:ring-primary/10 focus:bg-white focus:border-primary/20 transition-all outline-none"
+                    className="w-full pl-14 pr-6 py-5 bg-gray-100/80 border-2 border-transparent rounded-2xl text-lg font-bold text-gray-900 placeholder:text-gray-400 focus:ring-8 focus:ring-primary/10 focus:bg-white focus:border-primary/30 transition-all outline-none"
                   />
                 </div>
               </div>
 
-              <div className="space-y-2">
-                <label className="text-[10px] font-bold text-gray-700 uppercase tracking-widest ml-1">Access Key</label>
+              <div className="space-y-3">
+                <label className="text-xs font-black text-gray-900 uppercase tracking-[0.2em] ml-1">Access Key</label>
                 <div className="relative group">
-                  <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 group-focus-within:text-primary transition-colors" />
+                  <Lock className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 group-focus-within:text-primary transition-colors" />
                   <input
                     type="password"
                     required
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="••••••••"
-                    className="w-full pl-12 pr-4 py-4 bg-gray-100/50 border border-gray-200 rounded-2xl text-sm font-semibold text-gray-900 placeholder:text-gray-400 focus:ring-4 focus:ring-primary/10 focus:bg-white focus:border-primary/20 transition-all outline-none"
+                    className="w-full pl-14 pr-6 py-5 bg-gray-100/80 border-2 border-transparent rounded-2xl text-lg font-bold text-gray-900 placeholder:text-gray-400 focus:ring-8 focus:ring-primary/10 focus:bg-white focus:border-primary/30 transition-all outline-none"
                   />
                 </div>
               </div>
@@ -115,14 +115,14 @@ export default function Login() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full py-5 bg-primary text-white rounded-2xl font-display font-bold uppercase tracking-widest shadow-2xl shadow-primary/30 hover:shadow-primary/50 hover:-translate-y-1 active:scale-95 transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed mt-4"
+                className="w-full py-6 bg-primary text-white rounded-2xl font-display font-black text-xl uppercase tracking-[0.15em] shadow-2xl shadow-primary/40 hover:shadow-primary/60 hover:-translate-y-1.5 active:scale-95 transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed mt-6"
               >
                 {isSubmitting ? "Syncing..." : "Enter Command Center"}
               </button>
             </form>
 
-            <div className="mt-8 text-center">
-              <Link href="/" className="text-gray-500 hover:text-primary text-[10px] font-bold uppercase tracking-[0.2em] transition-colors">
+            <div className="mt-10 text-center">
+              <Link href="/" className="text-gray-500 hover:text-primary text-xs font-black uppercase tracking-[0.2em] transition-colors border-b-2 border-transparent hover:border-primary pb-1">
                 Abort and Exit to Surface
               </Link>
             </div>
