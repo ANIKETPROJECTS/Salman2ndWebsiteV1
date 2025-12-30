@@ -11,6 +11,11 @@ export default {
         sm: ".1875rem", /* 3px */
       },
       colors: {
+        racing: {
+          red: "#EF4444",
+          black: "#111827",
+          gray: "#F3F4F6",
+        },
         // Flat / base colors (regular buttons)
         background: "hsl(var(--background) / <alpha-value>)",
         foreground: "hsl(var(--foreground) / <alpha-value>)",
@@ -83,7 +88,8 @@ export default {
         },
       },
       fontFamily: {
-        sans: ["var(--font-sans)"],
+        sans: ["'DM Sans'", "var(--font-sans)", "sans-serif"],
+        display: ["'Racing Sans One'", "var(--font-display)", "cursive"],
         serif: ["var(--font-serif)"],
         mono: ["var(--font-mono)"],
       },
