@@ -14,6 +14,11 @@ export const users = pgTable("users", {
   profileImageUrl: text("profile_image_url"),
   bio: text("bio"),
   grade: text("grade"),
+  studentId: text("student_id"), // Unique school student ID
+  parentPhone: text("parent_phone"), // For student profile
+  medicalInfo: text("medical_info"), // Emergency info
+  achievements_data: jsonb("achievements_data").default([]), // Individual accomplishments
+  interests: text("interests").array(), // For student personalization
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
 });

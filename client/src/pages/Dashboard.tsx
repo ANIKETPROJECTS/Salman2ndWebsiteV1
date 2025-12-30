@@ -32,8 +32,13 @@ function Sidebar({ role, onLogout }: { role?: string; onLogout: () => void }) {
     { href: "/dashboard/analytics", label: "Analytics", icon: TrendingUp, roles: ["admin"] },
     { href: "/dashboard/students", label: "Students", icon: Users, roles: ["admin"] },
     { href: "/dashboard/competitions", label: "Competitions", icon: Trophy, roles: ["admin", "student", "parent"] },
-    { href: "/dashboard/tasks", label: "Tasks", icon: CheckSquare, roles: ["admin", "student"] },
-    { href: "/dashboard/attendance", label: "Attendance", icon: UserCheck, roles: ["admin", "parent"] },
+    { href: "/dashboard/tasks", label: "My Tasks", icon: CheckSquare, roles: ["student"] },
+    { href: "/dashboard/tasks", label: "Manage Tasks", icon: CheckSquare, roles: ["admin"] },
+    { href: "/dashboard/attendance", label: "Attendance", icon: UserCheck, roles: ["admin"] },
+    { href: "/dashboard/attendance", label: "My Attendance", icon: Clock, roles: ["student"] },
+    { href: "/dashboard/attendance", label: "Child Attendance", icon: UserCheck, roles: ["parent"] },
+    { href: "/dashboard/progress", label: "My Progress", icon: Target, roles: ["student"] },
+    { href: "/dashboard/progress", label: "Child Progress", icon: TrendingUp, roles: ["parent"] },
   ].filter(link => link.roles.includes(role || "student"));
 
   return (
@@ -109,6 +114,244 @@ export default function Dashboard() {
   }
 
   const role = user.role || 'student';
+
+  const StudentOverview = () => (
+    <div className="space-y-8">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <Card className="bg-white border-l-4 border-l-red-500 hover-elevate shadow-sm">
+          <CardContent className="p-6">
+            <div className="flex items-center justify-between mb-4">
+              <div className="p-3 rounded-lg bg-red-50 text-red-600">
+                <Target className="w-6 h-6" />
+              </div>
+              <Badge variant="outline" className="text-[10px] font-bold uppercase tracking-widest text-green-600 border-green-200 bg-green-50">On Track</Badge>
+            </div>
+            <h3 className="text-3xl font-bold text-gray-900">85%</h3>
+            <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mt-2">Overall Progress</p>
+          </CardContent>
+        </Card>
+        <Card className="bg-white border-l-4 border-l-blue-500 hover-elevate shadow-sm">
+          <CardContent className="p-6">
+            <div className="flex items-center justify-between mb-4">
+              <div className="p-3 rounded-lg bg-blue-50 text-blue-600">
+                <CheckCircle className="w-6 h-6" />
+              </div>
+              <Badge variant="outline" className="text-[10px] font-bold uppercase tracking-widest text-blue-600 border-blue-200 bg-blue-50">12 Pending</Badge>
+            </div>
+            <h3 className="text-3xl font-bold text-gray-900">24</h3>
+            <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mt-2">Tasks Completed</p>
+          </CardContent>
+        </Card>
+        <Card className="bg-white border-l-4 border-l-yellow-500 hover-elevate shadow-sm">
+          <CardContent className="p-6">
+            <div className="flex items-center justify-between mb-4">
+              <div className="p-3 rounded-lg bg-yellow-50 text-yellow-600">
+                <Trophy className="w-6 h-6" />
+              </div>
+              <Badge variant="outline" className="text-[10px] font-bold uppercase tracking-widest text-yellow-600 border-yellow-200 bg-yellow-50">Elite Rank</Badge>
+            </div>
+            <h3 className="text-3xl font-bold text-gray-900">1st</h3>
+            <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mt-2">Competition Standing</p>
+          </CardContent>
+        </Card>
+      </div>
+
+      <div className="grid lg:grid-cols-3 gap-6">
+        <Card className="lg:col-span-2 bg-white shadow-sm">
+          <CardHeader className="p-6 border-b border-gray-50">
+            <CardTitle className="text-lg font-bold text-gray-900">My Learning Path</CardTitle>
+          </CardHeader>
+          <CardContent className="p-6">
+            <div className="space-y-8">
+              {[
+                { title: "Aerodynamics Basics", progress: 100, status: "Completed" },
+                { title: "CAD Advanced Design", progress: 65, status: "In Progress" },
+                { title: "RC Suspension Tuning", progress: 20, status: "Just Started" },
+              ].map((item, i) => (
+                <div key={i} className="space-y-3">
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm font-bold text-gray-700">{item.title}</span>
+                    <Badge variant={item.progress === 100 ? "default" : "outline"} className={`text-[10px] font-bold uppercase tracking-widest ${item.progress === 100 ? "bg-green-500" : "text-red-600 border-red-200"}`}>
+                      {item.progress}%
+                    </Badge>
+                  </div>
+                  <div className="w-full h-2.5 bg-gray-100 rounded-full overflow-hidden shadow-inner">
+                    <div className="h-full bg-gradient-to-r from-red-600 to-red-500 transition-all duration-500" style={{ width: `${item.progress}%` }} />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+        <div className="space-y-6">
+          <Card className="bg-white shadow-sm">
+            <CardHeader className="p-6 border-b border-gray-50">
+              <CardTitle className="text-lg font-bold text-gray-900">Quick Actions</CardTitle>
+            </CardHeader>
+            <CardContent className="p-6 space-y-3">
+              <Button className="w-full justify-start gap-3 h-11 bg-white border-red-100 text-gray-700 hover:bg-red-50 hover:text-red-600 hover-elevate transition-all" variant="outline">
+                <Plus className="w-4 h-4 text-red-600" /> 
+                <span className="text-xs font-bold uppercase tracking-wider">Submit Task</span>
+              </Button>
+              <Button className="w-full justify-start gap-3 h-11 bg-white border-red-100 text-gray-700 hover:bg-red-50 hover:text-red-600 hover-elevate transition-all" variant="outline">
+                <MessageSquare className="w-4 h-4 text-red-600" />
+                <span className="text-xs font-bold uppercase tracking-wider">Ask Mentor</span>
+              </Button>
+              <Button className="w-full justify-start gap-3 h-11 bg-white border-red-100 text-gray-700 hover:bg-red-50 hover:text-red-600 hover-elevate transition-all" variant="outline">
+                <Download className="w-4 h-4 text-red-600" />
+                <span className="text-xs font-bold uppercase tracking-wider">Resources</span>
+              </Button>
+            </CardContent>
+          </Card>
+          
+          <Card className="bg-gradient-to-br from-red-600 to-red-700 text-white shadow-lg overflow-hidden relative">
+            <div className="absolute top-0 right-0 p-8 opacity-10">
+              <Trophy className="w-32 h-32" />
+            </div>
+            <CardContent className="p-8 relative z-10">
+              <h4 className="text-lg font-bold mb-2">Ready to Race?</h4>
+              <p className="text-xs text-red-100 font-medium mb-6">Regional qualifiers start in 12 days. Complete your safety inspection!</p>
+              <Button className="w-full bg-white text-red-600 hover:bg-red-50 font-bold uppercase tracking-widest text-[10px] h-11 no-default-hover-elevate">
+                Check Status
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    </div>
+  );
+
+  const ParentOverview = () => (
+    <div className="space-y-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <Card className="bg-white border-l-4 border-l-red-500 hover-elevate shadow-sm">
+          <CardHeader className="p-6 pb-2">
+            <CardTitle className="text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em]">Child's Attendance</CardTitle>
+          </CardHeader>
+          <CardContent className="p-6">
+            <div className="flex items-center gap-6">
+              <div className="text-4xl font-bold text-red-600 tracking-tight">96%</div>
+              <div className="flex-1">
+                <div className="w-full h-3 bg-gray-100 rounded-full overflow-hidden shadow-inner">
+                  <div className="h-full bg-gradient-to-r from-red-600 to-red-500" style={{ width: '96%' }} />
+                </div>
+                <p className="text-[10px] text-gray-500 font-bold uppercase tracking-wider mt-3">24/25 sessions attended</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+        <Card className="bg-white border-l-4 border-l-blue-500 hover-elevate shadow-sm">
+          <CardHeader className="p-6 pb-2">
+            <CardTitle className="text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em]">Latest Recognition</CardTitle>
+          </CardHeader>
+          <CardContent className="p-6">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-lg bg-blue-50 flex items-center justify-center">
+                <Star className="w-6 h-6 text-blue-600" />
+              </div>
+              <div className="flex-1">
+                <p className="text-sm font-bold text-gray-900">Engineering Merit Badge</p>
+                <p className="text-[10px] text-gray-500 font-bold uppercase tracking-wider mt-1">Awarded for CAD Excellence</p>
+              </div>
+              <Badge className="bg-blue-600 text-white font-bold text-[10px] uppercase tracking-widest px-3 py-1">New</Badge>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      <Card className="bg-white shadow-sm overflow-hidden border-t-4 border-t-red-600">
+        <CardHeader className="p-8 border-b border-gray-50 flex flex-row items-center justify-between gap-4">
+          <div>
+            <CardTitle className="text-xl font-bold text-gray-900">Weekly Progress Report</CardTitle>
+            <p className="text-[10px] text-gray-500 font-bold uppercase tracking-widest mt-1">December 24 - December 30, 2025</p>
+          </div>
+          <Button variant="outline" size="sm" className="border-red-100 text-red-600 font-bold uppercase tracking-widest text-[10px]">
+            <Download className="w-4 h-4 mr-2" /> Export
+          </Button>
+        </CardHeader>
+        <CardContent className="p-8">
+          <div className="grid md:grid-cols-3 gap-12">
+            <div className="space-y-6">
+              <h5 className="text-[10px] font-black text-gray-400 uppercase tracking-[0.3em] mb-4">Technical Skills</h5>
+              {[
+                { label: "Design Thinking", val: 92, color: "bg-red-500" },
+                { label: "CAD Modeling", val: 88, color: "bg-red-500" },
+                { label: "Prototyping", val: 75, color: "bg-red-500" }
+              ].map((s, i) => (
+                <div key={i} className="space-y-2">
+                  <div className="flex justify-between text-[11px] font-bold text-gray-700">
+                    <span>{s.label}</span>
+                    <span>{s.val}%</span>
+                  </div>
+                  <div className="h-1.5 w-full bg-gray-100 rounded-full overflow-hidden">
+                    <div className={`h-full ${s.color}`} style={{ width: `${s.val}%` }} />
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="space-y-6">
+              <h5 className="text-[10px] font-black text-gray-400 uppercase tracking-[0.3em] mb-4">Soft Skills</h5>
+              {[
+                { label: "Teamwork", val: 95, color: "bg-blue-500" },
+                { label: "Leadership", val: 85, color: "bg-blue-500" },
+                { label: "Public Speaking", val: 70, color: "bg-blue-500" }
+              ].map((s, i) => (
+                <div key={i} className="space-y-2">
+                  <div className="flex justify-between text-[11px] font-bold text-gray-700">
+                    <span>{s.label}</span>
+                    <span>{s.val}%</span>
+                  </div>
+                  <div className="h-1.5 w-full bg-gray-100 rounded-full overflow-hidden">
+                    <div className={`h-full ${s.color}`} style={{ width: `${s.val}%` }} />
+                  </div>
+                </div>
+              ))}
+            </div>
+            <Card className="bg-red-50 border-0 shadow-none">
+              <CardContent className="p-6">
+                <h5 className="text-[10px] font-black text-red-400 uppercase tracking-[0.3em] mb-4">Mentor Feedback</h5>
+                <p className="text-xs text-gray-700 font-medium leading-relaxed italic">
+                  "John has shown exceptional focus during the recent aerodynamics workshop. His contribution to the team's chassis redesign was vital."
+                </p>
+                <div className="flex items-center gap-3 mt-6 pt-6 border-t border-red-100">
+                  <div className="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center text-[10px] font-bold text-white">RM</div>
+                  <div>
+                    <p className="text-[10px] font-bold text-gray-900">Robert Mason</p>
+                    <p className="text-[9px] font-bold text-red-500 uppercase tracking-widest">Lead Engineering Mentor</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
+
+  const stats = [
+    { value: "24", label: "Active Students", icon: Users, color: "text-green-600 bg-green-50", border: "border-l-4 border-l-green-500", trend: "+3" },
+    { value: "42", label: "Tasks Completed", icon: CheckCircle2, color: "text-red-600 bg-red-50", border: "border-l-4 border-l-red-500", trend: "+8" },
+    { value: "8", label: "Active Projects", icon: Briefcase, color: "text-blue-600 bg-blue-50", border: "border-l-4 border-l-blue-500", trend: "+2" },
+    { value: "96%", label: "Avg. Score", icon: Zap, color: "text-orange-600 bg-orange-50", border: "border-l-4 border-l-orange-500", trend: "+2%" },
+  ];
+
+  const teamMembers = [
+    { id: 1, name: "Alex Johnson", role: "Team Lead", avatar: "AJ", email: "alex@jssis.edu", phone: "+1-555-0101", status: "active", score: 95 },
+    { id: 2, name: "Sarah Miller", role: "Telemetry Expert", avatar: "SM", email: "sarah@jssis.edu", phone: "+1-555-0102", status: "active", score: 92 },
+    { id: 3, name: "David Chen", role: "Chassis Designer", avatar: "DC", email: "david@jssis.edu", phone: "+1-555-0103", status: "active", score: 88 },
+    { id: 4, name: "Elena Rodriguez", role: "Marketing Lead", avatar: "ER", email: "elena@jssis.edu", phone: "+1-555-0104", status: "away", score: 85 },
+    { id: 5, name: "Michael Wu", role: "Systems Engineer", avatar: "MW", email: "michael@jssis.edu", phone: "+1-555-0105", status: "active", score: 82 },
+    { id: 6, name: "Lisa Khan", role: "Finance Manager", avatar: "LK", email: "lisa@jssis.edu", phone: "+1-555-0106", status: "active", score: 90 },
+  ];
+
+  const performanceData = [
+    { month: 'Jan', performance: 65, engagement: 52, completion: 45, quality: 48 },
+    { month: 'Feb', performance: 75, engagement: 62, completion: 55, quality: 58 },
+    { month: 'Mar', performance: 82, engagement: 75, completion: 68, quality: 72 },
+    { month: 'Apr', performance: 88, engagement: 85, completion: 78, quality: 82 },
+    { month: 'May', performance: 92, engagement: 88, completion: 82, quality: 88 },
+    { month: 'Jun', performance: 95, engagement: 92, completion: 88, quality: 92 },
+  ];
 
   const stats = [
     { value: "24", label: "Active Students", icon: Users, color: "text-green-600 bg-green-50", border: "border-l-4 border-l-green-500", trend: "+3" },
