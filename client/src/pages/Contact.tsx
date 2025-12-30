@@ -1,6 +1,7 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Mail, Phone, MapPin, Send, Users, Briefcase, Heart } from "lucide-react";
+import contactBg from "@assets/generated_images/modern_contact_page_background.png";
 
 export default function Contact() {
   return (
@@ -8,11 +9,20 @@ export default function Contact() {
       <Navbar />
       
       {/* Header */}
-      <section className="pt-32 pb-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-6xl mx-auto">
+      <section className="relative pt-40 pb-24 px-4 sm:px-6 lg:px-8 overflow-hidden bg-slate-900">
+        <div className="absolute inset-0 z-0">
+          <img 
+            src={contactBg} 
+            alt="Contact Background" 
+            className="w-full h-full object-cover opacity-30 blur-[2px]"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-900/80 via-slate-900/40 to-gray-50" />
+        </div>
+
+        <div className="max-w-6xl mx-auto relative z-10">
           <div className="text-center mb-12">
-            <h1 className="text-6xl font-display font-bold text-gray-900 mb-6">Get in Touch</h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            <h1 className="text-6xl md:text-7xl font-display font-bold text-white mb-6 tracking-tight">Get in Touch</h1>
+            <p className="text-xl text-gray-200 max-w-3xl mx-auto leading-relaxed font-medium">
               Interested in joining our club, becoming a mentor, sponsoring us, or collaborating? We'd love to hear from you. Reach out to us through any channel below.
             </p>
           </div>

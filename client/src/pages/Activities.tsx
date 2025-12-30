@@ -7,6 +7,7 @@ import aerodynamicsImage from "@assets/generated_images/aerodynamics_workshop.pn
 import manufacturingImage from "@assets/generated_images/manufacturing_lab_setup.png";
 import guestSpeakerImage from "@assets/generated_images/guest_speaker_session.png";
 import teamCollaborationImage from "@assets/generated_images/team_collaboration.png";
+import stemBg from "@assets/generated_images/stem_engineering_workshop_background.png";
 
 export default function Activities() {
   const { data: activities, isLoading } = useActivities();
@@ -25,15 +26,24 @@ export default function Activities() {
       <Navbar />
       
       {/* Hero Banner */}
-      <section className="relative pt-32 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
-        <div className="max-w-7xl mx-auto">
+      <section className="relative pt-40 pb-24 px-4 sm:px-6 lg:px-8 overflow-hidden bg-slate-900">
+        <div className="absolute inset-0 z-0">
+          <img 
+            src={stemBg} 
+            alt="STEM Background" 
+            className="w-full h-full object-cover opacity-40 scale-105"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-900/60 via-slate-900/40 to-gray-50" />
+        </div>
+        
+        <div className="max-w-7xl mx-auto relative z-10">
           <div className="text-center mb-4">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 text-primary rounded-full font-bold text-sm mb-4">
-              <span className="w-2 h-2 rounded-full bg-primary" />
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/20 text-white backdrop-blur-md rounded-full font-bold text-sm mb-6 border border-white/10">
+              <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
               HANDS-ON LEARNING
             </div>
-            <h1 className="text-5xl md:text-6xl font-display font-bold text-gray-900 mb-6">Labs & Workshops</h1>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
+            <h1 className="text-5xl md:text-7xl font-display font-bold text-white mb-6 tracking-tight">Labs & Workshops</h1>
+            <p className="text-xl text-gray-200 max-w-2xl mx-auto leading-relaxed font-medium">
               Beyond the race track, our students engage in intensive STEM learning through workshops, labs, and expert-led sessions designed to build engineering excellence.
             </p>
           </div>

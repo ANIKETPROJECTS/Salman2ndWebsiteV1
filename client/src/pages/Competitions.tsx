@@ -3,6 +3,7 @@ import Footer from "../components/Footer";
 import CompetitionCard from "../components/CompetitionCard";
 import { useCompetitions } from "../hooks/use-competitions";
 import { Zap, Users, Trophy, Target, Rocket } from "lucide-react";
+import racingBg from "@assets/generated_images/motorsport_racing_series_background.png";
 
 export default function Competitions() {
   const { data: competitions, isLoading } = useCompetitions();
@@ -30,15 +31,24 @@ export default function Competitions() {
       <Navbar />
       
       {/* Header */}
-      <section className="pt-32 pb-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-6xl mx-auto">
+      <section className="relative pt-40 pb-24 px-4 sm:px-6 lg:px-8 overflow-hidden bg-slate-900">
+        <div className="absolute inset-0 z-0">
+          <img 
+            src={racingBg} 
+            alt="Racing Background" 
+            className="w-full h-full object-cover opacity-50 scale-105"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-900/70 via-slate-900/40 to-white" />
+        </div>
+
+        <div className="max-w-6xl mx-auto relative z-10">
           <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 text-primary rounded-full font-bold text-sm mb-4">
-              <span className="w-2 h-2 rounded-full bg-primary" />
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/20 text-white backdrop-blur-md rounded-full font-bold text-sm mb-6 border border-white/10">
+              <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
               MOTORSPORT DISCIPLINES
             </div>
-            <h1 className="text-6xl font-display font-bold text-gray-900 mb-6">Racing Series</h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            <h1 className="text-6xl md:text-7xl font-display font-bold text-white mb-6 tracking-tight">Racing Series</h1>
+            <p className="text-xl text-gray-200 max-w-3xl mx-auto leading-relaxed font-medium">
               From classroom concepts to world championship stages. We compete in diverse motorsport disciplines, pushing engineering excellence and innovation to the highest levels.
             </p>
           </div>
