@@ -1,6 +1,11 @@
 import type { Express } from "express";
 import { authStorage } from "./storage";
-import { isAuthenticated } from "./replitAuth";
+
+declare module "express-session" {
+  interface SessionData {
+    userId: string;
+  }
+}
 
 // Register auth-specific routes
 export function registerAuthRoutes(app: Express): void {
@@ -19,19 +24,27 @@ export function registerAuthRoutes(app: Express): void {
   });
 
   app.post("/api/login", async (req, res) => {
-    const { username, password } = req.body;
-    const user = await authStorage.getUserByUsername(username);
-    
-    if (!user || user.password !== password) {
-      return res.status(401).json({ message: "Invalid credentials" });
-    }
+    try {
+      const { username, password } = req.body;
+      const user = await authStorage.getUserByUsername(username);
+      
+      if (!user || user.password !== password) {
+        return res.status(401).json({ message: "Invalid credentials" });
+      }
 
-    req.session.userId = user.id;
-    res.json(user);
+      req.session.userId = user.id;
+      res.json(user);
+    } catch (error) {
+      console.error("Login error:", error);
+      res.status(500).json({ message: "Internal server error during login" });
+    }
   });
 
   app.post("/api/logout", (req, res) => {
-    req.session.destroy(() => {
+    req.session.destroy((err) => {
+      if (err) {
+        return res.status(500).json({ message: "Failed to logout" });
+      }
       res.json({ message: "Logged out" });
     });
   });
