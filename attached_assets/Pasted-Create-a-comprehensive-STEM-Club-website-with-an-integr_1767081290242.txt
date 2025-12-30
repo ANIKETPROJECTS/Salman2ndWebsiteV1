@@ -1,0 +1,83 @@
+Create a comprehensive STEM Club website with an integrated web application for competition management. The website should have a modern, professional design with GREEN and WHITE as the primary color scheme (graphs and charts can use additional colors for clarity).
+
+WEBSITE REQUIREMENTS:
+
+PUBLIC-FACING PAGES:
+1. Landing/Home Page - Showcase the STEM club with hero section, highlight major competitions (F1, drift racing, robotics, etc.), featured photos/videos, recent achievements, and clear call-to-action for joining
+2. Competitions Page - Detailed information about all competitions the club participates in, with images, videos, and past achievements
+3. Activities Page - Gallery of all club activities with photos, videos, and descriptions
+4. Achievements Page - Display certificates, awards, trophies with filters by year/competition
+5. Gallery Page - Photo and video gallery organized by events and competitions
+6. About Page - Club information, mission, team members
+7. Contact Page - Contact form and club details
+
+WEB APPLICATION (BEHIND LOGIN):
+
+THREE USER ROLES WITH SEPARATE DASHBOARDS:
+
+STUDENT DASHBOARD:
+- View assigned tasks and targets with due dates and status
+- See personal competition participation and status
+- View personal attendance records
+- Access assigned resources and materials
+- See personal progress reports and achievements
+- View upcoming events and competitions
+
+PARENT DASHBOARD:
+- View child's current competition participation
+- See child's assigned tasks and targets with completion status
+- View child's attendance records
+- See child's progress reports and achievements
+- View upcoming competitions their child is registered for
+- Receive notifications about child's activities
+- Photo gallery of child's participation
+
+ADMIN DASHBOARD:
+- Student management (add, edit, view all students)
+- Competition management (create, update ongoing competitions, assign students)
+- Task assignment system (assign tasks to individual students or groups)
+- Target setting for students with tracking
+- Attendance marking system with calendar view
+- Progress tracking for all students
+- Upload and manage photos, videos, certificates
+- Announcements and notifications system
+- Analytics dashboard with graphs showing:
+  * Student participation rates
+  * Attendance statistics
+  * Task completion rates
+  * Competition performance metrics
+- Parent account management (link parents to students)
+- Export reports functionality
+
+KEY FEATURES TO IMPLEMENT:
+- Secure login system with role-based access (Student, Parent, Admin)
+- Responsive design for mobile, tablet, and desktop
+- Real-time updates for ongoing competitions
+- File upload system for photos, videos, certificates
+- Calendar integration for events and deadlines
+- Notification system for all user types
+- Search and filter functionality throughout
+- Data visualization with charts and graphs (can use colors beyond green/white)
+- Print-friendly report generation
+
+DESIGN SPECIFICATIONS:
+- Primary colors: GREEN (#10B981 or similar) and WHITE (#FFFFFF)
+- Use green for headers, buttons, accents, and key elements
+- White backgrounds with green accents
+- Secondary colors allowed for graphs, charts, status indicators (red for overdue, yellow for pending, blue for info, etc.)
+- Modern, clean UI with card-based layouts
+- Professional typography and spacing
+- Smooth animations and transitions
+- Intuitive navigation with clear user flow
+
+TECHNICAL CONSIDERATIONS:
+- Build with modern web framework (React, Next.js, or similar)
+- Implement proper authentication and authorization
+- Database structure for students, parents, competitions, tasks, attendance
+- Image and video optimization
+- Form validation and error handling
+- Loading states and skeleton screens
+- Toast notifications for user actions
+- Mobile-first responsive design
+
+Create a fully functional, production-ready UI with all pages, dashboards, forms, and components properly designed and styled. Include placeholder data to demonstrate all features. Make the interface intuitive, visually appealing, and easy to navigate for students, parents, and administrators.
