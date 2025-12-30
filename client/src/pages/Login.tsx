@@ -3,7 +3,7 @@ import { Link, useLocation } from "wouter";
 import { Trophy, User, Lock } from "lucide-react";
 import { useAuth } from "../hooks/use-auth";
 import { useToast } from "@/hooks/use-toast";
-import loginBg from "@assets/generated_images/futuristic-f1-racing-night-scene-background.png";
+import loginBg from "@assets/generated_images/futuristic_f1_racing_night_scene_background.png";
 
 export default function Login() {
   const [role, setRole] = useState<'student' | 'parent' | 'admin'>('student');
