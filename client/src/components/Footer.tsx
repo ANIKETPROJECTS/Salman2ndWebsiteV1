@@ -11,7 +11,7 @@ export default function Footer() {
               <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center">
                 <Trophy className="text-white w-6 h-6" />
               </div>
-              <span className="font-display text-2xl tracking-tighter italic font-bold">
+              <span className="font-display text-2xl tracking-tighter font-bold">
                 JSSIS<span className="text-primary">F1</span>
               </span>
             </div>

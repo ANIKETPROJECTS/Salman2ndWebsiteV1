@@ -12,7 +12,7 @@ export default function Competitions() {
       
       <div className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="text-center mb-16">
-          <h1 className="text-5xl font-display italic font-bold text-gray-900 mb-6">Racing Series</h1>
+          <h1 className="text-5xl font-display font-bold text-gray-900 mb-6">Racing Series</h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             From F1 in Schools to 4x4 challenges, explore the diverse motorsport disciplines we compete in.
           </p>

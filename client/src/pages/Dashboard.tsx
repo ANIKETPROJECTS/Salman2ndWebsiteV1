@@ -28,7 +28,7 @@ function Sidebar() {
     <div className="w-64 bg-white border-r border-gray-100 min-h-screen fixed left-0 top-0 p-6 hidden md:flex flex-col">
       <div className="flex items-center gap-2 mb-10 text-gray-900">
         <Trophy className="w-6 h-6 text-primary" />
-        <span className="font-display italic font-bold text-xl">JSSIS<span className="text-primary">DASH</span></span>
+        <span className="font-display font-bold text-xl">JSSIS<span className="text-primary">DASH</span></span>
       </div>
 
       <div className="space-y-1 flex-1">

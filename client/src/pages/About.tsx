@@ -8,7 +8,7 @@ export default function About() {
       <Navbar />
       
       <div className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
-        <h1 className="text-5xl font-display italic font-bold text-gray-900 mb-8 text-center">About The Club</h1>
+        <h1 className="text-5xl font-display font-bold text-gray-900 mb-8 text-center">About The Club</h1>
         
         <div className="prose prose-lg mx-auto text-gray-600 mb-16">
           <p>

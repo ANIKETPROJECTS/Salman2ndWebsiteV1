@@ -13,7 +13,7 @@ export default function Activities() {
       
       <div className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="text-center mb-16">
-          <h1 className="text-5xl font-display italic font-bold text-gray-900 mb-6">Labs & Workshops</h1>
+          <h1 className="text-5xl font-display font-bold text-gray-900 mb-6">Labs & Workshops</h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             Hands-on STEM learning experiences beyond the race track.
           </p>

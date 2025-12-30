@@ -10,7 +10,7 @@ export default function Contact() {
       <div className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="grid lg:grid-cols-2 gap-16">
           <div>
-            <h1 className="text-5xl font-display italic font-bold text-gray-900 mb-6">Get in Touch</h1>
+            <h1 className="text-5xl font-display font-bold text-gray-900 mb-6">Get in Touch</h1>
             <p className="text-gray-600 text-lg mb-10">
               Interested in joining the team, sponsoring us, or just want to say hi? We'd love to hear from you.
             </p>

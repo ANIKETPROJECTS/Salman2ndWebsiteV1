@@ -28,7 +28,7 @@ export default function Navbar() {
               <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300 shadow-lg shadow-primary/30">
                 <Trophy className="text-white w-6 h-6" />
               </div>
-              <span className="font-display text-2xl tracking-tighter italic font-bold text-gray-900 group-hover:text-primary transition-colors">
+              <span className="font-display text-2xl tracking-tighter font-bold text-gray-900 group-hover:text-primary transition-colors">
                 JSSIS<span className="text-primary">F1</span>
               </span>
             </Link>

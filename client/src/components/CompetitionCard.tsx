@@ -32,7 +32,7 @@ export default function CompetitionCard({ competition }: CompetitionCardProps) {
         </div>
 
         <div className="absolute bottom-4 left-4 z-20 text-white">
-          <h3 className="text-2xl font-display italic font-bold mb-1">{competition.title}</h3>
+          <h3 className="text-2xl font-display font-bold mb-1">{competition.title}</h3>
           <div className="flex items-center gap-2 text-sm text-gray-200">
             <Trophy className="w-4 h-4 text-primary" />
             <span>{competition.type} Series</span>

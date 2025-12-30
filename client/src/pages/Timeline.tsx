@@ -41,7 +41,7 @@ export default function Timeline() {
 
       <div className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
         <div className="text-center mb-16">
-          <h1 className="text-5xl font-display italic font-bold text-gray-900 mb-6">Our Legacy</h1>
+          <h1 className="text-5xl font-display font-bold text-gray-900 mb-6">Our Legacy</h1>
           <p className="text-xl text-gray-600">
             A history of speed, innovation, and breaking records.
           </p>

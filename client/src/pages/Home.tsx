@@ -30,7 +30,7 @@ export default function Home() {
                 <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
                 JSSIS F1 STEM CLUB
               </div>
-              <h1 className="text-5xl md:text-7xl font-display italic font-bold leading-tight text-gray-900 mb-6">
+              <h1 className="text-5xl md:text-7xl font-display font-bold leading-tight text-gray-900 mb-6">
                 ENGINEERING <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-orange-600">
                   EXCELLENCE
@@ -102,7 +102,7 @@ export default function Home() {
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-display italic font-bold text-gray-900 mb-4">Current Series</h2>
+            <h2 className="text-4xl font-display font-bold text-gray-900 mb-4">Current Series</h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
               Our students compete in multiple disciplines, pushing the boundaries of what's possible in student motorsport.
             </p>
