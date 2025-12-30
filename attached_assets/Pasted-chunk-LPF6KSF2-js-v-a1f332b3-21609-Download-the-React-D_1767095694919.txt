@@ -1,0 +1,75 @@
+chunk-LPF6KSF2.js?v=a1f332b3:21609 Download the React DevTools for a better development experience: https://reactjs.org/link/react-devtools
+api/auth/user:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+api/login:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+api/login:1  Failed to load resource: the server responded with a status of 401 (Unauthorized)
+chunk-LPF6KSF2.js?v=a1f332b3:521 Warning: Cannot update a component (`Switch`) while rendering a different component (`Login`). To locate the bad setState() call inside `Login`, follow the stack trace as described in https://reactjs.org/link/setstate-in-render
+    at Login (https://21c3b075-69fb-4d4e-9596-7c20eac65427-00-26pxoaq104jpb.riker.replit.dev/src/pages/Login.tsx:26:27)
+    at Route (https://21c3b075-69fb-4d4e-9596-7c20eac65427-00-26pxoaq104jpb.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=a1f332b3:322:16)
+    at Switch (https://21c3b075-69fb-4d4e-9596-7c20eac65427-00-26pxoaq104jpb.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=a1f332b3:378:17)
+    at Router
+    at Provider (https://21c3b075-69fb-4d4e-9596-7c20eac65427-00-26pxoaq104jpb.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-Q3KABZWL.js?v=a1f332b3:38:15)
+    at TooltipProvider (https://21c3b075-69fb-4d4e-9596-7c20eac65427-00-26pxoaq104jpb.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-tooltip.js?v=a1f332b3:2247:5)
+    at AuthProvider (https://21c3b075-69fb-4d4e-9596-7c20eac65427-00-26pxoaq104jpb.riker.replit.dev/src/hooks/use-auth.tsx:23:32)
+    at QueryClientProvider (https://21c3b075-69fb-4d4e-9596-7c20eac65427-00-26pxoaq104jpb.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@tanstack_react-query.js?v=a1f332b3:2747:3)
+    at App
+printWarning @ chunk-LPF6KSF2.js?v=a1f332b3:521
+chunk-LPF6KSF2.js?v=a1f332b3:521 Warning: Cannot update a component (`Switch`) while rendering a different component (`Route`). To locate the bad setState() call inside `Route`, follow the stack trace as described in https://reactjs.org/link/setstate-in-render
+    at Route (https://21c3b075-69fb-4d4e-9596-7c20eac65427-00-26pxoaq104jpb.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=a1f332b3:322:16)
+    at ProtectedRoute (https://21c3b075-69fb-4d4e-9596-7c20eac65427-00-26pxoaq104jpb.riker.replit.dev/src/lib/protected-route.tsx:22:3)
+    at Switch (https://21c3b075-69fb-4d4e-9596-7c20eac65427-00-26pxoaq104jpb.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=a1f332b3:378:17)
+    at Router
+    at Provider (https://21c3b075-69fb-4d4e-9596-7c20eac65427-00-26pxoaq104jpb.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-Q3KABZWL.js?v=a1f332b3:38:15)
+    at TooltipProvider (https://21c3b075-69fb-4d4e-9596-7c20eac65427-00-26pxoaq104jpb.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-tooltip.js?v=a1f332b3:2247:5)
+    at AuthProvider (https://21c3b075-69fb-4d4e-9596-7c20eac65427-00-26pxoaq104jpb.riker.replit.dev/src/hooks/use-auth.tsx:23:32)
+    at QueryClientProvider (https://21c3b075-69fb-4d4e-9596-7c20eac65427-00-26pxoaq104jpb.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@tanstack_react-query.js?v=a1f332b3:2747:3)
+    at App
+printWarning @ chunk-LPF6KSF2.js?v=a1f332b3:521
+Dashboard.tsx:422 Uncaught ReferenceError: stats is not defined
+    at Dashboard (Dashboard.tsx:422:20)
+    at renderWithHooks (chunk-LPF6KSF2.js?v=a1f332b3:11596:26)
+    at mountIndeterminateComponent (chunk-LPF6KSF2.js?v=a1f332b3:14974:21)
+    at beginWork (chunk-LPF6KSF2.js?v=a1f332b3:15962:22)
+    at HTMLUnknownElement.callCallback2 (chunk-LPF6KSF2.js?v=a1f332b3:3680:22)
+    at Object.invokeGuardedCallbackDev (chunk-LPF6KSF2.js?v=a1f332b3:3705:24)
+    at invokeGuardedCallback (chunk-LPF6KSF2.js?v=a1f332b3:3739:39)
+    at beginWork$1 (chunk-LPF6KSF2.js?v=a1f332b3:19818:15)
+    at performUnitOfWork (chunk-LPF6KSF2.js?v=a1f332b3:19251:20)
+    at workLoopSync (chunk-LPF6KSF2.js?v=a1f332b3:19190:13)
+Dashboard.tsx:422 Uncaught ReferenceError: stats is not defined
+    at Dashboard (Dashboard.tsx:422:20)
+    at renderWithHooks (chunk-LPF6KSF2.js?v=a1f332b3:11596:26)
+    at mountIndeterminateComponent (chunk-LPF6KSF2.js?v=a1f332b3:14974:21)
+    at beginWork (chunk-LPF6KSF2.js?v=a1f332b3:15962:22)
+    at HTMLUnknownElement.callCallback2 (chunk-LPF6KSF2.js?v=a1f332b3:3680:22)
+    at Object.invokeGuardedCallbackDev (chunk-LPF6KSF2.js?v=a1f332b3:3705:24)
+    at invokeGuardedCallback (chunk-LPF6KSF2.js?v=a1f332b3:3739:39)
+    at beginWork$1 (chunk-LPF6KSF2.js?v=a1f332b3:19818:15)
+    at performUnitOfWork (chunk-LPF6KSF2.js?v=a1f332b3:19251:20)
+    at workLoopSync (chunk-LPF6KSF2.js?v=a1f332b3:19190:13)
+chunk-LPF6KSF2.js?v=a1f332b3:14080 The above error occurred in the <Dashboard> component:
+
+    at Dashboard (https://21c3b075-69fb-4d4e-9596-7c20eac65427-00-26pxoaq104jpb.riker.replit.dev/src/pages/Dashboard.tsx:193:36)
+    at Route (https://21c3b075-69fb-4d4e-9596-7c20eac65427-00-26pxoaq104jpb.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=a1f332b3:322:16)
+    at ProtectedRoute (https://21c3b075-69fb-4d4e-9596-7c20eac65427-00-26pxoaq104jpb.riker.replit.dev/src/lib/protected-route.tsx:22:3)
+    at Switch (https://21c3b075-69fb-4d4e-9596-7c20eac65427-00-26pxoaq104jpb.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=a1f332b3:378:17)
+    at Router
+    at Provider (https://21c3b075-69fb-4d4e-9596-7c20eac65427-00-26pxoaq104jpb.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-Q3KABZWL.js?v=a1f332b3:38:15)
+    at TooltipProvider (https://21c3b075-69fb-4d4e-9596-7c20eac65427-00-26pxoaq104jpb.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-tooltip.js?v=a1f332b3:2247:5)
+    at AuthProvider (https://21c3b075-69fb-4d4e-9596-7c20eac65427-00-26pxoaq104jpb.riker.replit.dev/src/hooks/use-auth.tsx:23:32)
+    at QueryClientProvider (https://21c3b075-69fb-4d4e-9596-7c20eac65427-00-26pxoaq104jpb.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@tanstack_react-query.js?v=a1f332b3:2747:3)
+    at App
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://reactjs.org/link/error-boundaries to learn more about error boundaries.
+logCapturedError @ chunk-LPF6KSF2.js?v=a1f332b3:14080
+chunk-LPF6KSF2.js?v=a1f332b3:9176 Uncaught ReferenceError: stats is not defined
+    at Dashboard (Dashboard.tsx:422:20)
+    at renderWithHooks (chunk-LPF6KSF2.js?v=a1f332b3:11596:26)
+    at mountIndeterminateComponent (chunk-LPF6KSF2.js?v=a1f332b3:14974:21)
+    at beginWork (chunk-LPF6KSF2.js?v=a1f332b3:15962:22)
+    at beginWork$1 (chunk-LPF6KSF2.js?v=a1f332b3:19806:22)
+    at performUnitOfWork (chunk-LPF6KSF2.js?v=a1f332b3:19251:20)
+    at workLoopSync (chunk-LPF6KSF2.js?v=a1f332b3:19190:13)
+    at renderRootSync (chunk-LPF6KSF2.js?v=a1f332b3:19169:15)
+    at recoverFromConcurrentError (chunk-LPF6KSF2.js?v=a1f332b3:18786:28)
+    at performSyncWorkOnRoot (chunk-LPF6KSF2.js?v=a1f332b3:18932:28)

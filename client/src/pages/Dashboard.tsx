@@ -115,6 +115,22 @@ export default function Dashboard() {
 
   const role = user.role || 'student';
 
+  const stats = [
+    { value: "24", label: "Active Students", icon: Users, color: "text-green-600 bg-green-50", border: "border-l-4 border-l-green-500", trend: "+3" },
+    { value: "42", label: "Tasks Completed", icon: CheckCircle2, color: "text-red-600 bg-red-50", border: "border-l-4 border-l-red-500", trend: "+8" },
+    { value: "8", label: "Active Projects", icon: Briefcase, color: "text-blue-600 bg-blue-50", border: "border-l-4 border-l-blue-500", trend: "+2" },
+    { value: "96%", label: "Avg. Score", icon: Zap, color: "text-orange-600 bg-orange-50", border: "border-l-4 border-l-orange-500", trend: "+2%" },
+  ];
+
+  const teamMembers = [
+    { id: 1, name: "Alex Johnson", role: "Team Lead", avatar: "AJ", email: "alex@jssis.edu", phone: "+1-555-0101", status: "active", score: 95 },
+    { id: 2, name: "Sarah Miller", role: "Telemetry Expert", avatar: "SM", email: "sarah@jssis.edu", phone: "+1-555-0102", status: "active", score: 92 },
+    { id: 3, name: "David Chen", role: "Chassis Designer", avatar: "DC", email: "david@jssis.edu", phone: "+1-555-0103", status: "active", score: 88 },
+    { id: 4, name: "Elena Rodriguez", role: "Marketing Lead", avatar: "ER", email: "elena@jssis.edu", phone: "+1-555-0104", status: "away", score: 85 },
+    { id: 5, name: "Michael Wu", role: "Systems Engineer", avatar: "MW", email: "michael@jssis.edu", phone: "+1-555-0105", status: "active", score: 82 },
+    { id: 6, name: "Lisa Khan", role: "Finance Manager", avatar: "LK", email: "lisa@jssis.edu", phone: "+1-555-0106", status: "active", score: 90 },
+  ];
+
   const StudentOverview = () => (
     <div className="space-y-8">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
